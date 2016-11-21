@@ -1,0 +1,17 @@
+{
+  "name": "web-template-system",
+  "description": "Telerik Software Academy - Node.js Apps",
+  "main": "index.js",
+  "authors": [
+    "team-ninjas"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/TeamNinjas/WebTemplateSystem",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
