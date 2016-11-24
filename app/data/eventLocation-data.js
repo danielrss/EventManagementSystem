@@ -4,7 +4,7 @@ const EventLocation = require('../models/eventLocation-model');
 
 module.exports = {
     createEventLocation(countryName, city, address, postCode) {
-        var eventLocation = new EventLocation({
+        let eventLocation = new EventLocation({
             countryName,
             city,
             address,

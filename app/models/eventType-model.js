@@ -10,10 +10,8 @@ let EventTypeSchema = new Schema({
     }
 });
 
-let EventType;
-
 mongoose.model('EventType', EventTypeSchema);
 
-EventType = mongoose.model('EventType');
+let EventType = mongoose.model('EventType');
 
 module.exports = EventType;

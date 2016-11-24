@@ -1,7 +1,7 @@
 'use strict';
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 module.exports = function() {
     //mongoose();
@@ -15,7 +15,7 @@ module.exports = function() {
     let data = {};
 
     fs.readdirSync('./')
-        .filter(x => x.includes("-data"))
+        .filter(x => x.includes('-data'))
         .forEach(file => {
             let dataModule =
                 require(path.join(__dirname, file))(models);

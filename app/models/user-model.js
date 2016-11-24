@@ -32,7 +32,7 @@ let UserSchema = new Schema({
         match: lettersAndNumbers
     },
     age: {
-        type: Number,       
+        type: Number,
         required: true,
         min: [12, 'Age must be bigger than 12!']
     },
@@ -60,10 +60,8 @@ let UserSchema = new Schema({
     }
 });
 
-let User;
-
 mongoose.model('User', UserSchema);
 
-User = mongoose.model('User');
+let User = mongoose.model('User');
 
 module.exports = User;

@@ -4,7 +4,7 @@ const Event = require('../models/event-model');
 
 module.exports = {
     createEvent(name, eventType, location, description, dateOfEvent, cover, capacity) {
-        var event = new Event({
+        let event = new Event({
             name,
             eventType,
             location,

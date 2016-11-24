@@ -4,7 +4,7 @@ const User = require('../models/user-model');
 
 module.exports = {
     createUser(firstName, lastName, age, email, password) {
-        var user = new User({
+        let user = new User({
             firstName,
             lastName,
             age,

@@ -30,10 +30,8 @@ let EventLocationSchema = new Schema({
     }
 });
 
-let EventLocation;
-
 mongoose.model('EventLocation', EventLocationSchema);
 
-EventLocation = mongoose.model('EventLocation');
+let EventLocation = mongoose.model('EventLocation');
 
 module.exports = EventLocation;

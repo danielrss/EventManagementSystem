@@ -1,13 +1,15 @@
-const env = process.env.NODE_ENV || 'development';
-const config = require("./config")[env];
+'use strict';
 
-const express = require("express");
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config')[env];
+
+const express = require('express');
 const bodyParser = require('body-parser');
 
 /* Setup App */
 let app = express();
 
-app.set("view-engine", "pug");
+app.set('view-engine', 'pug');
 app.use(express.static('../public'));
 
 app.use(bodyParser.json());
