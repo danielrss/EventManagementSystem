@@ -1,9 +1,10 @@
 {
-  "name": "web-template-system",
+  "name": "event-management-system",
   "version": "1.0.0",
   "description": "Telerik Software Academy - Node.js Apps",
   "main": "index.js",
   "scripts": {
+    "start": "node app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,8 +18,11 @@
   },
   "homepage": "https://github.com/TeamNinjas/WebTemplateSystem#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "eslint": "^3.10.2",
+    "express": "^4.14.0",
     "mongodb": "^2.2.11",
-    "mongoose": "^4.7.0"
+    "mongoose": "^4.7.0",
+    "pug": "^2.0.0-beta6"
   }
 }

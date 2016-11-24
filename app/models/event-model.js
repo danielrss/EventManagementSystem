@@ -1,13 +1,13 @@
 /* globals Buffer */
 'use strict';
 
-const mongoose = require('../../config/mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 const letters = /[A-Za-z]/;
 
 let EventSchema = new Schema({
-    name: {
+   /* name: {
         type: String,
         required: true,
         minlength: [3, 'Name is too short!'],
@@ -34,7 +34,7 @@ let EventSchema = new Schema({
     },
     description: {
         type: String,
-        required: true,
+        required: true
     },
     dateOfEvent: {
         type: Date,
@@ -53,18 +53,18 @@ let EventSchema = new Schema({
     },
     capacity: {
         type: Number,
-        required: true,
+        required: true
     },
     status: {
         _id: Number,
         type: String
-    }
+    }*/
 });
 
 let Event;
 
 mongoose.model('Event', EventSchema);
 
-Event = mongoose.model(Event);
+Event = mongoose.model('Event');
 
 module.exports = Event;

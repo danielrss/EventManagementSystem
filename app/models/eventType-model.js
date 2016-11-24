@@ -1,7 +1,7 @@
 'use strict';
 
-const mongoose = require('../../config/mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 let EventTypeSchema = new Schema({
     name: {
@@ -14,6 +14,6 @@ let EventType;
 
 mongoose.model('EventType', EventTypeSchema);
 
-EventType = mongoose.model(EventType);
+EventType = mongoose.model('EventType');
 
 module.exports = EventType;

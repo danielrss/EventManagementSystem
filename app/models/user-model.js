@@ -1,7 +1,7 @@
 'use strict';
 
-const mongoose = require('../../config/mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 const letters = /[A-Za-z]/;
 const lettersAndNumbers = /[A-Za-z1-9]/;
@@ -64,6 +64,6 @@ let User;
 
 mongoose.model('User', UserSchema);
 
-User = mongoose.model(User);
+User = mongoose.model('User');
 
 module.exports = User;

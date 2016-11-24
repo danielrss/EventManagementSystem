@@ -1,7 +1,7 @@
 'use strict';
 
-const mongoose = require('../../config/mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 const letters = /[A-Za-z]/;
 
@@ -34,6 +34,6 @@ let EventLocation;
 
 mongoose.model('EventLocation', EventLocationSchema);
 
-EventLocation = mongoose.model(EventLocation);
+EventLocation = mongoose.model('EventLocation');
 
 module.exports = EventLocation;
