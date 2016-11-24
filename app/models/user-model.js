@@ -1,30 +1,40 @@
 'use strict';
 
-const validator = require('../utils/validator');
-
 const mongoose = require('../../config/mongoose');
 const Schema = mongoose.Schema;
+
+const letters = /[A-Za-z]/;
+const lettersAndNumbers = /[A-Za-z1-9]/;
+const passwordCharacters = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
 let UserSchema = new Schema({
     firstName: {
         type: String,
         required: true,
-        validate: validator.nameValidator
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: letters
     },
     lastName: {
         type: String,
         required: true,
-        validate: validator.nameValidator
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: letters
     },
     username: {
         type: String,
-        validate: validator.nameValidator
+        required: true,
+        unique: true,
+        dropDups: true,
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: lettersAndNumbers
     },
     age: {
-        type: Number,
-        min: 16,
+        type: Number,       
         required: true,
-        validate: validator.ageValidator
+        min: [12, 'Age must be bigger than 12!']
     },
     registered: {
         type: String,
@@ -32,12 +42,14 @@ let UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        dropDups: true
     },
     password: {
         type: String,
-        match: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        required: true
+        required: true,
+        match: passwordCharacters
     },
     dateCreated: {
         type: Date,

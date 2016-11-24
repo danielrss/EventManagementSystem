@@ -1,20 +1,24 @@
 'use strict';
 
-const validator = require('../utils/validator');
-
 const mongoose = require('../../config/mongoose');
 const Schema = mongoose.Schema;
+
+const letters = /[A-Za-z]/;
 
 let EventLocationSchema = new Schema({
     countryName: {
         type: String,
         required: true,
-        validate: validator.nameValidator
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: letters
     },
     city: {
         type: String,
         required: true,
-        validate: validator.nameValidator
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: letters
     },
     address: {
         type: String,
@@ -22,8 +26,7 @@ let EventLocationSchema = new Schema({
     },
     postCode: {
         type: Number,
-        required: true,
-        validate: validator.numberValidator
+        required: true
     }
 });
 

@@ -1,16 +1,18 @@
 /* globals Buffer */
 'use strict';
 
-const validator = require('../utils/validator');
-
 const mongoose = require('../../config/mongoose');
 const Schema = mongoose.Schema;
+
+const letters = /[A-Za-z]/;
 
 let EventSchema = new Schema({
     name: {
         type: String,
         required: true,
-        validate: validator.nameValidator
+        minlength: [3, 'Name is too short!'],
+        maxlength: [50, 'Name is too long!'],
+        match: letters
     },
     createdOn: {
         type: Date,
