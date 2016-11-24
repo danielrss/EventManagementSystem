@@ -1,14 +1,19 @@
 'use strict';
 
-const connectionString = require('../config/db/constants');
+const connectionString = require('../../config/constants');
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
 
 module.exports = function() {
+    mongoose();
+
     let User = require('../models/user-model');
     let EventLocation = require('../models/eventLocation-model');
-    let models = { User, EventLocation };
+    let Event = require('../models/event-model');
+    let EventType = require('../models/eventType-model');
+
+    let models = { User, Event, EventType, EventLocation };
     let data = {};
 
     fs.readdirSync('../data')

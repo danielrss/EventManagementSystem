@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('./models/user-model');
+const User = require('../models/user-model');
 
 module.exports = {
     createUser(firstName, lastName, age, email, password) {
@@ -17,6 +17,28 @@ module.exports = {
                 if (error) {
                     return reject(error);
                 }
+                return resolve(user);
+            });
+        });
+    },
+    getUserById(id) {
+        return new Promise((resolve, reject) => {
+            User.findOne({ _id: id }, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+
+                return resolve(user);
+            });
+        });
+    },
+    getUserByName(name) {
+        return new Promise((resolve, reject) => {
+            User.findOne({ name: name }, (err, user) => {
+                if (err) {
+                    return reject(err);
+                }
+
                 return resolve(user);
             });
         });

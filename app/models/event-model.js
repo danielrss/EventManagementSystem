@@ -1,10 +1,10 @@
 /* globals Buffer */
 'use strict';
 
-const mongoose = require('../../config/db/mongoose');
-const validator = require('../validator')
+const validator = require('../utils/validator');
 
-const Schema = new mongoose.Schema;
+const mongoose = require('../../config/mongoose');
+const Schema = mongoose.Schema;
 
 let EventSchema = new Schema({
     name: {
@@ -14,14 +14,15 @@ let EventSchema = new Schema({
     },
     createdOn: {
         type: Date,
+        default: Date.now,
         required: true
     },
     eventType: {
         _id: Number,
         required: true
     },
-    user:{
-        _id: Number, 
+    user: {
+        _id: Number,
         name: String,
         required: true
     },
@@ -58,5 +59,10 @@ let EventSchema = new Schema({
     }
 });
 
+let Event;
 
+mongoose.model('Event', EventSchema);
 
+Event = mongoose.model(Event);
+
+module.exports = Event;

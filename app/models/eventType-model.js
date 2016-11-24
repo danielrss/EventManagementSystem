@@ -1,14 +1,21 @@
 'use strict';
 
-const mongoose = require('../../config/db/mongoose');
+const validator = require('../utils/validator');
 
-const Schema = new mongoose.Schema;
+const mongoose = require('../../config/mongoose');
+const Schema = mongoose.Schema;
 
 let EventTypeSchema = new Schema({
     name: {
-        type: String
+        type: String,
+        required: true
     }
 });
 
+let EventType;
 
+mongoose.model('EventType', EventTypeSchema);
 
+EventType = mongoose.model(EventType);
+
+module.exports = EventType;

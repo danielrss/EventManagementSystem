@@ -1,8 +1,8 @@
 'use strict';
 
-const validator = require('../validator');
+const validator = require('../utils/validator');
 
-const mongoose = require('../../config/db/mongoose');
+const mongoose = require('../../config/mongoose');
 const Schema = mongoose.Schema;
 
 let EventLocationSchema = new Schema({
