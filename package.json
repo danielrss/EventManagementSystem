@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/TeamNinjas/WebTemplateSystem#readme",
   "dependencies": {
-    "eslint": "^3.10.2"
+    "eslint": "^3.10.2",
+    "mongodb": "^2.2.11",
+    "mongoose": "^4.7.0"
   }
 }
