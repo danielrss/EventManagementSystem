@@ -21,8 +21,18 @@ module.exports = {
             });
         });
     },
-    getUser() {
+    getUsersByNames(User, ...names) {
+        return new Promise((resolve, reject) => {
+            User.find({
+                name: { $in: names }
+            }, (err, users) => {
+                if (err) {
+                    return reject(err);
+                }
 
+                return resolve(users);
+            });
+        });
     },
     insertManyUsers(users) {
         User.insertMany(users);

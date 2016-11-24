@@ -2,7 +2,7 @@
 
 const validator = require('../validator');
 
-const mongoose = require('mongoose');
+const mongoose = require('../../config/db/mongoose');
 const Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
@@ -18,7 +18,7 @@ let UserSchema = new Schema({
     },
     username: {
         type: String,
-        validate: validator.nameValidator        
+        validate: validator.nameValidator
     },
     age: {
         type: Number,

@@ -15,16 +15,27 @@ var nameValidator = [
         httpStatus: 400
     })
 ];
+
 var ageValidator = [
     validate({
-        validator: function(val) {
-            return val > 0;
+        validator: function(value) {
+            return value > 0;
         },
         message: 'Age must be a positive number.'
     })
 ];
 
+var numberValidator = [
+    validate({
+        validator: function(value) {
+            return typeof(value) === 'number';
+        },
+        message: 'Input is not a number.'
+    })
+];
+
 module.exports = {
     nameValidator,
-    ageValidator
+    ageValidator,
+    numberValidator
 };
