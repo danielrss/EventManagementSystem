@@ -1,7 +1,11 @@
 'use strict';
 
-const config = require('./data');
+const config = require('./config').development;
 const app = require('./config/application');
-const data = require('./data')(config);
 
-app.start();
+require('./config/database')(config);
+const data = require('./data')();
+
+require('./routers')(app._app, data);
+
+app.start(config);

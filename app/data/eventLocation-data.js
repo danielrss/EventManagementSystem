@@ -1,55 +1,57 @@
 'use strict';
 
-const EventLocation = require('../models/eventLocation-model');
+module.exports = function (models) {
+    const EventLocation = models.EventLocation;
 
-module.exports = {
-    createEventLocation(countryName, city, address, postCode) {
-        let eventLocation = new EventLocation({
-            countryName,
-            city,
-            address,
-            postCode
-        });
+    return {
+        createEventLocation(countryName, city, address, postCode) {
+            let eventLocation = new EventLocation({
+                countryName,
+                city,
+                address,
+                postCode
+            });
 
-        return new Promise((resolve, reject) => {
-            eventLocation.save((error) => {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(eventLocation);
+            return new Promise((resolve, reject) => {
+                eventLocation.save((error) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(eventLocation);
+                });
             });
-        });
-    },
-    getEventLocationById(id) {
-        return new Promise((resolve, reject) => {
-            EventLocation.findOne({ _id: id }, (err, user) => {
-                if (err) {
-                    return reject(err);
-                }
+        },
+        getEventLocationById(id) {
+            return new Promise((resolve, reject) => {
+                EventLocation.findOne({ _id: id }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-                return resolve(user);
+                    return resolve(user);
+                });
             });
-        });
-    },
-    getEventLocationByName(name) {
-        return new Promise((resolve, reject) => {
-            EventLocation.findOne({ name: name }, (err, location) => {
-                if (err) {
-                    return reject(err);
-                }
+        },
+        getEventLocationByName(name) {
+            return new Promise((resolve, reject) => {
+                EventLocation.findOne({ name: name }, (err, location) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-                return resolve(location);
+                    return resolve(location);
+                });
             });
-        });
-    },
-    getAllEventLocation() {
-        return new Promise((resolve, reject) => {
-            EventLocation.find((err, locations) => {
-                if (err) {
-                    return reject(err);
-                }
-                return resolve(locations);
+        },
+        getAllEventLocation() {
+            return new Promise((resolve, reject) => {
+                EventLocation.find((err, locations) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve(locations);
+                });
             });
-        });
-    }
+        }
+    };
 };

@@ -4,17 +4,21 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = function() {
-    //mongoose();
+    let models = {};
 
-    let User = require('../models/user-model');
-    let EventLocation = require('../models/eventLocation-model');
-    let Event = require('../models/event-model');
-    let EventType = require('../models/eventType-model');
+    // requiring all model files
+    fs.readdirSync('./app/models')
+        .filter(x => x.includes('-model'))
+        .forEach(file => {
+            // the next line is so that the properties can be e.g. Cool and not cool-model.js
+            let modelName = file.charAt(0).toUpperCase() + file.substr(1, file.length - '-model.js'.length - 1);
+            models[modelName] = require(path.join(__dirname, '../models', file));
+        });
 
-    let models = { User, Event, EventType, EventLocation };
     let data = {};
 
-    fs.readdirSync('./')
+    // requiring all data files with the models
+    fs.readdirSync('./app/data')
         .filter(x => x.includes('-data'))
         .forEach(file => {
             let dataModule =

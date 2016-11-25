@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TeamNinjas/WebTemplateSystem.git"
+    "url": "git+https://github.com/TeamNinjas/EventManagementSystem.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TeamNinjas/WebTemplateSystem/issues"
+    "url": "https://github.com/TeamNinjas/EventManagementSystem/issues"
   },
-  "homepage": "https://github.com/TeamNinjas/WebTemplateSystem#readme",
+  "homepage": "https://github.com/TeamNinjas/EventManagementSystem#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "eslint": "^3.10.2",
