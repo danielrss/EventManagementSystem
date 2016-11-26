@@ -1,9 +1,24 @@
-<!DOCTYPE html>
+doctype html
 html(lang="en")
-head
-    meta(charset="UTF-8")
-    title
-        block app-title
-    link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.css")
-body
-    block content
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+
+        title
+            block app-title
+        link(rel="stylesheet", href="/static/styles/fonts.css")
+        link(rel="stylesheet", href="/static/bower_components/font-awesome/css/font-awesome.min.css")
+        link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/static/bower_components/animate.css/animate.min.css")
+        link(rel="stylesheet", href="/static/styles/main.css")
+    body
+        include partials/_header.pug
+        #page-loader
+        #content
+            block content
+
+        include partials/_footer.pug
+        script(src="/static/bower_components/jquery/dist/jquery.min.js")
+        script(src="/static/bower_components/bootstrap/dist/js/bootstrap.min.js")
+        script(src="/static/scripts/main.js")
