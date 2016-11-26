@@ -4,8 +4,9 @@ module.exports = function(models) {
     const User = models.User;
 
     return {
-        createUser(firstName, lastName, age, email, password) {
+        createUser(username, password, firstName, lastName, age, email) {
             let user = new User({
+                username,
                 firstName,
                 lastName,
                 age,
@@ -35,7 +36,7 @@ module.exports = function(models) {
         },
         getUserByName(name) {
             return new Promise((resolve, reject) => {
-                User.findOne({ name: name }, (err, user) => {
+                User.findOne({ username: name }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }

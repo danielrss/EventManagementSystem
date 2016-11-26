@@ -1,8 +1,6 @@
 'use strict';
 
-const express = require('express');
-
-module.exports = function(app, data) {
+module.exports = function(app, express, data) {
     let homeController = require('../controllers/home-controller')();
 
     let router = new express.Router();
