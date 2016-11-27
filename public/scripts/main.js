@@ -2,8 +2,8 @@
 
 $(document).ready(function() {
     animateLandingPageElements();
+    initializeFullPageBackgrounds();
 });
-
 
 document.onreadystatechange = function () {
     let state = document.readyState,
@@ -26,3 +26,21 @@ function animateLandingPageElements(){
     $('#hp-caption-subtitle').addClass('animated fadeInUp');
     $('#hp-caption-buttons').addClass('animated fadeInUp');
 }
+
+function initializeFullPageBackgrounds(){
+    $('.page-home').backstretch('static/media/hp_cover.jpg');
+    $('.page-login').backstretch('static/media/hp_cover.jpg').blurElement('.page-login .backstretch');
+    $('.page-register').backstretch('static/media/hp_cover.jpg').blurElement('.page-register .backstretch');
+}
+
+$.fn.blurElement = function (container) {
+    let $elem = $(container);
+
+    if($elem.length > 0 && $elem !== undefined){
+        $elem.css('filter', 'blur(5px)');
+        $elem.css('-moz-filter', 'blur(5px)');
+        $elem.css('-webkit-filter', 'blur(5px)');
+        $elem.css('-o-filter', 'blur(5px)');
+        $elem.css('transform', 'scale(1.03)');
+    }
+};

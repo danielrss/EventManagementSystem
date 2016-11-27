@@ -1,0 +1,40 @@
+/* Large Devices, Wide Screens */
+
+@media only screen and (max-width : 1600px) {
+    header #logo {
+        line-height:70px;
+    }
+    header nav {
+        padding-top: 15px;
+    }
+    .inner-bg {
+        padding: 0px 0 18px 0 !important;
+    }
+    .form-box {
+        margin-top: 40px !important;
+    }
+}
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+
+}

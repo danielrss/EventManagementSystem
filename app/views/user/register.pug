@@ -1,0 +1,48 @@
+extends ../_layout
+
+block app-title
+    | Login | EventManagementSystem
+
+block vars
+   - var bodyClass = 'register';
+
+block content
+    .top-container
+        .inner-bg
+            .container
+                .row
+                    .col-sm-8.col-sm-offset-2.text
+                    h1
+                        strong Make a new registration
+                    .description
+                        p If you don't have an account yet, you can register and get access to additional features like personal calendar, event scheduler and many more..
+                .row
+                    .col-sm-8.register-form-wrapper
+                        .form-box
+                            .form-top
+                                .form-top-left
+                                    h3 Sign up now
+                                    p Fill in the form below to get instant access:
+                                .form-top-right
+                                   i.fa.fa-pencil
+                            .form-bottom
+                                form(role="form" action="" method="post" class="registration-form")
+                                    .form-group
+                                        label(class="sr-only" for="form-username")
+                                        input(type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username")
+                                    .form-group
+                                        label(class="sr-only" for="form-email")
+                                        input(type="text" name="email" placeholder="Email..." class="form-email form-control" id="form-email")
+                                    .form-group
+                                        label(class="sr-only" for="form-password")
+                                        input(type="password" name="password" placeholder="Password.." class="form-password form-control" id="form-password")
+                                    .form-group
+                                        label(class="sr-only" for="form-first-name") First name
+                                        input(type="text" name="firstname" placeholder="First name..." class="form-first-name form-control" id="form-first-name")
+                                    .form-group
+                                        label(class="sr-only" for="form-last-name") Last name
+                                        input(type="text" name="lastname" placeholder="Last name..." class="form-last-name form-control" id="form-last-name")
+                                    .form-group
+                                        label(class="sr-only" for="form-age") Age
+                                        input(type="text" name="age" placeholder="Age..." class="form-age form-control" id="form-age")
+                                    button(type="submit" class="btn") Sign me up!
