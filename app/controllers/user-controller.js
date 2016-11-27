@@ -3,13 +3,17 @@
 module.exports = function () {
     return {
         getLogin(req, res) {
-            res.status(200).send(`
+            /*res.status(200).send(`
                 <form action="/login" method="POST">
                     <input type="text" name="username" placeholder="Username">
                     <input type="text" name="password" placeholder="Password">                    
                     <input type="submit" value="Submit">
                 </form>
-            `);
+            `);*/
+            return Promise.resolve()
+                .then(() => {
+                    res.render('user/login', {});
+                });
         },
         getProfile(req, res) {
             if (!req.isAuthenticated()) {

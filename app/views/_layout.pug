@@ -12,7 +12,10 @@ html(lang="en")
         link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
         link(rel="stylesheet", href="/static/bower_components/animate.css/animate.min.css")
         link(rel="stylesheet", href="/static/styles/main.css")
-    body
+
+    block vars
+        - var bodyClass = '';
+    body(class='page-' + bodyClass)
         include partials/_header.pug
         #page-loader
         #content
