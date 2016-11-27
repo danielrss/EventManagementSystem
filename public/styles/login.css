@@ -269,3 +269,6 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; bac
 .page-register .form-bottom{
     margin-bottom:50px;
 }
+.page-register input.input-error{
+    border-color: firebrick;
+}

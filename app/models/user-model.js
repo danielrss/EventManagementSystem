@@ -2,11 +2,12 @@
 
 const mongoose = require('mongoose'),
     crypto = require('crypto'),
+    uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema;
 
-const letters = /[A-Za-z]/;
-const lettersAndNumbers = /[A-Za-z1-9]/;
-//const passwordCharacters = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
+const letters = /[A-Za-z]/,
+    lettersAndNumbers = /[A-Za-z1-9]/,
+    emailPattern =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 let UserSchema = new Schema({
     firstName: {
@@ -68,14 +69,17 @@ UserSchema
         return this._password;
     });
 
-
+UserSchema.plugin(uniqueValidator);
 
 UserSchema.methods = {
     makeSalt: function () {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     },
     encryptPassword: function (password) {
-        if(!password) return '';
+        if(!password) {
+            return '';
+        }
+
         try {
             return crypto
                 .createHmac('sha1', this.salt)

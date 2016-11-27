@@ -10,7 +10,8 @@ helpers.errorHelper = function (err) {
             'required': '%s is required.',
             'min': '%s below minimum.',
             'max': '%s above maximum.',
-            'enum': '%s not an allowed value.'
+            'enum': '%s not an allowed value.',
+            'unique': '%s must be unique.'
         };
 
     if (err.name !== 'ValidationError') {
@@ -19,6 +20,8 @@ helpers.errorHelper = function (err) {
 
     Object.keys(err.errors).forEach(function (field) {
         let eObj = err.errors[field];
+
+        console.dir(eObj);
 
         if (!messages.hasOwnProperty(eObj.properties.type)) {
             errors.push(eObj.properties.type);

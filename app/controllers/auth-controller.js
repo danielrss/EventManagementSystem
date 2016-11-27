@@ -35,17 +35,19 @@ module.exports = function (data) {
             req.logout();
             res.redirect('/home');
         },
-        register(req, res, next) {
+        register(req, res) {
             const user = req.body;
 
             data.createUser(user)
                 .then(dbUser => {
-                    res.status(201)
-                        .send('<h1>Worked!</h1>');
+                    passport.authenticate('local')(req, res, function () {
+                        res.status(200)
+                            .send({redirectRoute: '/profile'});
+                    });
                 })
                 .catch(error =>
                     res.status(400)
-                        .json(helpers.errorHelper(error))
+                        .send(JSON.stringify({validationErrors: helpers.errorHelper(error)}))
                 );
         }
     };
