@@ -1,5 +1,7 @@
 'use strict';
-const passport = require('passport');
+const passport = require('passport'),
+    helpers = require('../helpers');
+
 
 module.exports = function (data) {
     return {
@@ -33,25 +35,18 @@ module.exports = function (data) {
             req.logout();
             res.redirect('/home');
         },
-        register(req, res) {
-            const user = {
-                username: req.body.username,
-                password: req.body.password,
-                firstname: req.body.firstname,
-                lastname: req.body.lastname,
-                age: req.body.age,
-                email: req.body.email
-            };
+        register(req, res, next) {
+            const user = req.body;
 
-            console.dir(user);
-
-            data.createUser(
-                user.username, user.password, user.firstname, user.lastname, user.age, user.email)
+            data.createUser(user)
                 .then(dbUser => {
                     res.status(201)
                         .send('<h1>Worked!</h1>');
                 })
-                .catch(error => res.status(500).json(error));
+                .catch(error =>
+                    res.status(400)
+                        .json(helpers.errorHelper(error))
+                );
         }
-    }
+    };
 };

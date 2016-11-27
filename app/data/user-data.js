@@ -4,15 +4,9 @@ module.exports = function(models) {
     const User = models.User;
 
     return {
-        createUser(username, password, firstName, lastName, age, email) {
-            let user = new User({
-                username,
-                firstName,
-                lastName,
-                age,
-                email,
-                password
-            });
+        createUser(userData) {
+            let user = new User(userData);
+            //console.dir(user);
 
             return new Promise((resolve, reject) => {
                 user.save((error) => {
