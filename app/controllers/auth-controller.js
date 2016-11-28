@@ -12,9 +12,10 @@ module.exports = function (data) {
                 }
 
                 if(!user) {
+                    res.status(400);
                     res.json({
                         success: false,
-                        message: 'Invalid name or password!'
+                        validationErrors: 'Invalid name or password!'
                     });
                 }
 
@@ -24,7 +25,8 @@ module.exports = function (data) {
                         return;
                     }
 
-                    res.redirect('/profile');
+                    res.status(200)
+                        .send({ redirectRoute: '/profile' });
                 });
             });
 
@@ -50,7 +52,8 @@ module.exports = function (data) {
                         return;
                     }
 
-                    res.redirect('/profile');
+                    res.status(200)
+                        .send({ redirectRoute: '/profile' });
                 });
             });
 

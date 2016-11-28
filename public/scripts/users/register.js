@@ -40,16 +40,16 @@ const MIN_NAME_LENGTH = 3,
                         contentType: 'application/json',
                         data: JSON.stringify(user)
                     })
-                        .done((res) => {
-                            setTimeout(() => {
-                                window.location = res.redirectRoute;
-                            }, 1500);
-                        })
-                        .fail((err) => {
-                            let errorObj = JSON.parse(err.responseText);
+                    .done((res) => {
+                        setTimeout(() => {
+                            window.location = res.redirectRoute;
+                        }, 1500);
+                    })
+                    .fail((err) => {
+                        let errorObj = JSON.parse(err.responseText);
 
-                            displayValidationErrors(errorObj, $registerFormErrorContainer);
-                        });
+                        displayValidationErrors(errorObj, $registerFormErrorContainer);
+                    });
                 })
                 .catch((err) => {
                     let errorObj = JSON.parse(err.responseText);

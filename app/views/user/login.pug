@@ -29,14 +29,18 @@ block content
                                 .form-top-right
                                     i.fa.fa-key
                             .form-bottom
-                                form(role="form" action="/login" method="post" class="login-form")
+                                #error-container.alert.alert-danger
+                                    ul
+                                form(role="form" action="" method="post" class="login-form" id="user-login-form")
                                     .form-group
                                         label.sr-only(for="form-username") Username
                                         input(type="text" name="username" placeholder="Username..." class="form-username form-control" id="form-username")
+                                        span.error.error-username
                                     .form-group
                                         label(class="sr-only" for="form-password") Password
                                         input(type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password")
-                                    button(type="submit" class="btn") Sign in!
+                                        span.error.error-password
+                                    button(type="button" class="btn" id="login-button") Sign in!
                         .social-login
                             h3 ...or login with:
                             .social-login-buttons
@@ -49,3 +53,6 @@ block content
                                 a(class="btn btn-link-1 btn-link-1-google-plus" href="#")
                                     i(class="fa fa-google-plus") Google Plus
                                     //https://accounts.google.com/ServiceLogin
+
+block specificJs
+    script(src="/static/scripts/users/login.js")
