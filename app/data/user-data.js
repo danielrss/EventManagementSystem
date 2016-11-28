@@ -6,13 +6,13 @@ module.exports = function(models) {
     return {
         createUser(userData) {
             let user = new User(userData);
-            //console.dir(user);
 
             return new Promise((resolve, reject) => {
                 user.save((error) => {
                     if (error) {
                         return reject(error);
                     }
+
                     return resolve(user);
                 });
             });
@@ -24,6 +24,10 @@ module.exports = function(models) {
                         return reject(err);
                     }
 
+                    if (!user) {
+                        return reject(user);
+                    }
+
                     return resolve(user);
                 });
             });
@@ -33,6 +37,10 @@ module.exports = function(models) {
                 User.findOne({ username: name }, (err, user) => {
                     if (err) {
                         return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
                     }
 
                     return resolve(user);
@@ -61,6 +69,7 @@ module.exports = function(models) {
                     if (err) {
                         return reject(err);
                     }
+
                     return resolve(users);
                 });
             });

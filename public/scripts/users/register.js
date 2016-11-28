@@ -1,6 +1,7 @@
 'use strict';
 
-const MIN_NAME_LENGTH = 5,
+const MIN_NAME_LENGTH = 3,
+    MIN_USERNAME_LENGTH = 5,
     MAX_NAME_LENGTH = 30,
     NAME_PATTERN = /^[A-Za-z]+$/,
     ALPHA_PATTERN = /^[A-Za-z1-9]+$/,
@@ -16,7 +17,6 @@ const MIN_NAME_LENGTH = 5,
     });
 
     $registerBtn.on('click', () => {
-
         let isFormValid = validateRegistrationForm();
 
         if(isFormValid){
@@ -55,22 +55,23 @@ const MIN_NAME_LENGTH = 5,
 
     function validateRegistrationForm(){
         let isFormValid = false,
-            isUnameValid = false,
+            isUsernameValid = false,
             isPasswordValid = false,
             isEmailValid = false,
             isFirstNameValid = false,
-            isLastNameValid = false;
+            isLastNameValid = false,
+            isAgeValid = false;
 
         $registerForm.find('input').each(function(){
             let input = $(this),
                 inputName = input.attr('name');
 
             if(inputName === 'username'){
-                isUnameValid = validateInput(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
+                isUsernameValid = validateInput(input, true, true, MIN_USERNAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
             }
 
             if(inputName === 'password'){
-                isPasswordValid = validateInput(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
+                isPasswordValid = validateInput(input, true, true, MIN_USERNAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
             }
 
             if(inputName === 'email'){
@@ -84,9 +85,13 @@ const MIN_NAME_LENGTH = 5,
             if(inputName === 'lastName'){
                 isLastNameValid = validateInput(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, NAME_PATTERN);
             }
+
+            if(inputName === 'age'){
+                isAgeValid = validateInputNumber(input, 12, 100);
+            }
         });
 
-        if(isUnameValid && isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid){
+        if(isUsernameValid && isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && isAgeValid){
             isFormValid = true;
         }
 
@@ -96,19 +101,19 @@ const MIN_NAME_LENGTH = 5,
     function validateInput(input, wantLengthValidation, wantCharacterValidation, min = 0, max = 100, pattern = ''){
         let isValid = false;
 
-        if(input.val() === ''){
+        if (input.val() === '') {
             input.addClass('input-error');
             input.next('span').text('Field is required');
         }
-        else if(wantLengthValidation && !validateInputLength(input.val(), min, max)){
+        else if (wantLengthValidation && !validateInputLength(input.val(), min, max)) {
             input.addClass('input-error');
             input.next('span').text('Invalid length: must be between ' + min + ' and ' + max);
         }
-        else if(wantCharacterValidation && validateInputCharacters(input.val(), pattern)){
+        else if (wantCharacterValidation && validateInputCharacters(input.val(), pattern)) {
             input.addClass('input-error');
             input.next('span').text('Invalid characters!');
         }
-        else{
+        else {
             input.removeClass('input-error');
             input.next('span').text('');
             isValid = true;
@@ -135,5 +140,25 @@ const MIN_NAME_LENGTH = 5,
         }
 
         return hasErrors;
+    }
+
+    function validateInputNumber(input, min = Number.MIN_SAFE_INTEGER, max = Number.MAX_SAFE_INTEGER) {
+        let isValid = false;
+
+        if (input.val() === '') {
+            input.addClass('input-error');
+            input.next('span').text('Field is required');
+        }
+        else if (isNaN(input.val()) || +input.val() < min || +input.val() > max) {
+            input.addClass('input-error');
+            input.next('span').text('Invalid age: must be between ' + min + ' and ' + max);
+        }
+        else {
+            input.removeClass('input-error');
+            input.next('span').text('');
+            isValid = true;
+        }
+
+        return isValid;
     }
 })();

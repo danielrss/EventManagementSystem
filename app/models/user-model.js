@@ -36,13 +36,14 @@ let UserSchema = new Schema({
     age: {
         type: Number,
         required: true,
-        min: [12, 'Age must be bigger than 12!']
+        min: [12, 'Age must be at least 12!']
     },
     email: {
         type: String,
         required: true,
         unique: true,
-        dropDups: true
+        dropDups: true,
+        match: emailPattern
     },
     salt: String,
     passwordHash: {
