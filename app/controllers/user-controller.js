@@ -1,13 +1,7 @@
 'use strict';
 
-module.exports = function() {
+module.exports = function (data) {
     return {
-        getHome(req, res) {
-            return Promise.resolve()
-                .then(() => {
-                    res.render('/home', {});
-                });
-        },
         getLogin(req, res) {
             return Promise.resolve()
                 .then(() => {
@@ -15,15 +9,24 @@ module.exports = function() {
                 });
         },
         getProfile(req, res) {
-            if (!req.isAuthenticated()) {
-                res.status(401).redirect('/unauthorized');
-            } else {
-                const user = req.user;
-                res.status(200).send(`Welcome, ${user.username}! Go to <a href="/home">Home</a>`);
-            }
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.status(401).redirect('/unauthorized');
+                    } else {
+                        res.render('user/profile', { user: req.user });
+                    }
+                });
         },
         getUnauthorized(req, res) {
-            res.send('<h1>Wa wa!</h1>');
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.render('unathorized', {});
+                    } else {
+                        res.render('unathorized', { user: req.user.username });
+                    }
+                });
         },
         getRegister(req, res) {
             return Promise.resolve()

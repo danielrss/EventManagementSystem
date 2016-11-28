@@ -5,7 +5,11 @@ module.exports = function () {
         home(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    res.render('home', {});
+                    if (!req.isAuthenticated()) {
+                        res.render('home', {});
+                    } else {
+                        res.render('home', { user: req.user.username });
+                    }
                 });
         }
     };

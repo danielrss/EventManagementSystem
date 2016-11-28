@@ -15,5 +15,5 @@ block content
                 p#hp-caption-subtitle Learn about new social events near you and subscribe with ease...
                 div#hp-caption-buttons.buttons
                     a.btn.btn-green(href="/events") Discover
-                    a.btn.btn-white(href="/login") Login or Register
-
+                    if !user
+                        a.btn.btn-white(href="/login") Login or Register

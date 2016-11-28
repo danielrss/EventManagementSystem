@@ -18,7 +18,10 @@ html(lang="en")
     block vars
         - var bodyClass = '';
     body(class='page-' + bodyClass)
-        include partials/_header.pug
+        if user
+            include partials/_header-user.pug
+        else
+            include partials/_header.pug
         #page-loader
         #content
             block content
