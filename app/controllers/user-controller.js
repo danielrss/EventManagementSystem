@@ -5,7 +5,11 @@ module.exports = function (data) {
         getLogin(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    res.render('user/login', {});
+                    if (!req.isAuthenticated()) {
+                        res.render('user/login', {});
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         },
         getProfile(req, res) {
@@ -22,7 +26,7 @@ module.exports = function (data) {
             return Promise.resolve()
                 .then(() => {
                     if (!req.isAuthenticated()) {
-                        res.render('user/unathorized', {});
+                        res.render('unathorized', {});
                     } else {
                         res.redirect('/home');
                     }
@@ -31,7 +35,11 @@ module.exports = function (data) {
         getRegister(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    res.render('user/register', {});
+                    if (!req.isAuthenticated()) {
+                        res.render('user/register', {});
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         }
     };
