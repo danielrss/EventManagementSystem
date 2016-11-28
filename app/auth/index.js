@@ -4,7 +4,7 @@ const passport = require('passport');
 
 module.exports = function(app, data) {
     passport.serializeUser((user, done) => {
-        if(user) {
+        if (user) {
             done(null, user.id);
         }
     });
@@ -16,4 +16,5 @@ module.exports = function(app, data) {
     });
 
     require('./local-strategy')(passport, data);
+    require('./fb-strategy')(passport, data);
 };
