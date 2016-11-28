@@ -9,7 +9,8 @@ const MIN_NAME_LENGTH = 3,
 
 (() => {
     const $registerForm = $('#user-registration-form'),
-        $registerBtn = $('#register-button');
+        $registerBtn = $('#register-button'),
+        $registerFormErrorContainer = $('#error-container');
 
     $registerForm.find(':input').on('focus', function() {
         $(this).removeClass('input-error');
@@ -17,6 +18,7 @@ const MIN_NAME_LENGTH = 3,
     });
 
     $registerBtn.on('click', () => {
+        resetErrorContainer();
         let isFormValid = validateRegistrationForm();
 
         if(isFormValid){
@@ -44,14 +46,33 @@ const MIN_NAME_LENGTH = 3,
                             }, 1500);
                         })
                         .fail((err) => {
-                            console.log(err.message);
+                            let errorObj = JSON.parse(err.responseText);
+
+                            displayValidationErrors(errorObj, $registerFormErrorContainer);
                         });
                 })
                 .catch((err) => {
-                    console.log(err);
+                    let errorObj = JSON.parse(err.responseText);
+
+                    displayValidationErrors(errorObj, $registerFormErrorContainer);
                 });
         }
     });
+
+    function resetErrorContainer(){
+        $registerFormErrorContainer.find('ul').html('');
+        $registerFormErrorContainer.hide();
+    }
+
+    function displayValidationErrors(jsonObject, container){
+        container.show();
+
+        $(jsonObject.validationErrors).each(function(index, item) {
+            container.find('ul').append(
+                $(document.createElement('li')).text(item)
+            );
+        });
+    }
 
     function validateRegistrationForm(){
         let isFormValid = false,

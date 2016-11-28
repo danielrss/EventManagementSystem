@@ -272,3 +272,6 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; bac
 .page-register input.input-error{
     border-color: firebrick;
 }
+.page-register #error-container{
+    display: none;
+}
