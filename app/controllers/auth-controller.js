@@ -38,7 +38,7 @@ module.exports = function (data) {
                 }
 
                 if(!user) {
-                    res.json({ 
+                    res.json({
                         success: false,
                         message: 'Invalid name or password!'
                     });

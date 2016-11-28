@@ -22,9 +22,9 @@ module.exports = function (data) {
             return Promise.resolve()
                 .then(() => {
                     if (!req.isAuthenticated()) {
-                        res.render('unathorized', {});
+                        res.render('user/unathorized', {});
                     } else {
-                        res.render('unathorized', { user: req.user.username });
+                        res.redirect('/home');
                     }
                 });
         },
