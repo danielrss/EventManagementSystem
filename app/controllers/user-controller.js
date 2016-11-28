@@ -1,7 +1,13 @@
 'use strict';
 
-module.exports = function () {
+module.exports = function() {
     return {
+        getHome(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    res.render('/home', {});
+                });
+        },
         getLogin(req, res) {
             return Promise.resolve()
                 .then(() => {
