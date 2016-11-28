@@ -5,7 +5,11 @@ module.exports = function (data) {
         getLogin(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    res.render('user/login', {});
+                    if (!req.isAuthenticated()) {
+                        res.render('user/login', {});
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         },
         getProfile(req, res) {
@@ -24,14 +28,18 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.render('unathorized', {});
                     } else {
-                        res.render('unathorized', { user: req.user.username });
+                        res.redirect('/home');
                     }
                 });
         },
         getRegister(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    res.render('user/register', {});
+                    if (!req.isAuthenticated()) {
+                        res.render('user/register', {});
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         }
     };

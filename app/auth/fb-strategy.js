@@ -10,10 +10,10 @@ const FACEBOOK = {
 
 module.exports = function(passport, data) {
     const authStrategy = new FacebookStrategy({
-            clientID: FACEBOOK.FACEBOOK_APP_ID,
-            clientSecret: FACEBOOK.FACEBOOK_APP_SECRET,
-            callbackURL: FACEBOOK.callbackURL
-        },
+        clientID: FACEBOOK.FACEBOOK_APP_ID,
+        clientSecret: FACEBOOK.FACEBOOK_APP_SECRET,
+        callbackURL: FACEBOOK.callbackURL
+    },
         function(accessToken, refreshToken, profile, done) {
             console.log(profile);
             data
