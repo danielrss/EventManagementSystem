@@ -7,7 +7,7 @@ const mongoose = require('mongoose'),
 
 const letters = /[A-Za-z]/,
     lettersAndNumbers = /[A-Za-z1-9]/,
-    emailPattern =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 let UserSchema = new Schema({
     firstName: {
@@ -57,7 +57,6 @@ let UserSchema = new Schema({
     }
 });
 
-
 UserSchema
     .virtual('password')
     .set(function (password) {
@@ -93,7 +92,6 @@ UserSchema.methods = {
         return this.encryptPassword(password) === this.passwordHash;
     }
 };
-
 
 mongoose.model('User', UserSchema);
 let User = mongoose.model('User');

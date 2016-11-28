@@ -2,7 +2,7 @@
 
 const fs = require('fs'),
     path = require('path'),
-    express = require('express');;
+    express = require('express');
 
 const routerFileNamesPattern = '-router.js';
 

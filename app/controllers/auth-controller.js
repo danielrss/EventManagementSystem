@@ -2,7 +2,6 @@
 const passport = require('passport'),
     helpers = require('../helpers');
 
-
 module.exports = function (data) {
     return {
         loginLocal(req, res, next) {
@@ -42,12 +41,12 @@ module.exports = function (data) {
                 .then(dbUser => {
                     passport.authenticate('local')(req, res, function () {
                         res.status(200)
-                            .send({redirectRoute: '/profile'});
+                            .send({ redirectRoute: '/profile' });
                     });
                 })
                 .catch(error =>
                     res.status(400)
-                        .send(JSON.stringify({validationErrors: helpers.errorHelper(error)}))
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
                 );
         }
     };

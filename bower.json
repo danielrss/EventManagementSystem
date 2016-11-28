@@ -1,12 +1,12 @@
 {
-  "name": "web-template-system",
+  "name": "event-management-system",
   "description": "Telerik Software Academy - Node.js Apps",
   "main": "index.js",
   "authors": [
     "team-ninjas"
   ],
   "license": "ISC",
-  "homepage": "https://github.com/TeamNinjas/WebTemplateSystem",
+  "homepage": "https://github.com/TeamNinjas/EventManagementSystem",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -20,6 +20,6 @@
     "font-awesome": "fontawesome#^4.7.0",
     "hover": "Hover#^2.1.0",
     "animate.css": "^3.5.2",
-    "jquery-backstretch": "backstretch#^2.0.4",
+    "jquery-backstretch": "backstretch#^2.0.4"
   }
 }
