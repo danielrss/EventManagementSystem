@@ -39,8 +39,6 @@ helpers.errorHelper = function (err) {
     Object.keys(err.errors).forEach(function (field) {
         let eObj = err.errors[field];
 
-        console.dir(eObj);
-
         if (!messages.hasOwnProperty(eObj.properties.type)) {
             errors.push(eObj.properties.type);
         } else {

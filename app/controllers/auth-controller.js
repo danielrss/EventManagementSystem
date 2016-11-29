@@ -15,7 +15,7 @@ module.exports = function (data) {
                     res.status(400);
                     res.json({
                         success: false,
-                        validationErrors: 'Invalid name or password!'
+                        message: 'Invalid name or password!'
                     });
                 }
 
