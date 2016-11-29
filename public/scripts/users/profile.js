@@ -9,23 +9,23 @@ const MIN_NAME_LENGTH = 3,
     EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 (() => {
-    const $registerForm = $('#user-registration-form'),
-        $registerBtn = $('#register-button'),
-        $registerFormErrorContainer = $('#error-container');
+    const $profileForm = $('#user-profile-form'),
+        $saveBtn = $('#save-profile-button'),
+        $profileFormErrorContainer = $('#error-container');
 
-    $registerForm.find(':input').on('focus', function() {
+    $profileForm.find(':input').on('focus', function() {
         $(this).removeClass('input-error');
         $(this).next('span').text('');
     });
 
-    $registerBtn.on('click', () => {
+    $saveBtn.on('click', () => {
         resetErrorContainer();
-        let isFormValid = validateRegistrationForm();
+        let isFormValid = validateProfileForm();
 
         if(isFormValid){
             return Promise.resolve()
                 .then(() => {
-                    let dataArray = $registerForm.serializeArray(),
+                    let dataArray = $profileForm.serializeArray(),
                         dataObj = {};
 
                     $(dataArray).each(function(i, field){
@@ -36,31 +36,31 @@ const MIN_NAME_LENGTH = 3,
                 })
                 .then((user) => {
                     $.ajax({
-                        url: '/register',
+                        url: '/profile',
                         method: 'POST',
                         contentType: 'application/json',
                         data: JSON.stringify(user)
                     })
                     .done((res) => {
                         setTimeout(() => {
-                            window.location = res.redirectRoute;
+                            window.location.reload();
                         }, 1000);
                     })
                     .fail((err) => {
                         let errorObj = JSON.parse(err.responseText);
-                        displayValidationErrors(errorObj, $registerFormErrorContainer);
+                        displayValidationErrors(errorObj, $profileFormErrorContainer);
                     });
                 })
                 .catch((err) => {
                     let errorObj = JSON.parse(err.responseText);
-                    displayValidationErrors(errorObj, $registerFormErrorContainer);
+                    displayValidationErrors(errorObj, $profileFormErrorContainer);
                 });
         }
     });
 
     function resetErrorContainer(){
-        $registerFormErrorContainer.find('ul').html('');
-        $registerFormErrorContainer.hide();
+        $profileFormErrorContainer.find('ul').html('');
+        $profileFormErrorContainer.hide();
     }
 
     function displayValidationErrors(jsonObject, container){
@@ -73,22 +73,17 @@ const MIN_NAME_LENGTH = 3,
         });
     }
 
-    function validateRegistrationForm(){
+    function validateProfileForm(){
         let isFormValid = false,
-            isUsernameValid = false,
-            isPasswordValid = false,
+            isPasswordValid = true, // CHANGE IF USING
             isEmailValid = false,
             isFirstNameValid = false,
             isLastNameValid = false,
             isAgeValid = false;
 
-        $registerForm.find('input').each(function(){
+        $profileForm.find('input').each(function(){
             let input = $(this),
                 inputName = input.attr('name');
-
-            if(inputName === 'username'){
-                isUsernameValid = validator.validateInputString(input, true, true, MIN_USERNAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
-            }
 
             if(inputName === 'password'){
                 isPasswordValid = validator.validateInputString(input, true, true, MIN_USERNAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
@@ -111,7 +106,7 @@ const MIN_NAME_LENGTH = 3,
             }
         });
 
-        if(isUsernameValid && isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && isAgeValid){
+        if(isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && isAgeValid) {
             isFormValid = true;
         }
 

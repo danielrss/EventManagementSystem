@@ -32,6 +32,21 @@ module.exports = function(models) {
                 });
             });
         },
+        findUserByIdAndUpdate(id, update) {
+            return new Promise((resolve, reject) => {
+                User.findOneAndUpdate({ _id: id }, update, { new: true }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
         getUserByName(name) {
             return new Promise((resolve, reject) => {
                 User.findOne({ username: name }, (err, user) => {

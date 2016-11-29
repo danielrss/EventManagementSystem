@@ -16,7 +16,7 @@ document.onreadystatechange = function () {
         setTimeout(function(){
             loader.style.visibility = 'hidden';
             content.style.visibility = 'visible';
-        },1000);
+        }, 1000);
     }
 };
 
@@ -31,6 +31,7 @@ function initializeFullPageBackgrounds(){
     $('.page-home').backstretch('static/media/hp_cover.jpg');
     $('.page-login').backstretch('static/media/hp_cover.jpg').blurElement('.page-login .backstretch');
     $('.page-register').backstretch('static/media/hp_cover.jpg').blurElement('.page-register .backstretch');
+    $('.page-profile').backstretch('static/media/hp_cover.jpg').blurElement('.page-profile .backstretch');
 }
 
 $.fn.blurElement = function (container) {

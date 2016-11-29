@@ -29,13 +29,15 @@
     left: 0;
 }
 .page-login .top-container,
-.page-register .top-container{
+.page-register .top-container,
+.page-profile .top-container{
     padding-top: 8%;
     height:100%;
 
 }
 .page-login .btn-link-1,
-.page-register .btn-link-1 {
+.page-register .btn-link-1,
+.page-profile .btn-link-1 {
     display: inline-block;
     height: 50px;
     margin: 5px;
@@ -48,21 +50,26 @@
     -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 }
 .page-login .inner-bg > .container,
-.page-register .inner-bg > .container{
+.page-register .inner-bg > .container,
+.page-profile .inner-bg > .container{
     text-align: center;
 }
 .page-login h1,
 .page-register h1,
+.page-profile h1,
 .page-login .description,
-.page-register .description{
+.page-register .description,
+.page-profile .description{
     color:#fff;
 }
 .page-login .description,
-.page-register .description{
+.page-register .description,
+.page-profile .description{
     font-family: montserrat-regular;
 }
 .page-login .login-form-wrapper,
-.page-register .register-form-wrapper{
+.page-register .register-form-wrapper,
+.page-profile .profile-form-wrapper{
     margin:0 auto;
     display: block;
     float: none;
@@ -190,8 +197,10 @@
 }
 .page-login input[type="text"],
 .page-register input[type="text"],
+.page-profile input[type="text"],
 .page-login input[type="password"],
 .page-register input[type="password"],
+.page-profile input[type="password"],
 .page-login textarea,
 .page-register textarea,
 .page-login textarea.form-control,
@@ -265,20 +274,24 @@ button.btn:focus { outline: 0; opacity: 0.6; background: #19b9e7; color: #fff; }
 button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; background: #19b9e7; color: #fff; }
 
 
-/* Register page specific */
-.page-register .form-bottom{
+/* Register and profile page specific */
+.page-register .form-bottom,
+.page-profile .form-bottom{
     margin-bottom:50px;
 }
 .page-register input.input-error,
-.page-login input.input-error{
+.page-login input.input-error,
+.page-profile input.input-error,{
     border-color: firebrick;
 }
 .page-register #error-container,
-.page-login #error-container{
+.page-login #error-container,
+.page-profile #error-container{
     display: none;
 }
 .page-register .error,
-.page-login .error{
+.page-login .error,
+.page-profile .error{
     top: 5px;
     text-indent: 10px;
     display: block;
