@@ -4,14 +4,14 @@ module.exports = function(models) {
     const Event = models.Event;
 
     return {
-        createEvent(name, eventType, location, description, dateOfEvent, capacity) {
+        createEvent(name, eventType, location, description, dateOfEvent, coverUrl, capacity) {
             let event = new Event({
                 name,
                 eventType,
                 location,
                 description,
                 dateOfEvent,
-                //cover,
+                coverUrl,
                 capacity
             });
 

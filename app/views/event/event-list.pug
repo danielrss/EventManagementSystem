@@ -20,5 +20,11 @@ block content
                                 each event in events
                                     strong 
                                         a(href='events/' + event.id)= event.name
-                                        p='location:' + event.location
+                                        div
+                                            img(src= event.coverUrl)
+                                        p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                        p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                        p='Description:' + event.description
+                                        p='Location:' + event.location
+
 

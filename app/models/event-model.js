@@ -43,8 +43,8 @@ let EventSchema = new Schema({
         type: Date,
         required: true
     },
-    cover: {
-        type: Buffer,
+    coverUrl: {
+        type: String,
         //required: true
     },
     rating: {
