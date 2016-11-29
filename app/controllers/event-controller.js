@@ -1,6 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
 const passport = require('passport');
 
 const countOfEvents = 5;
@@ -55,17 +54,5 @@ module.exports = function(data) {
                         .send(err);
                 });
         }
-=======
-module.exports = function (data) {
-    return {
-        getAll(req, res) {
-            data.getAllEvents()
-                .then(events => {
-                    res.render('event/event-list', {
-                        result: events
-                    });
-                });
-        },
->>>>>>> bf04e2d23568bf05d36d81599633390ad0d509a4
     };
 };
