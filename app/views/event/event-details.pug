@@ -1,0 +1,19 @@
+extends ../_layout
+
+block app-title
+    | Event | EventManagementSystem
+
+block vars
+   - var bodyClass = 'profile';
+
+block content
+    .top-container
+        .inner-bg
+            .container
+                .row
+                    .col-sm-8.col-sm-offset-2.text
+                    h1 Event Details 
+                    .row
+                    .col-sm-8.col-sm-offset-2.text
+                        h2= event.name
+                        p= event.description

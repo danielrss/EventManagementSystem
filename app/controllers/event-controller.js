@@ -6,7 +6,7 @@ const countOfEvents = 5;
 module.exports = function(data) {
     return {
         createEvent(req, res) {
-            return data.createEvent(req.name, req.eventType, req.location, req.description, req.dateOfEvent, req.cover, req.capacity)
+            return data.createEvent(req.name, req.eventType, req.location, req.description, req.dateOfEvent, req.capacity)
                 .then(event => {
                     return res.redirect(`/events/${event._id}`);
                 })
@@ -19,7 +19,7 @@ module.exports = function(data) {
             let id = req.params.id;
             data.getEventById(id)
                 .then(event => {
-                    return res.render(`events/${event._id}/details`, {
+                    return res.render('event/event-details', {
                         event,
                         user: req.user
                     });
@@ -44,7 +44,7 @@ module.exports = function(data) {
         getEvents(req, res) {
             data.getAllEvents()
                 .then((events => {
-                    return res.render("events", {
+                    return res.render('event/event-list', {
                         events,
                         user: req.user
                     });

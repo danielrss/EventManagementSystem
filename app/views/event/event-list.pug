@@ -17,8 +17,8 @@ block content
                     .col-sm-8.col-sm-offset-2.text
                         h2 Here you can discover all events
                             .form-box
-                            each event in result 
-                                strong 
-                                    a(href='events/' + event.id)= event.name
-                                    p='location:' + event.location
+                                each event in events
+                                    strong 
+                                        a(href='events/' + event.id)= event.name
+                                        p='location:' + event.location
 

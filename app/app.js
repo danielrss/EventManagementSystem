@@ -8,7 +8,10 @@ require('./config/database')(config);
 require('./auth')(app, data);
 require('./routers')(app, data);
 
-//data.createEvent('Hack Conf', 'Educational', 'Sofia', 'conference', new Date('01.02.2017'), 300);
+data.createEvent('Concert', 'Entertainment', 'Varna', 'Christmas Concert', new Date(), 300)
+    .catch((err)=>{
+        console.log(err);
+    });
 
 app.start();
 
