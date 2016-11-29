@@ -43,7 +43,7 @@ const MIN_NAME_LENGTH = 3,
                     })
                     .done((res) => {
                         setTimeout(() => {
-                            window.location.reload();
+                            window.location = res.redirectRoute;
                         }, 1000);
                     })
                     .fail((err) => {

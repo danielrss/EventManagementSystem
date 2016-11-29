@@ -54,7 +54,7 @@ const validator = (() => {
         }
         else if (isNaN(input.val()) || +input.val() < min || +input.val() > max) {
             input.addClass('input-error');
-            input.next('span').text('Invalid age: must be between ' + min + ' and ' + max);
+            input.next('span').text('Invalid ' + input.name + ': must be between ' + min + ' and ' + max);
         }
         else {
             input.removeClass('input-error');
