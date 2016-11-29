@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (models) {
+module.exports = function(models) {
     const Event = models.Event;
 
     return {
@@ -45,6 +45,20 @@ module.exports = function (models) {
 
                     return resolve(event);
                 });
+            });
+        },
+        getSpecificEvents(count) {
+            return new Promise((resolve, reject) => {
+                Event.find({})
+                    .sort('dateOfEvent', -1)
+                    .limit(count)
+                    .exec((err, resultEvents) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(resultEvents);
+                    });
             });
         },
         getAllEvents() {

@@ -1,5 +1,5 @@
 'use strict';
-const passport = require('passport');
+const helpers = require('../helpers');
 
 module.exports = function (data) {
     return {
@@ -43,52 +43,17 @@ module.exports = function (data) {
                     }
                 });
         },
-        updateProfile(req, res, next) {
+        updateProfile(req, res) {
             const updatedUser = req.body;
 
-            // const auth = passport.authenticate('local', function (error) {
-            //     if (error) {
-            //         next(error);
-            //         return error;
-            //     }
-
-            //     if (!updatedUser) {
-            //         // res.status(400);
-            //         // res.json({
-            //         //     success: false,
-            //         //     validationErrors: 'Invalid name or password!'
-            //         // });
-            //         return 'error';
-            //     }
-
-            //     req.login(updatedUser, error => {
-            //         if (error) {
-            //             next(error);
-            //             return error;
-            //         }
-
-            //         res.sendStatus(200);
-            //     });
-            // });
-
-            return Promise.resolve()
-                // .then(() => {
-                //     auth(req, res, next);
-                // })
-                .then((error) => {
-                    if (error) {
-                        console.log(error);
-                        res.redirect('/logout');
-                    }
-
-                    data.findUserByIdAndUpdate(req.user._id, updatedUser);
+            return data.findUserByIdAndUpdate(req.user._id, updatedUser)
+                .then(user => {
+                    res.status(200)
+                            .send({ redirectRoute: '/profile' });
                 })
-                .then(() => {
-                    res.sendStatus(200);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    res.redirect('/logout');
+                .catch(err => {
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         }
     };

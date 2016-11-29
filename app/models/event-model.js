@@ -33,7 +33,7 @@ let EventSchema = new Schema({
     location: {
         type: String,
         _id: String,
-        address: String
+        required: true
     },
     description: {
         type: String,
@@ -58,9 +58,8 @@ let EventSchema = new Schema({
         type: Number,
         required: true
     },
-    status: {
-        type: String,
-        _id: Number       
+    isIncoming: {
+        type: Boolean
     }
 });
 

@@ -30,7 +30,10 @@ module.exports = function (data) {
                 });
             });
 
-            auth(req, res, next);
+            return Promise.resolve()
+                .then(() => {
+                    auth(req, res, next);
+                });
         },
         loginFacebook(req, res, next) {
             const auth = passport.authenticate('facebook', function (error, user) {
@@ -57,16 +60,22 @@ module.exports = function (data) {
                 });
             });
 
-            auth(req, res, next);
+            return Promise.resolve()
+                .then(() => {
+                    auth(req, res, next);
+                });
         },
         logout(req, res) {
-            req.logout();
-            res.redirect('/home');
+            return Promise.resolve()
+                .then(() => {
+                    req.logout();
+                    res.redirect('/home');
+                });
         },
         register(req, res) {
             const user = req.body;
 
-            data.createUser(user)
+            return data.createUser(user)
                 .then(dbUser => {
                     passport.authenticate('local')(req, res, function () {
                         res.status(200)
