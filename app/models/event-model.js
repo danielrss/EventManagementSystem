@@ -17,7 +17,7 @@ let EventSchema = new Schema({
     createdOn: {
         type: Date,
         default: Date.now,
-        required: true
+        //required: true
     },
     eventType: {
         type: String,
@@ -28,12 +28,12 @@ let EventSchema = new Schema({
         type: String,
         _id: Number,
         name: String,
-        required: true
+        //required: true
     },
     location: {
         type: String,
         _id: String,
-        address: String
+        required: true
     },
     description: {
         type: String,
@@ -45,11 +45,11 @@ let EventSchema = new Schema({
     },
     cover: {
         type: Buffer,
-        required: true
+        //required: true
     },
     rating: {
         type: Number,
-        required: true
+        //required: true
     },
     isDeleted: {
         type: Boolean
@@ -58,9 +58,8 @@ let EventSchema = new Schema({
         type: Number,
         required: true
     },
-    status: {
-        type: String,
-        _id: Number       
+    isIncoming: {
+        type: Boolean
     }
 });
 
