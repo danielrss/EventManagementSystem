@@ -4,14 +4,14 @@ module.exports = function(models) {
     const Event = models.Event;
 
     return {
-        createEvent(name, eventType, location, description, dateOfEvent, cover, capacity) {
+        createEvent(name, eventType, location, description, dateOfEvent, capacity) {
             let event = new Event({
                 name,
                 eventType,
                 location,
                 description,
                 dateOfEvent,
-                cover,
+                //cover,
                 capacity
             });
 
@@ -24,6 +24,7 @@ module.exports = function(models) {
                 });
             });
         },
+        
         getEventById(id) {
             return new Promise((resolve, reject) => {
                 Event.findOne({ _id: id }, (err, event) => {
