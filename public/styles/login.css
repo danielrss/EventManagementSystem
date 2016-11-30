@@ -173,10 +173,6 @@
     width: 100%;
 }
 
-.form-bottom form .input-error {
-    border-color: #19b9e7;
-}
-
 .social-login {
     margin-top: 35px;
 }
@@ -281,7 +277,7 @@ button.btn:active:focus, button.btn.active:focus { outline: 0; opacity: 0.6; bac
 }
 .page-register input.input-error,
 .page-login input.input-error,
-.page-profile input.input-error,{
+.page-profile input.input-error{
     border-color: firebrick;
 }
 .page-register #error-container,

@@ -10,7 +10,8 @@ let EventTypeSchema = new Schema({
         required: true,
         unique: true,
         dropDups: true
-    }
+    },
+    events: [{}]
 });
 
 EventTypeSchema.plugin(uniqueValidator);
