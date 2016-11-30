@@ -1,6 +1,8 @@
 /* globals validator */
 'use strict';
 
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
+
 (() => {
     const $profileForm = $('#user-profile-form'),
         $inputFile = $('#form-file'),
@@ -16,7 +18,7 @@
         resetErrorContainer();
         let isFormValid = validateProfileForm();
 
-        if(true){ // isFormValid
+        if(isFormValid){ // isFormValid
             return Promise.resolve()
                 .then(() => {
                     let formData = new FormData();
@@ -66,22 +68,36 @@
 
     function validateProfileForm() {
         let isFormValid = false,
-            isFileValid = false;
+            isFileExtensionValid = false,
+            isFileSizeValid = false;
 
         $profileForm.find('#form-file').each(function () {
             let input = $(this),
                 inputName = input.attr('name');
 
             if (inputName === 'file') {
-                // VALIDATE
-                isFileValid = true;
-            }
+                let file = input[0].files[0];
 
-            if (isFileValid) {
-                isFormValid = true;
-            }
+                if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
+                    isFileExtensionValid = true;
+                } else {
+                    input.addClass('input-error');
+                    input.next('span').text('File types allowed: jpg, jpeg, png.');
+                }
 
-            return isFormValid;
+                if (file.size <= MAX_FILE_SIZE) {
+                    isFileSizeValid = true;
+                } else {
+                    input.addClass('input-error');
+                    input.next('span').text('Maximum file size is 2MB!');
+                }
+            }
         });
+
+        if (isFileExtensionValid && isFileSizeValid) {
+            isFormValid = true;
+        }
+
+        return isFormValid;
     }
 })();

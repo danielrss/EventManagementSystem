@@ -32,7 +32,11 @@ module.exports = function (data) {
 
             return Promise.resolve()
                 .then(() => {
-                    auth(req, res, next);
+                    if (!req.isAuthenticated()) {
+                        auth(req, res, next);
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         },
         loginFacebook(req, res, next) {
@@ -62,20 +66,35 @@ module.exports = function (data) {
 
             return Promise.resolve()
                 .then(() => {
-                    auth(req, res, next);
+                    if (!req.isAuthenticated()) {
+                        auth(req, res, next);
+                    } else {
+                        res.redirect('/home');
+                    }
                 });
         },
         logout(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    req.logout();
-                    res.redirect('/home');
+                    if (!req.isAuthenticated()) {
+                        res.redirect('/home');
+                    } else {
+                        req.logout();
+                        res.redirect('/home');
+                    }
                 });
         },
         register(req, res) {
             const user = req.body;
 
-            return data.createUser(user)
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        return data.createUser(user);
+                    } else {
+                        res.redirect('/home');
+                    }
+                })
                 .then(dbUser => {
                     passport.authenticate('local')(req, res, function () {
                         res.status(200)
@@ -86,6 +105,7 @@ module.exports = function (data) {
                     res.status(400)
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
                 );
+
         }
     };
 };

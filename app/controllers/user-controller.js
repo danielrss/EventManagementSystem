@@ -37,50 +37,75 @@ module.exports = function (data) {
                 });
         },
         uploadProfileAvatar(req, res) {
-            return Promise.resolve()
-                .then(() => {
-                    if (!req.isAuthenticated()) {
-                        res.status(401).redirect('/unauthorized');
-                    } else {
-                        let form = new formidable.IncomingForm(),
-                            files = [];
+            return new Promise((resolve, reject) => {
+                if (!req.isAuthenticated()) {
+                    res.status(401).redirect('/unauthorized');
+                    reject();
+                } else {
+                    let form = new formidable.IncomingForm();
+                    form.maxFieldsSize = 2 * 1024 * 1024;
 
-                        form.parse(req, function(err, fields, files) {
-                            res.status(200)
-                                .send({ redirectRoute: '/profile' });
-                        });
-
-                        form.on('end', function (fields, file) {
-                            let tempPath = this.openedFiles[0].path,
-                                openedFileName = this.openedFiles[0].name,
-                                newFileName = req.user.id + openedFileName.substring(openedFileName.lastIndexOf('.'), openedFileName.length);
-
-                            let userId = req.user.id;
-
-                            let pathToNewFile = path.join(__dirname, '../../public/uploads/users', newFileName);
-
-
-
-                            fs.copy(tempPath, pathToNewFile, function (err) {
-                                if (err) {
-                                    console.error(err);
+                    form.onPart = function(part) {
+                        if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                            form.on('end', function(fields, files) {
+                                if (this.openedFiles[0].size > form.maxFieldsSize) {
+                                    return reject({ name: 'ValidationError', message: 'Maximum file size is 2MB.' });
+                                } else {
+                                    res.status(200)
+                                        .send({ redirectRoute: '/profile' });
                                 }
 
-                                fs.remove(tempPath, (err) => {
+                                /* Temporary location of our uploaded file */
+                                let tempPath = this.openedFiles[0].path,
+                                    openedFileName = this.openedFiles[0].name,
+                                    fileExtension = openedFileName.substring(openedFileName.lastIndexOf('.'), openedFileName.length),
+                                    userFolder = req.user.id,
+                                    newFileName = 'avatar' + fileExtension;
+
+                                /* Location where we want to copy the uploaded file */
+                                let pathToNewFolder = path.join(__dirname, '../../public/uploads/users', userFolder);
+                                if (!fs.existsSync(pathToNewFolder)){
+                                    fs.mkdirSync(pathToNewFolder);
+                                }
+
+                                let pathToNewFile = path.join(pathToNewFolder, newFileName);
+
+                                fs.copy(tempPath, pathToNewFile, function (err) {
                                     if (err) {
-                                        console.error(err);
+                                        return reject(err);
                                     }
 
-                                    data.findUserByIdAndUpdate(userId, { avatarUrl: '/static/uploads/users/' + newFileName });
+                                    fs.remove(tempPath, (err) => {
+                                        if (err) {
+                                            return reject(err);
+                                        }
+
+                                        resolve(newFileName);
+                                    });
                                 });
                             });
-                        });
-                    }
-                })
-                .catch(err => {
-                    res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
-                });
+                            form.handlePart(part);
+                        }
+                        else {
+                            return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
+                        }
+                    };
+
+                    form.on('error', function(err) {
+                        reject(err);
+                    });
+
+                    form.parse(req);
+                }
+            })
+            .then((fileName) => {
+                let avatarUrl = '/static/uploads/users/' + req.user.id + '/' + fileName;
+                data.findUserByIdAndUpdate(req.user.id, { avatarUrl });
+            })
+            .catch((err) => {
+                res.status(400)
+                    .send(JSON.stringify({ validationErrors: [err.message] }));
+            });
         },
         getUnauthorized(req, res) {
             return Promise.resolve()
@@ -105,7 +130,14 @@ module.exports = function (data) {
         updateProfile(req, res) {
             const updatedUser = req.body;
 
-            return data.findUserByIdAndUpdate(req.user._id, updatedUser)
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.redirect('/home');
+                    } else {
+                        return data.findUserByIdAndUpdate(req.user._id, updatedUser);
+                    }
+                })
                 .then(user => {
                     res.status(200)
                             .send({ redirectRoute: '/profile' });
