@@ -85,26 +85,24 @@ module.exports = function(models) {
         getEventsGroupedByCategories() {
             return new Promise((resolve, reject) => {
                 Event.find((err, events) => {
-                    let result = [],
-                        types = {},
-                        i, j, current;
-                    for (i = 0, j = events.length; i < j; i++) {
-                        current = events[i];
-                        if (!(current.eventType.name in types)) {
-                            types[current.eventType.name] = { type: current.eventType.name, events: [] };
-                            result.push(types[current.eventType.name]);
-                        }
-                        types[current.eventType.name].events.push(current);
-                    }
+                    let eventsByTypes = {};
 
-                    let groupedEvents = result;
+                    for (let i = 0, eventsCount = events.length; i < eventsCount; i++) {
+                        let current = events[i],
+                            typeName = current.eventType.name;
+                        if(!eventsByTypes[typeName]) {
+                            eventsByTypes[typeName] = { name: typeName, events:[] };
+                        }
+                        eventsByTypes[typeName].events.push(current);
+                    }
+                    console.log(eventsByTypes);
                     if (err) {
                         return reject(err);
                     }
 
-                    return resolve(groupedEvents);
+                    return resolve(eventsByTypes);
                 });
-
+                
             });
         },
         searchEvents() {
