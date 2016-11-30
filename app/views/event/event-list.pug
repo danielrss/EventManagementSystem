@@ -17,18 +17,18 @@ block content
                     .col-sm-8.col-sm-offset-2.text
                         h2 Here you can discover all events
                             .form-box
-                                each event in events
+                                each category in events
                                     strong 
                                         h1
-                                            strong='Category:' +  event.type
-                                    each sortedEvent in event.events
+                                            strong='Category:' +  category.name
+                                    each event in category.events
                                         strong
-                                            a(href='events/' + sortedEvent.id)= sortedEvent.name
+                                            a(href='events/' + event.id)= event.name
                                         div
-                                            img(src= sortedEvent.coverUrl)
-                                        p='Date:' + sortedEvent.dateOfEvent.getFullYear() + '/' + (sortedEvent.dateOfEvent.getMonth() + 1) + '/' + sortedEvent.dateOfEvent.getDate()
-                                        p='Time:' + (sortedEvent.dateOfEvent.getHours()<10?'0':'') + sortedEvent.dateOfEvent.getHours() + ':' + (sortedEvent.dateOfEvent.getMinutes()<10?'0':'') + sortedEvent.dateOfEvent.getMinutes() + 'h'
-                                        p='Description:' + sortedEvent.description
-                                        p='Location:' + sortedEvent.location
+                                            img(src= event.coverUrl)
+                                        p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                        p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                        p='Description:' + event.description
+                                        p='Location:' + event.location
 
 

@@ -15,6 +15,20 @@ module.exports = function(data) {
                         .send(err);
                 });
         },
+        getCreateEventForm(req, res) {
+            if (!req.isAuthenticated()) {
+                return res.redirect('/');
+            }
+            return data.getAllEventTypes()
+                .then(eventTypes => {
+                    return res.render('event/event-create', {
+                        user: req.user,
+                        model: {
+                            eventTypes
+                        }
+                    });
+                });
+        },
         getEventDetails(req, res) {
             let id = req.params.id;
             data.getEventById(id)
@@ -49,6 +63,19 @@ module.exports = function(data) {
                         user: req.user
                     });
                 }))
+                .catch(err => {
+                    res.status(404)
+                        .send(err);
+                });
+        },
+        search(req, res) {
+            data.searchEvents()
+                .then(events => {
+                    return res.render('event/event-search', {
+                        events,
+                        user: req.user
+                    });
+                })
                 .catch(err => {
                     res.status(404)
                         .send(err);
