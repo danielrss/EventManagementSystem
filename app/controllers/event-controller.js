@@ -42,7 +42,7 @@ module.exports = function(data) {
                 });
         },
         getEvents(req, res) {
-            data.getAllEvents()
+            data.getEventsGroupedByCategories()
                 .then((events => {
                     return res.render('event/event-list', {
                         events,

@@ -19,12 +19,16 @@ block content
                             .form-box
                                 each event in events
                                     strong 
-                                        a(href='events/' + event.id)= event.name
+                                        h1
+                                            strong='Category:' +  event.type
+                                    each sortedEvent in event.events
+                                        strong
+                                            a(href='events/' + sortedEvent.id)= sortedEvent.name
                                         div
-                                            img(src= event.coverUrl)
-                                        p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
-                                        p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
-                                        p='Description:' + event.description
-                                        p='Location:' + event.location
+                                            img(src= sortedEvent.coverUrl)
+                                        p='Date:' + sortedEvent.dateOfEvent.getFullYear() + '/' + (sortedEvent.dateOfEvent.getMonth() + 1) + '/' + sortedEvent.dateOfEvent.getDate()
+                                        p='Time:' + (sortedEvent.dateOfEvent.getHours()<10?'0':'') + sortedEvent.dateOfEvent.getHours() + ':' + (sortedEvent.dateOfEvent.getMinutes()<10?'0':'') + sortedEvent.dateOfEvent.getMinutes() + 'h'
+                                        p='Description:' + sortedEvent.description
+                                        p='Location:' + sortedEvent.location
 
 

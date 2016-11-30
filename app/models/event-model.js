@@ -20,9 +20,9 @@ let EventSchema = new Schema({
         //required: true
     },
     eventType: {
-        type: String,
-        _id: Number,
-        required: true
+        // type:String,
+        // _id: Number,
+        // required: true
     },
     user: {
         type: String,
@@ -53,6 +53,10 @@ let EventSchema = new Schema({
     },
     isDeleted: {
         type: Boolean
+    },
+    isApproved:{
+        type: Boolean,
+        default: false
     },
     capacity: {
         type: Number,
