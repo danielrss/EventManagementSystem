@@ -54,7 +54,7 @@ let EventSchema = new Schema({
     isDeleted: {
         type: Boolean
     },
-    isApproved:{
+    isApproved: {
         type: Boolean,
         default: false
     },
@@ -64,6 +64,12 @@ let EventSchema = new Schema({
     },
     isIncoming: {
         type: Boolean
+    },
+    minAge: {
+        type: Number,
+    },
+    maxAge: {
+        type: Number
     }
 });
 

@@ -4,7 +4,7 @@ module.exports = function(models) {
     const dataUtils = require('./utils/data-utils'),
         mapper = require('../utils/mapper'),
         Event = models.Event,
-        EventType =models.EventType;
+        EventType = models.EventType;
 
     return {
         createEvent(name, eventTypeName, location, description, dateOfEvent, coverUrl, capacity) {
@@ -13,7 +13,7 @@ module.exports = function(models) {
             return dataUtils.loadOrCreateEventType(EventType, eventTypeName)
                 .then(dbEventType => {
                     eventType = dbEventType;
-                  
+
                     let event = new Event({
                         name,
                         eventType: mapper.map(eventType, '_id', 'name'),
@@ -97,14 +97,26 @@ module.exports = function(models) {
                         types[current.eventType.name].events.push(current);
                     }
 
-                    let groupedEvents=result;
+                    let groupedEvents = result;
                     if (err) {
                         return reject(err);
                     }
 
                     return resolve(groupedEvents);
                 });
-                
+
+            });
+        },
+        searchEvents() {
+            return new Promise((resolve, reject) => {
+                Event.find()
+                    .exec((err, events) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(events || []);
+                    });
             });
         }
     };
