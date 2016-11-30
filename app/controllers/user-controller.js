@@ -42,20 +42,24 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.status(401).redirect('/unauthorized');
                     } else {
-                        let form = new formidable.IncomingForm();
+                        let form = new formidable.IncomingForm(),
+                            files = [];
+
                         form.parse(req, function(err, fields, files) {
                             res.status(200)
                                 .send({ redirectRoute: '/profile' });
                         });
 
-                        form.on('end', function (fields, files) {
-                            /* Temporary location of our uploaded file */
-                            let tempPath = this.openedFiles[0].path;
-                            /* The file name of the uploaded file */
-                            let openedFileName = this.openedFiles[0].name;
-                            let newFileName = req.user.id + openedFileName.substring(openedFileName.lastIndexOf('.'), openedFileName.length);
-                            /* Location where we want to copy the uploaded file */
+                        form.on('end', function (fields, file) {
+                            let tempPath = this.openedFiles[0].path,
+                                openedFileName = this.openedFiles[0].name,
+                                newFileName = req.user.id + openedFileName.substring(openedFileName.lastIndexOf('.'), openedFileName.length);
+
+                            let userId = req.user.id;
+
                             let pathToNewFile = path.join(__dirname, '../../public/uploads/users', newFileName);
+
+
 
                             fs.copy(tempPath, pathToNewFile, function (err) {
                                 if (err) {
@@ -67,7 +71,7 @@ module.exports = function (data) {
                                         console.error(err);
                                     }
 
-                                    data.findUserByIdAndUpdate(req.user.id, { avatarUrl: '/static/uploads/users/' + newFileName });
+                                    data.findUserByIdAndUpdate(userId, { avatarUrl: '/static/uploads/users/' + newFileName });
                                 });
                             });
                         });

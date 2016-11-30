@@ -82,6 +82,18 @@ module.exports = function(models) {
                 });
             });
         },
+        getAllEventTypeNames() {
+            return new Promise((resolve, reject) => {
+                EventType.find().distinct('name', (error, eventNames) => {
+                    if (error) {
+                        return reject(error);
+                    }
+
+                    return resolve(eventNames);
+                });
+
+            });
+        },
         getEventsGroupedByCategories() {
             return new Promise((resolve, reject) => {
                 Event.find((err, events) => {

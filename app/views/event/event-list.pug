@@ -4,31 +4,66 @@ block app-title
     | Events | EventManagementSystem
 
 block vars
-   - var bodyClass = 'profile';
+   - var bodyClass = 'events-list inner';
+
+block additionalCss
+    link(rel="stylesheet", href="/static/styles/events-list.css")
 
 block content
     .top-container
         .inner-bg
-            .container
-                .row
-                    .col-sm-8.col-sm-offset-2.text
-                    h1 Events
+            .container-fluid
+                //
                     .row
-                    .col-sm-8.col-sm-offset-2.text
-                        h2 Here you can discover all events
-                            .form-box
-                                each category in events
-                                    strong 
-                                        h1
-                                            strong='Category:' +  category.name
-                                    each event in category.events
+                        .col-sm-8.col-sm-offset-2.text
+                        h1 Events
+                        .row
+                        .col-sm-8.col-sm-offset-2.text
+                            h2 Here you can discover all events
+                                .form-box
+                                    each category in events
                                         strong
-                                            a(href='events/' + event.id)= event.name
-                                        div
-                                            img(src= event.coverUrl)
-                                        p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
-                                        p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
-                                        p='Description:' + event.description
-                                        p='Location:' + event.location
+                                            h1
+                                                strong='Category:' +  category.name
+                                        each event in category.events
+                                            strong
+                                                a(href='events/' + event.id)= event.name
+                                            div
+                                                img(src= event.coverUrl)
+                                            p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                            p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                            p='Description:' + event.description
+                                            p='Location:' + event.location
+
+                div#events-block-it
+                    div.title
+                        h1
+                            |  Discover
+                            strong  Events
+                            |  Easy
+                        i(class="fa fa-diamond fa-2x fa-fw")
+                        p | Loop through current event catalogue and find the most suitable events for you...
+
+                    div#filters.button-group
+                        button.button(class="btn button is-checked" data-filter="*") Show all
+                        each category in events
+                            - var trimmedCatName = category.name.replace(" ", "");
+                            button.button(class="btn button" data-filter='.' + trimmedCatName)= category.name
+
+                    div.grid
+                        div.grid-sizer
+                        each category in events
+                            - var trimmedCatName = category.name.replace(" ", "");
+
+                            each event in category.events
+                                div(class="element-item " + trimmedCatName data-category=trimmedCatName)
+                                    .overlay
+                                    a(class='event-link' href='events/' + event.id)
+                                        img(src=event.coverUrl)
+block specificJs
+    script(src="/static/bower_components/isotope/dist/isotope.pkgd.js")
+    script(src="/static/scripts/events/events-list.js")
+
+
 
 
