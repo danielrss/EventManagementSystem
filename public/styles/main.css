@@ -212,6 +212,11 @@ header #logo .logo-fa{
     top: 4px;
 }
 
+#profile-avatar{
+    width: 100px;
+    height: 125px
+}
+
 #content{
     float: left;
     position: relative;
