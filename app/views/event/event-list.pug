@@ -10,46 +10,25 @@ block content
     .top-container
         .inner-bg
             .container
-                //
+                .row
+                    .col-sm-8.col-sm-offset-2.text
+                    h1 Events
                     .row
-                        .col-sm-8.col-sm-offset-2.text
-                        h1 Events
-                        .row
-                        .col-sm-8.col-sm-offset-2.text
-                            h2 Here you can discover all events
-                                .form-box
-                                    each event in events
+                    .col-sm-8.col-sm-offset-2.text
+                        h2 Here you can discover all events
+                            .form-box
+                                each category in events
+                                    strong 
+                                        h1
+                                            strong='Category:' +  category.name
+                                    each event in category.events
                                         strong
                                             a(href='events/' + event.id)= event.name
-                                            p='location:' + event.location
+                                        div
+                                            img(src= event.coverUrl)
+                                        p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                        p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                        p='Description:' + event.description
+                                        p='Location:' + event.location
 
 
-
-
-
-                //
-                    div(id="events-magic")
-                        div(id="events-tags")
-                            ul#options
-                                li.selected
-                                    a(href="#filter" data-option-value="*") All
-                                li
-                                    a(href="#filter" data-option-value=".graphic-design") Graphic design
-                                li
-                                    a(href="#filter" data-option-value=".test") Graphic design
-                        div(id="events-list" class="events_block image-grid columns4 port_type_1 rd_hover_white thumbnail_type_6")
-                            div(class="graphic-design  element rd_portfolio_small_squared" data-category="graphic-design")
-                                div(class="filter_img") test 1
-                            div(class="graphic-design  element rd_portfolio_small_squared" data-category="graphic-design")
-                                div(class="filter_img") test 3
-                            div(class="graphic-design  element rd_portfolio_small_squared" data-category="graphic-design")
-                                div(class="filter_img") test 2
-                            div(class="test element rd_portfolio_small_squared" data-category="test")
-                                div(class="filter_img") asd 1
-                            div(class="test  element rd_portfolio_small_squared" data-category="test")
-                                div(class="filter_img") asd 2
-                            div(class="test  element rd_portfolio_small_squared" data-category="test")
-                                div(class="filter_img") asd 3
-block specificJs
-    script(src="/static/bower_components/isotope/dist/isotope.pkgd.js")
-    script(src="/static/scripts/events/events-list.js")

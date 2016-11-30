@@ -16,6 +16,8 @@ module.exports = function(app, express, data) {
         .post('/register', authController.register)
         .get('/profile', userController.getProfile)
         .post('/profile', userController.updateProfile)
+        .get('/profile/avatar', userController.getProfileAvatar)
+        .post('/profile/avatar', userController.uploadProfileAvatar)
         .get('/unauthorized', userController.getUnauthorized);
 
     app.use(userRouter);

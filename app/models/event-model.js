@@ -20,9 +20,9 @@ let EventSchema = new Schema({
         //required: true
     },
     eventType: {
-        type: String,
-        _id: Number,
-        required: true
+        // type:String,
+        // _id: Number,
+        // required: true
     },
     user: {
         type: String,
@@ -43,8 +43,8 @@ let EventSchema = new Schema({
         type: Date,
         required: true
     },
-    cover: {
-        type: Buffer,
+    coverUrl: {
+        type: String,
         //required: true
     },
     rating: {
@@ -54,12 +54,22 @@ let EventSchema = new Schema({
     isDeleted: {
         type: Boolean
     },
+    isApproved: {
+        type: Boolean,
+        default: false
+    },
     capacity: {
         type: Number,
         required: true
     },
     isIncoming: {
         type: Boolean
+    },
+    minAge: {
+        type: Number,
+    },
+    maxAge: {
+        type: Number
     }
 });
 

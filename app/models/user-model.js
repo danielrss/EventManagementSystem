@@ -45,6 +45,10 @@ let UserSchema = new Schema({
         dropDups: true,
         match: emailPattern
     },
+    avatarUrl: {
+        type: String,
+        default: '/static/uploads/users/avatar.jpg'
+    },
     salt: String,
     passwordHash: {
         type: String
