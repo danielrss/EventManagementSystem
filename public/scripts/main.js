@@ -31,9 +31,9 @@ function initializeFullPageBackgrounds(){
     $('.page-home').backstretch('static/media/hp_cover.jpg');
     $('.page-login').backstretch('static/media/hp_cover.jpg').blurElement('.page-login .backstretch');
     $('.page-register').backstretch('static/media/hp_cover.jpg').blurElement('.page-register .backstretch');
-    $('.page-profile').backstretch('static/media/hp_cover.jpg').blurElement('.page-profile .backstretch');
-    $('.page-events').backstretch('static/media/hp_cover.jpg').blurElement('.page-events .backstretch');
-    $('.page-event').backstretch('static/media/hp_cover.jpg').blurElement('.page-event .backstretch');
+    // $('.page-profile').backstretch('static/media/hp_cover.jpg').blurElement('.page-profile .backstretch');
+    // $('.page-events').backstretch('static/media/hp_cover.jpg').blurElement('.page-events .backstretch');
+    // $('.page-event').backstretch('static/media/hp_cover.jpg').blurElement('.page-event .backstretch');
 }
 
 $.fn.blurElement = function (container) {
