@@ -71,6 +71,17 @@ module.exports = function(models) {
                     return resolve(events);
                 });
             });
-        }
+        },
+        // getEventsGroupedByCategories() {
+        //     return new Promise((resolve, reject) => {
+        //         Event.find((err, events) => {
+        //             if (err) {
+        //                 return reject(err);
+        //             }
+
+        //             return resolve(events);
+        //         });
+        //     });
+        // }
     };
 };
