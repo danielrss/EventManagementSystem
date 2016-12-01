@@ -40,7 +40,55 @@
 #events-block-it .element-item {
     float: left;
 }
-
+#events-block-it .element-item .overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    background: rgba(0, 0, 0, .75);
+    color: #FFF;
+    padding:20px;
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -ms-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out;
+}
+#events-block-it .element-item .overlay a{
+    display: block;
+    float: left;
+    width: 100%;
+    height: 100%;
+    font-family: montserrat-regular;
+    color: #fff;
+    text-decoration: none;
+}
+#events-block-it .element-item .overlay a .title{
+    text-align: center;
+    color:#33cb98
+}
+#events-block-it .element-item .overlay a .desc{
+    word-wrap: break-word;
+}
+#events-block-it .element-item .overlay a .date{
+    float: left;
+    color:#33cb98
+}
+#events-block-it .element-item .overlay a .location{
+    float: right;
+    color:#33cb98
+}
+#events-block-it .element-item .overlay a strong{
+    color:#fff;
+}
+#events-block-it .element-item:hover .overlay{
+    visibility: visible;
+    cursor: pointer;
+    zoom: 1;
+    filter: alpha(opacity=50);
+}
 #events-block-it .element-item img {
     width: 100%;
 }
@@ -51,12 +99,16 @@
 
 .page-events-list .inner-bg {
     padding-top: 0;
+    padding-bottom:0 !important;
 }
 
 #filters,
 #sorts {
     text-align: center;
     margin: 30px 0px 20px;
+}
+#sorts{
+    margin: 30px 0px 100px;
 }
 
 
@@ -125,7 +177,7 @@
     overflow: hidden;
     float: left;
     width: 100%;
-    padding: 5% 0;
+    padding: 10% 0 22%;
 }
 
 #events-block-it {
@@ -148,6 +200,13 @@
     height: 35px;
     line-height: 35px;
 }
+#filters button:hover,
+#filters button:focus,
+#filters button.is-checked{
+    background:#33cb98;
+    color:#fff;
+    opacity:1;
+}
 
 #sorts button {
     background-color: #33cb98;
@@ -165,7 +224,7 @@
 
 #load-more {
     float: none;
-    margin: 30px auto;
+    margin: 100px auto 30px;
     display: block;
     background: #33cb98;
 }
@@ -175,3 +234,7 @@
     opacity: 1;
     color: #fff !important;
 }
+.page-events-list #content{
+    height:auto;
+}
+

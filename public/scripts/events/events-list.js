@@ -1,6 +1,6 @@
 'use strict';
 
-const INIT_SHOW = 5;
+const INIT_SHOW = 15;
 
 (() => {
     $(document).ready(function() {
