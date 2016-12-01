@@ -57,9 +57,6 @@ let EventSchema = new Schema({
     isApproved: {
         type: Boolean,
         default: false
-    },
-    isIncoming: {
-        type: Boolean
     }
 });
 

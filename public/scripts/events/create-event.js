@@ -76,12 +76,11 @@ const MIN_NAME_LENGTH = 3,
     function validateCreateForm(){
         let isFormValid = false,
             isNameValid = false,
-            isCategoryValid = false,
-            isCityValid = false,
-            isCountryValid = false,
+            // isCategoryValid = false,
+            // isCityValid = false,
+            // isCountryValid = false,
             isAddressValid = false,
             isDescriptionValid = false,
-            isCoverUrlValid = false,
             isCapacityValid = false;
 
         $createForm.find('input').each(function(){
@@ -90,18 +89,6 @@ const MIN_NAME_LENGTH = 3,
 
             if(inputName === 'name'){
                 isNameValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
-            }
-
-            if(inputName === 'eventType'){
-                isCategoryValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
-            }
-
-            if(inputName === 'city'){
-                isCityValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, NAME_PATTERN);
-            }
-
-            if(inputName === 'country'){
-                isCountryValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, NAME_PATTERN);
             }
 
             if(inputName === 'address'){
@@ -117,7 +104,7 @@ const MIN_NAME_LENGTH = 3,
             }
         });
 
-        if(isNameValid && isCategoryValid && isCityValid && isCountryValid && isAddressValid && isDescriptionValid && isCapacityValid){
+        if(isNameValid && isAddressValid && isDescriptionValid && isCapacityValid){
             isFormValid = true;
         }
 

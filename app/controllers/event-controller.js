@@ -20,13 +20,14 @@ module.exports = function(data) {
             if (!req.isAuthenticated()) {
                 return res.redirect('/login');
             }
-            return data.getAllEventTypes()
-                .then(eventTypes => {
+
+            return Promise.all([data.getAllEventTypes(), data.getAllCities(), data.getAllCountries()])
+                .then(([eventTypes, cities, countries ])=>{
                     return res.render('event/event-create', {
                         user: req.user,
-                        model: {
-                            eventTypes
-                        }
+                        eventTypes,
+                        cities,
+                        countries                  
                     });
                 });
         },

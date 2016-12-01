@@ -75,9 +75,6 @@ module.exports = function(models) {
                 });
             });
         },
-        insertManyUsers(users) {
-            User.insertMany(users);
-        },
         getAllUsers() {
             return new Promise((resolve, reject) => {
                 User.find((err, users) => {

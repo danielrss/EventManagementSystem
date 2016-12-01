@@ -1,31 +1,31 @@
 'use strict';
 
 module.exports = function (models) {
-    const EventType = models.EventType;
+    const City = models.City;
 
     return {
-        createEventType(name) {
-            let eventType = new EventType({
+        createCity(name) {
+            let city = new City({
                 name
             });
 
             return new Promise((resolve, reject) => {
-                eventType.save((error) => {
+                city.save((error) => {
                     if (error) {
                         return reject(error);
                     }
-                    return resolve(eventType);
+                    return resolve(city);
                 });
             });
         },
-        getAllEventTypes() {
+        getAllCities() {
             return new Promise((resolve, reject) => {
-                EventType.find((err, eventTypes) => {
+                City.find((err, cities) => {
                     if (err) {
                         return reject(err);
                     }
 
-                    return resolve(eventTypes);
+                    return resolve(cities);
                 });
             });
         },

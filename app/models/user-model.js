@@ -5,9 +5,9 @@ const mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema;
 
-const letters = /[A-Za-z]/,
-    lettersAndNumbers = /[A-Za-z1-9]/,
-    emailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const LETTERS = /[A-Za-z]/,
+    ALPHA_PATTERN = /[A-Za-z1-9]/,
+    EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 let UserSchema = new Schema({
     firstName: {
@@ -15,14 +15,14 @@ let UserSchema = new Schema({
         required: true,
         minlength: [3, 'Name is too short!'],
         maxlength: [50, 'Name is too long!'],
-        match: letters
+        match: LETTERS
     },
     lastName: {
         type: String,
         required: true,
         minlength: [3, 'Name is too short!'],
         maxlength: [50, 'Name is too long!'],
-        match: letters
+        match: LETTERS
     },
     username: {
         type: String,
@@ -31,7 +31,7 @@ let UserSchema = new Schema({
         dropDups: true,
         minlength: [3, 'Name is too short!'],
         maxlength: [50, 'Name is too long!'],
-        match: lettersAndNumbers
+        match: ALPHA_PATTERN
     },
     age: {
         type: Number,
@@ -43,7 +43,7 @@ let UserSchema = new Schema({
         required: true,
         unique: true,
         dropDups: true,
-        match: emailPattern
+        match: EMAIL_PATTERN
     },
     avatarUrl: {
         type: String,

@@ -1,7 +1,7 @@
 extends ../_layout
 
 block app-title
-    | Register | EventManagementSystem
+    | Create Event | EventManagementSystem
 
 block vars
    - var bodyClass = 'register';
@@ -40,28 +40,26 @@ block content
                                               id="form-username")
                                         span.error.error-username
                                     .form-group
-                                        label(class="sr-only" for="form-email")
-                                        input(type="text"
-                                              name="eventType"
-                                              placeholder="Category..."
-                                              class="form-email form-control"
-                                              id="form-email")
+                                        label(class="sr-only" for="form-email") 
+                                        | Category: 
+                                        select(name="eventType")
+                                            each eventType in eventTypes
+                                                option(value= eventType.name)= eventType.name
+                                        
                                         span.error.error-email
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        input(type="text"
-                                              name="city"
-                                              placeholder="City.."
-                                              class="form-password form-control"
-                                              id="form-password")
+                                        | Country: 
+                                        select(name="country")
+                                            each country in countries
+                                                option(value= country.name)= country.name
                                         span.error.error-password
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        input(type="text"
-                                              name="country"
-                                              placeholder="Country.."
-                                              class="form-password form-control"
-                                              id="form-password")
+                                        | City: 
+                                        select(name="city")
+                                            each city in cities
+                                                option(value= city.name)= city.name
                                         span.error.error-password
                                     .form-group
                                         label(class="sr-only" for="form-password")

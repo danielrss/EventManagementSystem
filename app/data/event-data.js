@@ -14,7 +14,7 @@ module.exports = function(models) {
                 country,
                 city;
 
-            return Promise.all([dataUtils.loadOrCreateType(EventType, eventData.eventType), dataUtils.loadOrCreateType(Country, eventData.country),dataUtils.loadOrCreateType(City, eventData.city)])
+            return Promise.all([dataUtils.loadType(EventType, eventData.eventType), dataUtils.loadType(Country, eventData.country),dataUtils.loadType(City, eventData.city)])
                 .then(([dbEventType, dbCountry, dbCity ])=>{
                     eventType = dbEventType;
                     country = dbCountry;
@@ -85,31 +85,10 @@ module.exports = function(models) {
                 });
             });
         },
-        getAllEventTypeNames() {
-            return new Promise((resolve, reject) => {
-                EventType.find().distinct('name', (error, eventNames) => {
-                    if (error) {
-                        return reject(error);
-                    }
-
-                    return resolve(eventNames);
-                });
-
-            });
-        },
         getEventsGroupedByCategories() {
             return new Promise((resolve, reject) => {
-                Event.find({ isApproved: true }, (err, events) => {
-                    let eventsByTypes = {};
-
-                    for (let i = 0, eventsCount = events.length; i < eventsCount; i++) {
-                        let current = events[i],
-                            typeName = current.eventType.name;
-                        if(!eventsByTypes[typeName]) {
-                            eventsByTypes[typeName] = { name: typeName, events:[] };
-                        }
-                        eventsByTypes[typeName].events.push(current);
-                    }
+                Event.find({ isApproved: true, isDeleted: false }, (err, events) => {
+                    let eventsByTypes = dataUtils.groupEvents(events);
 
                     if (err) {
                         return reject(err);
@@ -120,15 +99,18 @@ module.exports = function(models) {
                 
             });
         },
-        searchEvents() {
+        searchEvents(options) {
+            options.isApproved=true;
+            options.isDeleted=false;
             return new Promise((resolve, reject) => {
-                Event.find()
-                    .exec((err, events) => {
+                Event.find(options)
+                    .exec((err, resultEvents) => {
+                        let groupedEvents = dataUtils.groupEvents(resultEvents);
                         if (err) {
                             return reject(err);
                         }
 
-                        return resolve(events || []);
+                        return resolve(groupedEvents || []);
                     });
             });
         },
