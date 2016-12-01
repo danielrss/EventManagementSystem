@@ -32,6 +32,21 @@ module.exports = function(models) {
                 });
             });
         },
+        getUserByFacebookId(facebookId) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ facebookId: facebookId }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
         findUserByIdAndUpdate(id, update) {
             return new Promise((resolve, reject) => {
                 User.findOneAndUpdate({ _id: id }, update, { new: true }, (err, user) => {
@@ -50,6 +65,21 @@ module.exports = function(models) {
         getUserByName(name) {
             return new Promise((resolve, reject) => {
                 User.findOne({ username: name }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        getUserByEmail(email) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ email: email }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
