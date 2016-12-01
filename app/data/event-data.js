@@ -107,7 +107,7 @@ module.exports = function(models) {
                         }
                         eventsByTypes[typeName].events.push(current);
                     }
-                    console.log(eventsByTypes);
+
                     if (err) {
                         return reject(err);
                     }
