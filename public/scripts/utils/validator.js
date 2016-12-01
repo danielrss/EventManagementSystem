@@ -67,6 +67,7 @@ const validator = (() => {
 
     return {
         validateInputString,
-        validateInputNumber
+        validateInputNumber,
+        validateInputLength
     };
 })();

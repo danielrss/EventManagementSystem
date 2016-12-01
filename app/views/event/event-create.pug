@@ -30,56 +30,79 @@ block content
                                 #error-container.alert.alert-danger
                                     strong The following errors need to be corrected:
                                     ul
-                                form(role="form" action="" method="post" class="registration-form" id="user-registration-form")
+                                form(role="form" action="" method="post" class="registration-form" id="user-create-form")
                                     .form-group
                                         label(class="sr-only" for="form-username")
                                         input(type="text"
                                               name="name"
                                               placeholder="Name..."
                                               class="form-username form-control"
-                                              id="form-username")
+                                              id="form-username"
+                                              value="nameeee")
                                         span.error.error-username
                                     .form-group
                                         label(class="sr-only" for="form-email")
                                         input(type="text"
-
-                                              name="email"
-                                              placeholder="Email..."
+                                              name="eventType"
+                                              placeholder="Category..."
                                               class="form-email form-control"
-                                              id="form-email")
+                                              id="form-email"
+                                              value="cstegory")
                                         span.error.error-email
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        input(type="password"
-
-                                              name="password"
-                                              placeholder="Password.."
+                                        input(type="text"
+                                              name="city"
+                                              placeholder="City.."
                                               class="form-password form-control"
-                                              id="form-password")
+                                              id="form-password"
+                                              value="city")
                                         span.error.error-password
                                     .form-group
-                                        label(class="sr-only" for="form-first-name") First name
+                                        label(class="sr-only" for="form-password")
                                         input(type="text"
-
-                                              name="firstName"
-                                              placeholder="First name..."
+                                              name="country"
+                                              placeholder="Country.."
+                                              class="form-password form-control"
+                                              id="form-password"
+                                              value="country")
+                                        span.error.error-password
+                                    .form-group
+                                        label(class="sr-only" for="form-password")
+                                        input(type="text"
+                                              name="address"
+                                              placeholder="Address.."
+                                              class="form-password form-control"
+                                              id="form-password"
+                                              value="address")
+                                        span.error.error-password
+                                    .form-group
+                                        label(class="sr-only" for="form-first-name") Description
+                                        input(type="text"
+                                              name="description"
+                                              placeholder="Description..."
                                               class="form-first-name form-control"
-                                              id="form-first-name")
+                                              id="form-first-name"
+                                              value="descriptiooooooooooon")
                                         span.error.error-firstname
                                     .form-group
-                                        label(class="sr-only" for="form-last-name") Last name
+                                        label(class="sr-only" for="form-last-name") Date
                                         input(type="text"
-
-                                              name="lastName"
-                                              placeholder="Last name..."
+                                              name="dateOfEvent"
+                                              placeholder="Date..."
                                               class="form-last-name form-control"
-                                              id="form-last-name")
+                                              id="form-last-name"
+                                              value="2017-02-18 10:00:00")
                                         span.error.error-lastname
                                     .form-group
-                                        label(class="sr-only" for="form-age") Age
-                                        input(type="text"  name="age" placeholder="Age..." class="form-age form-control" id="form-age")
+                                        label(class="sr-only" for="form-age") Cover Url
+                                        input(type="text"  name="coverUrl" placeholder="Cover Url.." class="form-age form-control" id="form-age" value="http://radorado.me/wp-content/uploads/2015/01/hackbulgaria.png")
                                         span.error.error-age
-                                    button(type="button" class="btn" id="register-button") Sign me up!
+                                    .form-group
+                                        label(class="sr-only" for="form-age") Capacity
+                                        input(type="text"  name="capacity" placeholder="Capacity.." class="form-age form-control" id="form-age" value="200")
+                                        span.error.error-age
+                                    button(type="button" class="btn" id="create-button") Create Event
 block specificJs
     script(src="/static/scripts/utils/validator.js")
-    script(src="/static/scripts/users/register.js")
+    script(src="/static/scripts/events/create-event.js")

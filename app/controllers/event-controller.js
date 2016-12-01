@@ -6,9 +6,10 @@ const countOfEvents = 5;
 module.exports = function(data) {
     return {
         createEvent(req, res) {
-            return data.createEvent(req.name, req.eventType, req.location, req.description, req.dateOfEvent, req.capacity)
+            return data.createEvent(req.body, req.user)
                 .then(event => {
-                    return res.redirect(`/events/${event._id}`);
+                    res.status(200)
+                            .send({ redirectRoute: '/events' });
                 })
                 .catch(err => {
                     res.status(400)
@@ -17,7 +18,7 @@ module.exports = function(data) {
         },
         getCreateEventForm(req, res) {
             if (!req.isAuthenticated()) {
-                return res.redirect('/');
+                return res.redirect('/login');
             }
             return data.getAllEventTypes()
                 .then(eventTypes => {

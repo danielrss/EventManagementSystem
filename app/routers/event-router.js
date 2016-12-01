@@ -7,7 +7,7 @@ module.exports = function(app, express, data) {
     eventRouter
         .get('/events', eventController.getEvents)
         .get('/events/create', eventController.getCreateEventForm)
-        .post('/events', eventController.createEvent)
+        .post('/events/create', eventController.createEvent)
         .get('/events/:id', eventController.getEventDetails)
         .get('/events', eventController.getSpecificEvents)
         .get('/events', eventController.getEvents)

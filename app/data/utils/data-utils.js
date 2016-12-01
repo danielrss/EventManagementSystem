@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-    loadOrCreateEventType(EventType, name) {
+    loadOrCreateType(Type, name) {
         return new Promise((resolve, reject) => {
-            EventType.findOne({ name }, (err, dbEventType) => {
+            Type.findOne({ name }, (err, dbEventType) => {
                 let eventType = dbEventType;
 
                 if (err) {
@@ -14,16 +14,16 @@ module.exports = {
                     return resolve(eventType);
                 }
 
-                eventType = new EventType({ name });
-                return new Promise((resolve, reject) => {
-                    eventType.save((error) => {
-                        if (error) {
-                            return reject(error);
-                        }
-                        return resolve(eventType);
-                    });
+                eventType = new Type({ name });
+
+                eventType.save((error) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    return resolve(eventType);
                 });
             });
         });
     }
+
 };
