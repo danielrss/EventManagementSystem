@@ -88,11 +88,11 @@ const MIN_NAME_LENGTH = 3,
                 inputName = input.attr('name');
 
             if(inputName === 'name'){
-                isNameValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
+                isNameValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
             }
 
             if(inputName === 'address'){
-                isAddressValid = validator.validateInputString(input, true, true, MIN_NAME_LENGTH, MAX_NAME_LENGTH, ALPHA_PATTERN);
+                isAddressValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
             }
 
             if(inputName === 'description'){
