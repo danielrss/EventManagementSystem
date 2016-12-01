@@ -1,35 +1,38 @@
 /* globals static */
 
-#events-block-it{
+#events-block-it {
     background-image: url('/static/media/events_background.jpg') !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
     /*padding:150px 0 200px;*/
-
 }
-#events-block-it .title{
+
+#events-block-it .title {
     float: left;
     position: relative;
-    width:100%;
+    width: 100%;
 }
-#events-block-it .title h1{
-    width:100%;
+
+#events-block-it .title h1 {
+    width: 100%;
     float: left;
     text-align: center;
-    color:#fff;
+    color: #fff;
 }
-#events-block-it .title i{
+
+#events-block-it .title i {
     float: none;
     margin: 20px auto;
     display: block;
-    color:#33cb98;
+    color: #33cb98;
 }
-#events-block-it .title p{
+
+#events-block-it .title p {
     float: left;
     position: relative;
-    width:100%;
-    color:#fff;
+    width: 100%;
+    color: #fff;
     text-align: center;
     font-family: montserrat-regular;
 }
@@ -37,28 +40,34 @@
 #events-block-it .element-item {
     float: left;
 }
-#events-block-it .element-item img{
-    width:100%;
+
+#events-block-it .element-item img {
+    width: 100%;
 }
-.page-events-list .container-fluid{
+
+.page-events-list .container-fluid {
     padding: 0;
 }
-.page-events-list .inner-bg{
+
+.page-events-list .inner-bg {
     padding-top: 0;
 }
 
-#filters{
+#filters,
+#sorts {
     text-align: center;
     margin: 30px 0px 20px;
 }
 
 
 /* clear fix */
+
 .grid:after {
     content: '';
     display: block;
     clear: both;
 }
+
 
 /* ---- .grid-item ---- */
 
@@ -75,73 +84,94 @@
     display: block;
     max-width: 100%;
 }
-.element-item:hover{
+
+.element-item:hover {
     border: none !important;
     text-decoration: none !important;
     outline: 0 !important;
     background-color: #fafafa !important;
-    transition: opacity .2s,transform .35s;
+    transition: opacity .2s, transform .35s;
     overflow: hidden;
 }
 
 
 /* TEST */
-#load-more{
-    float:right;
-    margin:5px;
-}
-.hidden{visibility:hidden;
-    width:0px!important;
-    height:0px!important;
-    margin:0px!important;
-    padding:0px!important;
+
+#load-more {
+    float: right;
+    margin: 5px;
 }
 
-.grid{
-    transition: height 0.15s ease-out;
-    -webkit-transition-duration:.8s;
-    -moz-transition-duration:.8s;
-    transition-duration:.8s;
+.hidden {
+    visibility: hidden;
+    width: 0px!important;
+    height: 0px!important;
+    margin: 0px!important;
+    padding: 0px!important;
 }
-#events-block-it
-{
+
+.grid {
     transition: height 0.15s ease-out;
-    -webkit-transition-duration:.8s;
-    -moz-transition-duration:.8s;
-    transition-duration:.8s;
+    -webkit-transition-duration: .8s;
+    -moz-transition-duration: .8s;
+    transition-duration: .8s;
+}
+
+#events-block-it {
+    transition: height 0.15s ease-out;
+    -webkit-transition-duration: .8s;
+    -moz-transition-duration: .8s;
+    transition-duration: .8s;
     overflow: hidden;
     float: left;
-    width:100%;
+    width: 100%;
+    padding: 5% 0;
+}
 
-    padding:5% 0;
-}
 #events-block-it {
-    -webkit-transition-property:height,width;
-    -moz-transition-property:height,width;
-    transition-property:height,width;
-    transition:all 1.5s ;
-    -webkit-transition:all 1.5s ;
-    -o-transition:all 1.5s ;
-    -moz-transition:all 1.5s ;
+    -webkit-transition-property: height, width;
+    -moz-transition-property: height, width;
+    transition-property: height, width;
+    transition: all 1.5s;
+    -webkit-transition: all 1.5s;
+    -o-transition: all 1.5s;
+    -moz-transition: all 1.5s;
 }
-#filters button{
+
+#filters button {
     background: transparent;
-    border:1px solid #33cb98;
-    color:#fff;
+    border: 1px solid #33cb98;
+    color: #fff;
     font-family: montserrat-regular;
     border-radius: 0;
-    margin:4px;
+    margin: 4px;
     height: 35px;
     line-height: 35px;
 }
-#load-more{
-    float: none;
-    margin:30px auto;
-    display: block;
-    background:#33cb98;
+
+#sorts button {
+    background-color: #33cb98;
+    color: #fff;
+    font-family: montserrat-regular;
+    margin: 4px;
+    height: 35px;
+    line-height: 35px;
 }
-#load-more:hover{
-    background:#33cb98 !important;
-    opacity:1;
-    color:#fff !important;
+
+#sorts input {
+    margin: 5px;
+    border: 1px solid #33cb98;
+}
+
+#load-more {
+    float: none;
+    margin: 30px auto;
+    display: block;
+    background: #33cb98;
+}
+
+#load-more:hover {
+    background: #33cb98 !important;
+    opacity: 1;
+    color: #fff !important;
 }

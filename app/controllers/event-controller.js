@@ -63,14 +63,14 @@ module.exports = function(data) {
                             events,
                             user: req.user,
                             isAdmin: true
-                        });  
+                        });
                     } else {
                         return res.render('event/event-list', {
                             events,
                             user: req.user,
                             isAdmin: false
-                        });  
-                    }        
+                        });
+                    }
                 }))
                 .catch(err => {
                     res.status(404)
@@ -78,10 +78,23 @@ module.exports = function(data) {
                 });
         },
         search(req, res) {
-            data.searchEvents()
+            let location = req.query.location,
+                name = req.query.name,
+                options = {};
+
+            if (location) {
+                options['location'] = location;
+            }
+            if (name) {
+                options['name'] = name;
+            }
+
+            data.searchEvents(options)
                 .then(events => {
-                    return res.render('event/event-search', {
+                    return res.render('event/event-list', {
                         events,
+                        location: location,
+                        name: name,
                         user: req.user
                     });
                 })

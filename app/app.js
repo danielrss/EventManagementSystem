@@ -12,17 +12,4 @@ data.createEvent('HackConf', 'Education', 'Sofia', 'IT Conference', new Date('20
 data.createEvent('Concert', 'Entertainment', 'Varna', 'Music Concert', new Date('2016-12-25 20:00:00'), 'http://odschools.org/wp-content/uploads/2015/12/Tree-550x548.jpg', 300);
 data.createEvent('TestEvent', 'Graphic Design', 'Varna', 'Music Concert', new Date('2016-12-25 20:00:00'), 'http://odschools.org/wp-content/uploads/2015/12/Tree-550x548.jpg', 300);
 
-let user = {
-    firstName: 'admin',
-    lastName: 'adminski',
-    username: 'admin',
-    password: 'admin123456',
-    email: 'email@email.com',
-    age: 20,
-    role: 'admin'
-};
-data.createUser(user);
-
 app.start();
-
-
