@@ -4,7 +4,7 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-const letters = /[A-Za-z]/;
+const ALPHA_PATTERN = /[A-Za-z1-9]/;
 
 let EventSchema = new Schema({
     name: {
@@ -12,32 +12,24 @@ let EventSchema = new Schema({
         required: true,
         minlength: [3, 'Name is too short!'],
         maxlength: [50, 'Name is too long!'],
-        match: letters
+        match: ALPHA_PATTERN
     },
     createdOn: {
         type: Date,
         default: Date.now,
-        //required: true
     },
-    eventType: {
-        // type:String,
-        // _id: Number,
-        // required: true
-    },
-    user: {
+    eventType: {},
+    user: {},
+    city: {},
+    country: {},
+    address: {
         type: String,
-        _id: Number,
-        name: String,
-        //required: true
-    },
-    location: {
-        type: String,
-        _id: String,
         required: true
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        minlength: [50, 'Name is too short!']
     },
     dateOfEvent: {
         type: Date,
@@ -45,11 +37,18 @@ let EventSchema = new Schema({
     },
     coverUrl: {
         type: String,
-        //required: true
+        required: true
+    },
+    coverUrls: [],
+    capacity: {
+        type: Number,
+        required: true
+    },
+    minAge: {
+        type: Number,
     },
     rating: {
         type: Number,
-        //required: true
     },
     isDeleted: {
         type: Boolean,
@@ -59,18 +58,8 @@ let EventSchema = new Schema({
         type: Boolean,
         default: false
     },
-    capacity: {
-        type: Number,
-        required: true
-    },
     isIncoming: {
         type: Boolean
-    },
-    minAge: {
-        type: Number,
-    },
-    maxAge: {
-        type: Number
     }
 });
 

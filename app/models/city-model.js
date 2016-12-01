@@ -5,7 +5,7 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     letters = /[A-Za-z]/;
 
-let EventTypeSchema = new Schema({
+let CitySchema = new Schema({
     name: {
         type: String,
         required: true,
@@ -17,8 +17,8 @@ let EventTypeSchema = new Schema({
     }
 });
 
-EventTypeSchema.plugin(uniqueValidator);
+CitySchema.plugin(uniqueValidator);
 
-mongoose.model('EventType', EventTypeSchema);
-let EventType = mongoose.model('EventType');
-module.exports = EventType;
+mongoose.model('City', CitySchema);
+let City = mongoose.model('City');
+module.exports = City;
