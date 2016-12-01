@@ -99,7 +99,7 @@ module.exports = function(models) {
         },
         getEventsGroupedByCategories() {
             return new Promise((resolve, reject) => {
-                Event.find((err, events) => {
+                Event.find({ isApproved: true }, (err, events) => {
                     let eventsByTypes = {};
 
                     for (let i = 0, eventsCount = events.length; i < eventsCount; i++) {

@@ -34,10 +34,15 @@ module.exports = function(data) {
             let id = req.params.id;
             data.getEventById(id)
                 .then(event => {
-                    return res.render('event/event-details', {
-                        event,
-                        user: req.user
-                    });
+                    if(event.isApproved){
+                        return res.render('event/event-details', {
+                            event,
+                            user: req.user
+                        });
+                    }
+                    else{
+                        return res.redirect('/events');
+                    }
                 })
                 .catch(err => {
                     res.status(400)
