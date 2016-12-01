@@ -3,8 +3,8 @@
 const FacebookStrategy = require('passport-facebook');
 
 const FACEBOOK = {
-    FACEBOOK_APP_ID: '195856980819347',
-    FACEBOOK_APP_SECRET: '2f9867ce3959a93743b8c1c1a40caad4',
+    FACEBOOK_APP_ID: '642427575960501',
+    FACEBOOK_APP_SECRET: '56633358aab9094a4a0bc08b641da7b8',
     callbackURL: 'http://localhost:3003/login/facebook/callback'
 };
 
@@ -13,27 +13,24 @@ module.exports = function(passport, data) {
         clientID: FACEBOOK.FACEBOOK_APP_ID,
         clientSecret: FACEBOOK.FACEBOOK_APP_SECRET,
         callbackURL: FACEBOOK.callbackURL
-    },
-        function(accessToken, refreshToken, profile, done) {
-            console.log(profile);
-            data
-                .getUserByName(profile.username)
-                .then(user => {
-                    if (user) {
-                        return user;
-                    } else {
-                        return data.createUser({
-                            username: profile.username,
-                            email: profile.email
-                        });
-                    }
-                })
-                .then(user => {
-                    done(null, user);
-                })
-                .catch(error => done(error, false));
-        }
-    );
+    }, function(accessToken, refreshToken, profile, done) {
+        data
+            .getUserByFacebookId(profile._id)
+            .then(user => {
+                if (user) {
+                    return user;
+                } else {
+                    return data.createUser({
+                        username: profile.username,
+                        facebookId: profile._id
+                    });
+                }
+            })
+            .then(user => {
+                done(null, user);
+            })
+            .catch(error => done(error, false));
+    });
 
     passport.use(authStrategy);
 };

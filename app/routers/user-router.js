@@ -9,7 +9,6 @@ module.exports = function(app, express, data) {
         .get('/login', userController.getLogin)
         .post('/login', authController.loginLocal)
         .get('/login/facebook', authController.loginFacebook)
-        .post('/login/facebook', authController.loginFacebook)
         .get('/login/facebook/callback', authController.loginFacebook)
         .get('/logout', authController.logout)
         .get('/register', userController.getRegister)

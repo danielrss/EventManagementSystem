@@ -38,6 +38,9 @@ let UserSchema = new Schema({
         required: true,
         min: [12, 'Age must be at least 12!']
     },
+    facebookId: {
+        type: String
+    },
     email: {
         type: String,
         required: true,
@@ -68,23 +71,23 @@ let UserSchema = new Schema({
 
 UserSchema
     .virtual('password')
-    .set(function (password) {
+    .set(function(password) {
         this._password = password;
         this.salt = this.makeSalt();
         this.passwordHash = this.encryptPassword(password);
     })
-    .get(function () {
+    .get(function() {
         return this._password;
     });
 
 UserSchema.plugin(uniqueValidator);
 
 UserSchema.methods = {
-    makeSalt: function () {
+    makeSalt: function() {
         return Math.round((new Date().valueOf() * Math.random())) + '';
     },
-    encryptPassword: function (password) {
-        if(!password) {
+    encryptPassword: function(password) {
+        if (!password) {
             return '';
         }
 
@@ -97,7 +100,7 @@ UserSchema.methods = {
             return '';
         }
     },
-    authenticatePassword: function (password) {
+    authenticatePassword: function(password) {
         return this.encryptPassword(password) === this.passwordHash;
     }
 };
