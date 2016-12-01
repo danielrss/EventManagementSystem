@@ -59,6 +59,10 @@ let UserSchema = new Schema({
     },
     isDeleted: {
         type: Boolean
+    },
+    role: {
+        type: String,
+        default: 'user'
     }
 });
 

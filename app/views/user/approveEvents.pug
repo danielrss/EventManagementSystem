@@ -1,0 +1,34 @@
+extends ../_layout
+
+block app-title
+    | Approvals | EventManagementSystem
+
+block vars
+   - var bodyClass = 'profile';
+
+block content
+    .top-container
+        .inner-bg
+            .container
+                .row
+                    .col-sm-8.col-sm-offset-2.text
+                    h1
+                        strong= user.username + "'s profile"
+                .row
+                    .col-sm-8.profile-form-wrapper
+                        .form-box
+                            .form-top
+                                .form-top-left
+                                    h3 Awaiting Events                                    
+                            .form-bottom  
+                                if events.length                                                      
+                                    ul(id="filter-events")
+                                        each event in events 
+                                            li= event.name 
+                                                button(type="button" event-target=event.id class="btn" id="delete-event") Delete
+                                                button(type="button" event-target=event.id class="btn" id="approve-event") Approve
+                                else
+                                    h4 There are no events at this time
+
+block specificJs
+    script(src="/static/scripts/users/admin-approvals.js")

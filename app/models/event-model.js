@@ -52,7 +52,8 @@ let EventSchema = new Schema({
         //required: true
     },
     isDeleted: {
-        type: Boolean
+        type: Boolean,
+        default: false
     },
     isApproved: {
         type: Boolean,

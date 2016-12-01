@@ -128,6 +128,17 @@ module.exports = function(models) {
                         return resolve(events || []);
                     });
             });
+        },
+        getAllAwaitingEvents() {
+            return new Promise((resolve, reject) => {
+                Event.find({ isApproved: false, isDeleted: false }, (err, events) => {
+                    if(err) {
+                        return reject(err);
+                    }
+
+                    return resolve(events);
+                });
+            });
         }
     };
 };
