@@ -13,20 +13,27 @@ block content
                 .row
                     .col-sm-8.col-sm-offset-2.text
                     h1
-                        strong= user.username + "'s profile"
+                        strong(style={color: '#33cb98'}) Awaiting Events 
                 .row
                     .col-sm-8.profile-form-wrapper
                         .form-box
-                            .form-top
-                                .form-top-left
-                                    h3 Awaiting Events                                    
+                            .form-top                                                               
                             .form-bottom  
                                 if events.length                                                      
-                                    ul(id="filter-events")
+                                    ul(id="filter-events" class='awaiting-events')
                                         each event in events 
-                                            li= event.name 
+                                            li(class='awaiting-event')= ''
+                                                h3=event.name
+                                                div
+                                                    img(src= event.coverUrl style={width: '200px', height: '130px'})
+                                                p='Date:' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                                p='Time:' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                                p='Description:' + event.description
+                                                p='Location:' + event.location
+                                                p='Capacity:' + event.capacity
+                                            
                                                 button(type="button" event-target=event.id class="btn" id="delete-event") Delete
-                                                button(type="button" event-target=event.id class="btn" id="approve-event") Approve
+                                                button(type="button" event-target=event.id class="btn" id="approve-event" style={margin: '5px'}) Approve
                                 else
                                     h4 There are no events at this time
 
