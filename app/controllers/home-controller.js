@@ -8,7 +8,12 @@ module.exports = function () {
                     if (!req.isAuthenticated()) {
                         res.render('home', {});
                     } else {
-                        res.render('home', { user: req.user.username });
+                        if(req.user.role === 'admin')
+                        {
+                            res.render('home', { user: req.user.username, isAdmin: true });
+                        } else {
+                            res.render('home', { user: req.user.username, isAdmin: false });
+                        } 
                     }
                 });
         }

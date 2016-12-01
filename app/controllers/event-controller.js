@@ -58,10 +58,19 @@ module.exports = function(data) {
         getEvents(req, res) {
             data.getEventsGroupedByCategories()
                 .then((events => {
-                    return res.render('event/event-list', {
-                        events,
-                        user: req.user
-                    });
+                    if (req.isAuthenticated() && req.user.role === 'admin') {
+                        return res.render('event/event-list', {
+                            events,
+                            user: req.user,
+                            isAdmin: true
+                        });  
+                    } else {
+                        return res.render('event/event-list', {
+                            events,
+                            user: req.user,
+                            isAdmin: false
+                        });  
+                    }        
                 }))
                 .catch(err => {
                     res.status(404)

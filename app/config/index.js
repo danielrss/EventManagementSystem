@@ -2,7 +2,7 @@
 
 module.exports = {
     development: {
-        sessionSecret: '[session_secret',
+        sessionSecret: '[session_secret]',
         connectionString: 'mongodb://localhost:27017/events-db',
         port: 3003
     },

@@ -22,7 +22,11 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.status(401).redirect('/unauthorized');
                     } else {
-                        res.render('user/profile', { user: req.user });
+                        if(req.user.role === 'admin') {
+                            res.render('user/profile', { user: req.user, isAdmin: true });
+                        } else {
+                            res.render('user/profile', { user: req.user, isAdmin: false });
+                        }
                     }
                 });
         },
@@ -32,7 +36,11 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.status(401).redirect('/unauthorized');
                     } else {
-                        res.render('user/profile-avatar', { user: req.user });
+                        if(req.user.role === 'admin') {
+                            res.render('user/profile-avatar', { user: req.user, isAdmin: true });
+                        } else {
+                            res.render('user/profile-avatar', { user: req.user, isAdmin: false });
+                        }                        
                     }
                 });
         },
@@ -146,6 +154,43 @@ module.exports = function (data) {
                     res.status(400)
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
+        },
+        getAllEventsForApproval(req, res) {            
+            return Promise.resolve()
+                .then(() => {                    
+                    if (!req.isAuthenticated()) {
+                        res.status(401).redirect('/unauthorized');
+                    } else {
+                        if(req.user.role === 'admin')
+                        {
+                            data.getAllAwaitingEvents()
+                            .then(events => {
+                                res.render('user/approveEvents', { user: req.user, events: events });
+                            });
+                        } else {
+                            res.status(401).redirect('/unauthorized');                            
+                        }                 
+                    }
+                });
+        },
+        updateEvent(req, res) {
+            return Promise.resolve()
+            .then(() => {                                       
+                data.getEventById(req.body.event)
+                    .then(event => {
+                        if(req.body.action === 'delete-event') {                                
+                            event.isDeleted = true;
+                            event.save();
+                        } else if (req.body.action === 'approve-event') {
+                            event.isApproved = true;
+                            event.save();                              
+                        }        
+                    });
+                res.status(200).send({ redirectRoute: '/approvals' });
+            }).catch(err => {
+                res.status(400)
+                    .send(JSON.stringify({ validationErrors: 'Updating failed' }));
+            });
         }
     };
 };
