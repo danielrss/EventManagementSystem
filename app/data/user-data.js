@@ -32,6 +32,21 @@ module.exports = function(models) {
                 });
             });
         },
+        getUserByFacebookId(facebookId) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ facebookId: facebookId }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
         findUserByIdAndUpdate(id, update) {
             return new Promise((resolve, reject) => {
                 User.findOneAndUpdate({ _id: id }, update, { new: true }, (err, user) => {
@@ -62,6 +77,21 @@ module.exports = function(models) {
                 });
             });
         },
+        getUserByEmail(email) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ email: email }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
         getUsersByNames(User, ...names) {
             return new Promise((resolve, reject) => {
                 User.find({
@@ -74,9 +104,6 @@ module.exports = function(models) {
                     return resolve(users);
                 });
             });
-        },
-        insertManyUsers(users) {
-            User.insertMany(users);
         },
         getAllUsers() {
             return new Promise((resolve, reject) => {

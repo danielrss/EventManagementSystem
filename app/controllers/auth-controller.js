@@ -2,16 +2,16 @@
 const passport = require('passport'),
     helpers = require('../helpers');
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         loginLocal(req, res, next) {
-            const auth = passport.authenticate('local', function (error, user) {
-                if(error) {
+            const auth = passport.authenticate('local', function(error, user) {
+                if (error) {
                     next(error);
                     return;
                 }
 
-                if(!user) {
+                if (!user) {
                     res.status(400);
                     res.json({
                         success: false,
@@ -20,7 +20,7 @@ module.exports = function (data) {
                 }
 
                 req.login(user, error => {
-                    if(error) {
+                    if (error) {
                         next(error);
                         return;
                     }
@@ -40,13 +40,13 @@ module.exports = function (data) {
                 });
         },
         loginFacebook(req, res, next) {
-            const auth = passport.authenticate('facebook', function (error, user) {
-                if(error) {
+            const auth = passport.authenticate('facebook', function(error, user) {
+                if (error) {
                     next(error);
                     return;
                 }
 
-                if(!user) {
+                if (!user) {
                     res.json({
                         success: false,
                         message: 'Invalid name or password!'
@@ -54,13 +54,13 @@ module.exports = function (data) {
                 }
 
                 req.login(user, error => {
-                    if(error) {
+                    if (error) {
                         next(error);
                         return;
                     }
 
                     res.status(200)
-                        .send({ redirectRoute: '/profile' });
+                        .redirect('/home');
                 });
             });
 
@@ -96,14 +96,14 @@ module.exports = function (data) {
                     }
                 })
                 .then(dbUser => {
-                    passport.authenticate('local')(req, res, function () {
+                    passport.authenticate('local')(req, res, function() {
                         res.status(200)
                             .send({ redirectRoute: '/profile' });
                     });
                 })
                 .catch(error =>
                     res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
+                    .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
                 );
 
         }

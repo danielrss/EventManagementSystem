@@ -25,6 +25,18 @@ let event = {
 };
 data.createEvent(event);
 
+let city1 = 'Sofia';
+let city2 = 'Varna';
+let country = 'Bulgaria';
+let category1 = 'Education';
+let category2 = 'Entertainment';
+
+data.createCity(city1);
+data.createCity(city2);
+data.createCountry(country);
+data.createEventType(category1);
+data.createEventType(category2);
+
 let user = {
     firstName: 'admin',
     lastName: 'adminski',

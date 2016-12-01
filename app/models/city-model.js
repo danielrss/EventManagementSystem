@@ -3,7 +3,7 @@
 const mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema,
-    letters = /[A-Za-z]/;
+    LETTERS = /[A-Za-z]/;
 
 let CitySchema = new Schema({
     name: {
@@ -13,7 +13,7 @@ let CitySchema = new Schema({
         dropDups: true,
         minlength: [3, 'Name is too short!'],
         maxlength: [30, 'Name is too long!'],
-        match: letters
+        match: LETTERS
     }
 });
 
