@@ -178,13 +178,17 @@ module.exports = function (data) {
             .then(() => {                                       
                 data.getEventById(req.body.event)
                     .then(event => {
-                        if(req.body.action === 'delete-event') {                                
-                            event.isDeleted = true;
-                            event.save();
-                        } else if (req.body.action === 'approve-event') {
-                            event.isApproved = true;
-                            event.save();                              
-                        }        
+                        if (!req.isAuthenticated()) {
+                            res.status(401).redirect('/unauthorized');
+                        } else {
+                            if(req.body.action === 'delete-event') {                                
+                                event.isDeleted = true;
+                                event.save();
+                            } else if (req.body.action === 'approve-event') {
+                                event.isApproved = true;
+                                event.save();                              
+                            }
+                        }                                
                     });
                 res.status(200).send({ redirectRoute: '/approvals' });
             }).catch(err => {

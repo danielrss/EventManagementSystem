@@ -49,7 +49,12 @@ block content
                         each category in events
                             - var trimmedCatName = category.name.replace(" ", "");
                             button.button(class="btn button" data-filter='.' + trimmedCatName)= category.name
-
+                    div#sorts.button-group
+                        form.form-inline(action="/events/search" method="GET")
+                            input.form-control(type="text" placeholder="Location" name="location" value= location)
+                            input.form-control(type="text" placeholder= "Name" name="name" value= name)
+                            button.button(class="btn button is-checked" data-filter="*") Search
+                            
                     div.grid
                         div.grid-sizer
                         each category in events
@@ -58,7 +63,7 @@ block content
                             each event in category.events
                                 div(class="element-item " + trimmedCatName data-category=trimmedCatName)
                                     .overlay
-                                    a(class='event-link' href='events/' + event.id)
+                                    a(class='event-link' href='/events/' + event.id)
                                         img(src=event.coverUrl)
 block specificJs
     script(src="/static/bower_components/isotope/dist/isotope.pkgd.js")

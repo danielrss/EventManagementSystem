@@ -6,12 +6,11 @@ module.exports = function(app, express, data) {
 
     eventRouter
         .get('/events', eventController.getEvents)
+        .get('/events/search', eventController.search)
         .get('/events/create', eventController.getCreateEventForm)
         .post('/events/create', eventController.createEvent)
         .get('/events/:id', eventController.getEventDetails)
-        .get('/events', eventController.getSpecificEvents)
-        .get('/events', eventController.getEvents)
-        .get('/events/search', eventController.search);
+        .post('/events', eventController.createEvent);
 
     app.use(eventRouter);
 };
