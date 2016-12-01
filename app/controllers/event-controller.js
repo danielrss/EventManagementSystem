@@ -83,10 +83,10 @@ module.exports = function(data) {
                 options = {};
 
             if (location) {
-                options['location'] = location;
+                options['location'] = new RegExp(location, 'i');
             }
             if (name) {
-                options['name'] = name;
+                options['name'] = new RegExp(name, 'i');
             }
 
             data.searchEvents(options)
