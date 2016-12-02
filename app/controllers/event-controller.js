@@ -6,6 +6,10 @@ const COUNT_OF_EVENTS = 5;
 module.exports = function(data) {
     return {
         createEvent(req, res) {
+            if(req.user.role === 'admin') {
+                req.body.isApproved = true;
+            }
+
             return data.createEvent(req.body, req.user)
                 .then(event => {
                     res.status(200)
