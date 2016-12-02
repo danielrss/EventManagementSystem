@@ -41,6 +41,9 @@ let UserSchema = new Schema({
     facebookId: {
         type: String
     },
+    googleplusId: {
+        type: String
+    },
     email: {
         type: String,
         required: true,
@@ -82,7 +85,7 @@ UserSchema
 
 UserSchema
     .virtual('fullName')
-    .get(function () {
+    .get(function() {
         return this.firstName + ' ' + this.lastName;
     });
 

@@ -1,22 +1,20 @@
 'use strict';
 
-const FacebookStrategy = require('passport-facebook');
+const GooglePlusStrategy = require('passport-google-plus');
 
-const FACEBOOK = {
-    FACEBOOK_APP_ID: '642427575960501',
-    FACEBOOK_APP_SECRET: '56633358aab9094a4a0bc08b641da7b8',
-    callbackURL: 'http://localhost:3003/login/facebook/callback'
+const GOOGLEPLUS = {
+    GOOGLE_APP_ID: '42643689062-kmm89boegmnl0bhe4td16fdctlgbl77b.apps.googleusercontent.com',
+    GOOGLE_APP_SECRET: 'n_KJIx9wlxyDwlFPIiGt837x'
 };
 
 module.exports = function(passport, data) {
-    const authStrategy = new FacebookStrategy({
-        clientID: FACEBOOK.FACEBOOK_APP_ID,
-        clientSecret: FACEBOOK.FACEBOOK_APP_SECRET,
-        callbackURL: FACEBOOK.callbackURL
+    const authStrategy = new GooglePlusStrategy({
+        clientID: GOOGLEPLUS.GOOGLE_APP_ID,
+        clientSecret: GOOGLEPLUS.GOOGLE_APP_SECRET
     }, function(token, refreshToken, profile, done) {
         console.log(profile);
         data
-            .getUserByFacebookId(profile.id)
+            .getUserByGoogleplusId(profile.id)
             .then(user => {
                 if (user) {
                     return user;
@@ -27,7 +25,7 @@ module.exports = function(passport, data) {
                         username: profile.username,
                         age: profile.age,
                         email: profile.email,
-                        facebookId: profile.id
+                        googleplusId: profile.id
                     });
                 }
             })

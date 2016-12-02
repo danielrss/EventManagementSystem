@@ -32,9 +32,24 @@ module.exports = function(models) {
                 });
             });
         },
-        getUserByFacebookId(facebookId) {
+        getUserByFacebookId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ facebookId: facebookId }, (err, user) => {
+                User.findOne({ facebookId: id }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        getUserByGoogleplusId(id) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ googleplusId: id }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
