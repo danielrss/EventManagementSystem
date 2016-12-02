@@ -23,9 +23,11 @@ block content
                         p Loop through current event catalogue and find the most suitable events for you...
 
                     div#search.button-group
-                        form.form-inline(action="/events/search" method="GET")
-                            input.form-control(type="text" placeholder="Location" name="location" value= location)
+						form.form-inline(action="/events/search" method="GET")
+                            input.form-control(type="text" placeholder="Country" name="country" value= country)
+                            input.form-control(type="text" placeholder="City" name="city" value= city)
                             input.form-control(type="text" placeholder= "Name" name="name" value= name)
+                            input.form-control(type="text" placeholder="Date of event" name="dateOfEvent" value= dateOfEvent)
                             button.button(class="btn button is-checked" data-filter="*") Search
                     div#filters.button-group
                         button.button(class="btn button is-checked" data-filter="*") Show all
@@ -33,6 +35,7 @@ block content
                             - var trimmedCatName = category.name.replace(" ", "");
                             button.button(class="btn button" data-filter='.' + trimmedCatName)= category.name
                     div#sorts.button-group
+
 
                     div.grid
                         div.grid-sizer

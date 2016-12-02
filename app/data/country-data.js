@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (models) {
+module.exports = function(models) {
     const Country = models.Country;
 
     return {
@@ -14,6 +14,17 @@ module.exports = function (models) {
                     if (error) {
                         return reject(error);
                     }
+                    return resolve(country);
+                });
+            });
+        },
+        getCountryBy(id) {
+            return new Promise((resolve, reject) => {
+                Country.findOne({ _id: id }, (err, country) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
                     return resolve(country);
                 });
             });

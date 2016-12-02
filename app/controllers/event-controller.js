@@ -22,7 +22,7 @@ module.exports = function(data) {
             }
 
             return Promise.all([data.getAllEventTypes(), data.getAllCities(), data.getAllCountries()])
-                .then(([eventTypes, cities, countries ]) => {
+                .then(([eventTypes, cities, countries]) => {
                     return res.render('event/event-create', {
                         user: req.user,
                         eventTypes,
@@ -35,7 +35,7 @@ module.exports = function(data) {
             let id = req.params.id;
             data.getEventById(id)
                 .then(event => {
-                    if(event.isApproved){
+                    if (event.isApproved) {
                         return res.render('event/event-details', {
                             event,
                             user: req.user
@@ -84,12 +84,20 @@ module.exports = function(data) {
                 });
         },
         search(req, res) {
-            let location = req.query.location,
+            let country = req.query.country,
+                city = req.query.city,
+                dateOfEvent = req.query.dateOfEvent,
                 name = req.query.name,
                 options = {};
 
-            if (location) {
-                options['location'] = new RegExp(location, 'i');
+            if (country) {
+                options['country'] = new RegExp(country, 'i');
+            }
+            if (city) {
+                options['city'] = new RegExp(city, 'i');
+            }
+            if (dateOfEvent) {
+                options['dateOfEvent'] = new RegExp(dateOfEvent, 'i');
             }
             if (name) {
                 options['name'] = new RegExp(name, 'i');
@@ -99,7 +107,9 @@ module.exports = function(data) {
                 .then(events => {
                     return res.render('event/event-list', {
                         events,
-                        location: location,
+                        country: country,
+                        city: city,
+                        dateOfEvent: dateOfEvent,
                         name: name,
                         user: req.user
                     });

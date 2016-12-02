@@ -113,7 +113,7 @@ module.exports = function(models) {
         getAllAwaitingEvents() {
             return new Promise((resolve, reject) => {
                 Event.find({ isApproved: false, isDeleted: false }, (err, events) => {
-                    if(err) {
+                    if (err) {
                         return reject(err);
                     }
 
