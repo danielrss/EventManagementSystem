@@ -103,7 +103,7 @@ module.exports = function(data) {
                 })
                 .catch(error => {
                     res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }));
                 });
         }
     };

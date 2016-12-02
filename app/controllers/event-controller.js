@@ -91,16 +91,16 @@ module.exports = function(data) {
                 options = {};
 
             if (country) {
-                options['country'] = new RegExp(country, 'i');
+                options['country.name'] = new RegExp(country, 'i');
             }
             if (city) {
-                options['city'] = new RegExp(city, 'i');
+                options['city.name'] = new RegExp(city, 'i');
             }
             if (dateOfEvent) {
-                options['dateOfEvent'] = new RegExp(dateOfEvent, 'i');
+                options.dateOfEvent = new RegExp(dateOfEvent, 'i');
             }
             if (name) {
-                options['name'] = new RegExp(name, 'i');
+                options.name = new RegExp(name, 'i');
             }
 
             data.searchEvents(options)

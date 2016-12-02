@@ -159,7 +159,7 @@ module.exports = function (data) {
             if (!req.isAuthenticated() || req.user.role !== 'admin') {
                 res.status(401).redirect('/unauthorized');
             } else {
-                return Promise.resolve(data.getAllAwaitingEvents())
+                return data.getAllAwaitingEvents()
                     .then(events => {
                         res.render('user/approveEvents', { user: req.user, isAdmin: true, events: events });
                     });
@@ -169,7 +169,7 @@ module.exports = function (data) {
             if (!req.isAuthenticated() || req.user.role !== 'admin') {
                 res.status(401).redirect('/unauthorized');
             } else {
-                return Promise.resolve(data.getEventById(req.body.event))
+                return data.getEventById(req.body.event)
                     .then(event => {
                         if(req.body.action === 'delete-event') {
                             event.isDeleted = true;

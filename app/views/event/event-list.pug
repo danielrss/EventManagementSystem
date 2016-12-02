@@ -23,7 +23,7 @@ block content
                         p Loop through current event catalogue and find the most suitable events for you...
 
                     div#search.button-group
-						form.form-inline(action="/events/search" method="GET")
+                        form.form-inline(action="/events/search" method="GET")
                             input.form-control(type="text" placeholder="Country" name="country" value= country)
                             input.form-control(type="text" placeholder="City" name="city" value= city)
                             input.form-control(type="text" placeholder= "Name" name="name" value= name)
@@ -35,7 +35,6 @@ block content
                             - var trimmedCatName = category.name.replace(" ", "");
                             button.button(class="btn button" data-filter='.' + trimmedCatName)= category.name
                     div#sorts.button-group
-
 
                     div.grid
                         div.grid-sizer
