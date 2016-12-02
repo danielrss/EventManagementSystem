@@ -41,25 +41,25 @@ block content
                                         span.error.error-username
                                     .form-group
                                         label(class="sr-only" for="form-email") 
-                                        | Category: 
                                         select(name="eventType")
+                                            option(selected disabled) Choose category
                                             each eventType in eventTypes
                                                 option(value= eventType.name)= eventType.name
                                         
                                         span.error.error-email
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        | Country: 
-                                        select(name="country")
+                                        select(name="country" id="country-drop-down")
+                                            option(selected disabled) Choose country
                                             each country in countries
                                                 option(value= country.name)= country.name
                                         span.error.error-password
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        | City: 
-                                        select(name="city")
+                                        select(name="city" id="city-drop-down") |
+                                            option(selected disabled) Choose city
                                             each city in cities
-                                                option(value= city.name)= city.name
+                                                option(value= city.name id="city-option" country= city.country.name)= city.name
                                         span.error.error-password
                                     .form-group
                                         label(class="sr-only" for="form-address")

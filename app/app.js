@@ -30,15 +30,27 @@ require('./routers')(app, data);
 //     });
 
 // let city1 = 'Ruse';
-// let city2 = 'Veliko Tarnovo';
+let country1 = 'Bulgaria';
+let country2= 'Germany';
 // let city3 = 'Lovech';
-// let category1 = 'Sport';
+//let category1 = 'Sport';
 // let category2 = 'Entertainment';
 
 // data.createCity(city3);
-//data.createCity(city2);
-// data.createCountry(country);
-// data.createEventType(category1);
+data.createCountry(country1)
+    .then(() => {
+        data.createCity({ name: 'Veliko Tarnovo', country: 'Bulgaria' });
+        data.createCity({ name: 'Sofia', country: 'Bulgaria' });
+        data.createCity({ name: 'Varna', country: 'Bulgaria' });
+    });
+
+data.createCountry(country2)
+    .then(() => {
+        data.createCity({ name: 'Aachen', country: 'Germany' });
+        data.createCity({ name: 'Koln', country: 'Germany' });
+        data.createCity({ name: 'Munchen', country: 'Germany' });
+    });
+//data.createEventType(category1);
 // data.createEventType(category2);
 
 // let user = {

@@ -3,15 +3,15 @@
 module.exports = {
     loadType(Type, name) {
         return new Promise((resolve, reject) => {
-            Type.findOne({ name }, (err, dbEventType) => {
-                let eventType = dbEventType;
+            Type.findOne({ name }, (err, dbType) => {
+                let type = dbType;
 
                 if (err) {
                     return reject(err);
                 }
 
-                if (eventType) {
-                    return resolve(eventType);
+                if (type) {
+                    return resolve(type);
                 }
             });
         });

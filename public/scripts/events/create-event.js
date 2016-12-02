@@ -11,11 +11,24 @@ const MIN_NAME_LENGTH = 3,
 (() => {
     const $createForm = $('#user-create-form'),
         $createBtn = $('#create-button'),
-        $createFormErrorContainer = $('#error-container');
+        $createFormErrorContainer = $('#error-container'),
+        $countryDropDown = $('#country-drop-down');
 
     $createForm.find(':input').on('focus', function() {
         $(this).removeClass('input-error');
         $(this).next('span').text('');
+    });
+
+    $countryDropDown.change(function(){
+        let country = $(this).val();
+        $('#city-drop-down > option').each(function() {
+            if (country !== $(this).attr('country')){
+                $(this).hide();
+            }
+            else{
+                $(this).show();
+            }
+        });
     });
 
     $createBtn.on('click', () => {
