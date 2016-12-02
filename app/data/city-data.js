@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (models) {
+module.exports = function(models) {
     const City = models.City;
 
     return {
@@ -14,6 +14,17 @@ module.exports = function (models) {
                     if (error) {
                         return reject(error);
                     }
+                    return resolve(city);
+                });
+            });
+        },
+        getCityById(id) {
+            return new Promise((resolve, reject) => {
+                City.findOne({ _id: id }, (err, city) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
                     return resolve(city);
                 });
             });

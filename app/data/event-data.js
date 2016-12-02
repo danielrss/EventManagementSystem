@@ -14,8 +14,8 @@ module.exports = function(models) {
                 country,
                 city;
 
-            return Promise.all([dataUtils.loadType(EventType, eventData.eventType), dataUtils.loadType(Country, eventData.country),dataUtils.loadType(City, eventData.city)])
-                .then(([dbEventType, dbCountry, dbCity ])=>{
+            return Promise.all([dataUtils.loadType(EventType, eventData.eventType), dataUtils.loadType(Country, eventData.country), dataUtils.loadType(City, eventData.city)])
+                .then(([dbEventType, dbCountry, dbCity]) => {
                     eventType = dbEventType;
                     country = dbCountry;
                     city = dbCity;
@@ -96,12 +96,13 @@ module.exports = function(models) {
 
                     return resolve(eventsByTypes);
                 });
-                
+
             });
         },
         searchEvents(options) {
-            options.isApproved=true;
-            options.isDeleted=false;
+            options.isApproved = true;
+            options.isDeleted = false;
+
             return new Promise((resolve, reject) => {
                 Event.find(options)
                     .exec((err, resultEvents) => {
@@ -117,7 +118,7 @@ module.exports = function(models) {
         getAllAwaitingEvents() {
             return new Promise((resolve, reject) => {
                 Event.find({ isApproved: false, isDeleted: false }, (err, events) => {
-                    if(err) {
+                    if (err) {
                         return reject(err);
                     }
 

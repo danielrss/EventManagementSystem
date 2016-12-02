@@ -23,30 +23,32 @@ let event = {
     isDeleted: false,
     isApproved: true
 };
-data.createEvent(event);
+// data.getUserById('58407426b4c1a226b097d5ae')
+//     .then(user => {
+//         data.createEvent(event, user);
+//     });
 
-let city1 = 'Sofia';
-let city2 = 'Varna';
-let country = 'Bulgaria';
-let category1 = 'Education';
-let category2 = 'Entertainment';
+// let city1 = 'Sofia';
+// let city2 = 'Varna';
+// let country = 'Bulgaria';
+// let category1 = 'Education';
+// let category2 = 'Entertainment';
 
-data.createCity(city1);
-data.createCity(city2);
-data.createCountry(country);
-data.createEventType(category1);
-data.createEventType(category2);
+// data.createCity(city1);
+// data.createCity(city2);
+// data.createCountry(country);
+// data.createEventType(category1);
+// data.createEventType(category2);
 
-let user = {
-    firstName: 'admin',
-    lastName: 'adminski',
-    username: 'admin',
-    password: 'admin123456',
-    email: 'email@email.com',
-    age: 20,
-    role: 'admin'
-};
-data.createUser(user);
+// let user = {
+//     firstName: 'admin',
+//     lastName: 'adminski',
+//     username: 'admin',
+//     password: 'admin123456',
+//     email: 'email@email.com',
+//     age: 20,
+//     role: 'admin'
+// };
+// data.createUser(user);
 
 app.start();
-
