@@ -39,14 +39,27 @@ module.exports = function(data) {
             let id = req.params.id;
             data.getEventById(id)
                 .then(event => {
-                    if (event.isApproved) {
-                        return res.render('event/event-details', {
-                            event,
-                            user: req.user
-                        });
+                    if (req.isAuthenticated() && req.user.role === 'admin') {
+                        if (event.isApproved) {
+                            return res.render('event/event-details', {
+                                event,
+                                user: req.user,
+                                isAdmin: true
+                            });
+                        } else {
+                            return res.redirect('/events');
+                        }
                     } else {
-                        return res.redirect('/events');
-                    }
+                        if (event.isApproved) {
+                            return res.render('event/event-details', {
+                                event,
+                                user: req.user,
+                                isAdmin: false
+                            });
+                        } else {
+                            return res.redirect('/events');
+                        }
+                    }                    
                 })
                 .catch(err => {
                     res.status(400)

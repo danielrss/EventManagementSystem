@@ -33,8 +33,8 @@ require('./routers')(app, data);
 let country1 = 'Bulgaria';
 let country2= 'Germany';
 // let city3 = 'Lovech';
-//let category1 = 'Sport';
-// let category2 = 'Entertainment';
+let category1 = 'Sport';
+let category2 = 'Entertainment';
 
 // data.createCity(city3);
 data.createCountry(country1)
@@ -50,8 +50,8 @@ data.createCountry(country2)
         data.createCity({ name: 'Koln', country: 'Germany' });
         data.createCity({ name: 'Munchen', country: 'Germany' });
     });
-//data.createEventType(category1);
-// data.createEventType(category2);
+data.createEventType(category1);
+data.createEventType(category2);
 
 // let user = {
 //     firstName: 'admin',
