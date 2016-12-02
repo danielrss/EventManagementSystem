@@ -31,7 +31,7 @@ let EventSchema = new Schema({
         required: true,
         minlength: [50, 'Description is too short!']
     },
-    dateOfEvent: {
+    dateOfEvent: {  
         type: Date,
         required: true
     },
@@ -57,7 +57,9 @@ let EventSchema = new Schema({
         type: Boolean,
         default: false
     },
-    comments: []
+    comments: [],
+    usersWhoLikeThis: [],
+    usersWhoDislikeThis: []
 });
 
 mongoose.model('Event', EventSchema);
