@@ -79,9 +79,10 @@ const MIN_NAME_LENGTH = 3,
             // isCategoryValid = false,
             // isCityValid = false,
             // isCountryValid = false,
+            isDateValid = false,
             isAddressValid = false,
             isDescriptionValid = false,
-            isCapacityValid = false;
+            isCoverUrlValid = false;
 
         $createForm.find('input').each(function(){
             let input = $(this),
@@ -91,6 +92,14 @@ const MIN_NAME_LENGTH = 3,
                 isNameValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
             }
 
+            if(inputName === 'dateOfEvent'){
+                isDateValid = validator.validateInputString(input, false, false);
+            }
+
+            if(inputName === 'coverUrl'){
+                isCoverUrlValid = validator.validateInputString(input, false, false);
+            }
+
             if(inputName === 'address'){
                 isAddressValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
             }
@@ -98,13 +107,9 @@ const MIN_NAME_LENGTH = 3,
             if(inputName === 'description'){
                 isDescriptionValid = validator.validateInputString(input, true, false, MIN_DESCRIPTION_LENGTH, MAX_DESCRIPTION_LENGTH);
             }
-
-            if(inputName === 'capacity'){
-                isCapacityValid = validator.validateInputNumber(input, 30, 1000);
-            }
         });
 
-        if(isNameValid && isAddressValid && isDescriptionValid && isCapacityValid){
+        if(isNameValid && isDateValid && isAddressValid && isDescriptionValid && isCoverUrlValid){
             isFormValid = true;
         }
 

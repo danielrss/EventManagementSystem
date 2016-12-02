@@ -101,11 +101,10 @@ module.exports = function(data) {
                             .send({ redirectRoute: '/profile' });
                     });
                 })
-                .catch(error =>
+                .catch(error => {
                     res.status(400)
-                    .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
-                );
-
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(error) }))
+                });
         }
     };
 };

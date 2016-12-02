@@ -14,7 +14,8 @@ let CitySchema = new Schema({
         minlength: [3, 'Name is too short!'],
         maxlength: [30, 'Name is too long!'],
         match: LETTERS
-    }
+    },
+    country: {}
 });
 
 CitySchema.plugin(uniqueValidator);

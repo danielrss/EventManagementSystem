@@ -103,7 +103,8 @@
 }
 
 #filters,
-#sorts {
+#sorts,
+#search {
     text-align: center;
     margin: 30px 0px 20px;
 }
@@ -208,7 +209,7 @@
     opacity:1;
 }
 
-#sorts button {
+#sorts button, #search button {
     background-color: #33cb98;
     color: #fff;
     font-family: montserrat-regular;
@@ -217,9 +218,10 @@
     line-height: 35px;
 }
 
-#sorts input {
+#sorts input, #search input {
     margin: 5px;
     border: 1px solid #33cb98;
+    font-weight: bold
 }
 
 #load-more {

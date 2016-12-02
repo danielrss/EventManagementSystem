@@ -40,7 +40,7 @@ module.exports = function (data) {
                             res.render('user/profile-avatar', { user: req.user, isAdmin: true });
                         } else {
                             res.render('user/profile-avatar', { user: req.user, isAdmin: false });
-                        }                        
+                        }
                     }
                 });
         },
@@ -155,46 +155,37 @@ module.exports = function (data) {
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
-        getAllEventsForApproval(req, res) {            
-            return Promise.resolve()
-                .then(() => {                    
-                    if (!req.isAuthenticated()) {
-                        res.status(401).redirect('/unauthorized');
-                    } else {
-                        if(req.user.role === 'admin')
-                        {
-                            data.getAllAwaitingEvents()
-                            .then(events => {
-                                res.render('user/approveEvents', { user: req.user, events: events });
-                            });
-                        } else {
-                            res.status(401).redirect('/unauthorized');                            
-                        }                 
-                    }
-                });
+        getAllEventsForApproval(req, res) {
+            if (!req.isAuthenticated() || req.user.role !== 'admin') {
+                res.status(401).redirect('/unauthorized');
+            } else {
+                return Promise.resolve(data.getAllAwaitingEvents())
+                    .then(events => {
+                        res.render('user/approveEvents', { user: req.user, isAdmin: true, events: events });
+                    });
+            }
         },
         updateEvent(req, res) {
-            return Promise.resolve()
-            .then(() => {                                       
-                data.getEventById(req.body.event)
+            if (!req.isAuthenticated() || req.user.role !== 'admin') {
+                res.status(401).redirect('/unauthorized');
+            } else {
+                return Promise.resolve(data.getEventById(req.body.event))
                     .then(event => {
-                        if (!req.isAuthenticated()) {
-                            res.status(401).redirect('/unauthorized');
-                        } else {
-                            if(req.body.action === 'delete-event') {                                
-                                event.isDeleted = true;
-                                event.save();
-                            } else if (req.body.action === 'approve-event') {
-                                event.isApproved = true;
-                                event.save();                              
-                            }
-                        }                                
+                        if(req.body.action === 'delete-event') {
+                            event.isDeleted = true;
+                            event.save();
+                        } else if (req.body.action === 'approve-event') {
+                            event.isApproved = true;
+                            event.save();
+                        }
+
+                        res.status(200).send({ redirectRoute: '/approvals' });
+                    })
+                    .catch(err => {
+                        res.status(400)
+                            .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                     });
-                res.status(200).send({ redirectRoute: '/approvals' });
-            }).catch(err => {
-                res.status(400)
-                    .send(JSON.stringify({ validationErrors: 'Updating failed' }));
-            });
+            }
         }
     };
 };

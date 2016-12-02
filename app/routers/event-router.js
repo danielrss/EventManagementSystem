@@ -9,8 +9,7 @@ module.exports = function(app, express, data) {
         .get('/events/search', eventController.search)
         .get('/events/create', eventController.getCreateEventForm)
         .post('/events/create', eventController.createEvent)
-        .get('/events/:id', eventController.getEventDetails)
-        .post('/events', eventController.createEvent);
+        .get('/events/:id', eventController.getEventDetails);
 
     app.use(eventRouter);
 };

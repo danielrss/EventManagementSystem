@@ -29,7 +29,7 @@ let EventSchema = new Schema({
     description: {
         type: String,
         required: true,
-        minlength: [50, 'Name is too short!']
+        minlength: [50, 'Description is too short!']
     },
     dateOfEvent: {
         type: Date,
@@ -41,8 +41,7 @@ let EventSchema = new Schema({
     },
     coverUrls: [],
     capacity: {
-        type: Number,
-        required: true
+        type: Number
     },
     minAge: {
         type: Number,
@@ -57,7 +56,8 @@ let EventSchema = new Schema({
     isApproved: {
         type: Boolean,
         default: false
-    }
+    },
+    comments: []
 });
 
 mongoose.model('Event', EventSchema);

@@ -10,20 +10,15 @@ module.exports = function(models) {
 
     return {
         createEvent(eventData, user) {
-            let eventType,
-                country,
-                city;
-
-            return Promise.all([dataUtils.loadType(EventType, eventData.eventType), dataUtils.loadType(Country, eventData.country),dataUtils.loadType(City, eventData.city)])
-                .then(([dbEventType, dbCountry, dbCity ])=>{
-                    eventType = dbEventType;
-                    country = dbCountry;
-                    city = dbCity;
-                })
-                .then(() => {
-                    eventData.eventType = mapper.map(eventType, '_id', 'name');
-                    eventData.city = mapper.map(city, '_id', 'name');
-                    eventData.country = mapper.map(country, '_id', 'name');
+            return Promise.all([
+                dataUtils.loadType(EventType, eventData.eventType),
+                dataUtils.loadType(Country, eventData.country),
+                dataUtils.loadType(City, eventData.city)
+            ])
+                .then(([dbEventType, dbCountry, dbCity]) => {
+                    eventData.eventType = mapper.map(dbEventType, '_id', 'name');
+                    eventData.city = mapper.map(dbCity, '_id', 'name');
+                    eventData.country = mapper.map(dbCountry, '_id', 'name');
                     eventData.user = { name: user.fullName, id: user.id };
 
                     let event = new Event(eventData);
@@ -33,6 +28,7 @@ module.exports = function(models) {
                             if (error) {
                                 return reject(error);
                             }
+
                             return resolve(event);
                         });
                     });
@@ -96,12 +92,12 @@ module.exports = function(models) {
 
                     return resolve(eventsByTypes);
                 });
-                
             });
         },
         searchEvents(options) {
-            options.isApproved=true;
-            options.isDeleted=false;
+            options.isApproved = true;
+            options.isDeleted = false;
+
             return new Promise((resolve, reject) => {
                 Event.find(options)
                     .exec((err, resultEvents) => {

@@ -1,8 +1,8 @@
 'use strict';
 
-const passport = require('passport');
+const helpers = require('../helpers');
+const COUNT_OF_EVENTS = 5;
 
-const countOfEvents = 5;
 module.exports = function(data) {
     return {
         createEvent(req, res) {
@@ -13,7 +13,7 @@ module.exports = function(data) {
                 })
                 .catch(err => {
                     res.status(400)
-                        .send(err);
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
         getCreateEventForm(req, res) {
@@ -22,12 +22,12 @@ module.exports = function(data) {
             }
 
             return Promise.all([data.getAllEventTypes(), data.getAllCities(), data.getAllCountries()])
-                .then(([eventTypes, cities, countries ])=>{
+                .then(([eventTypes, cities, countries ]) => {
                     return res.render('event/event-create', {
                         user: req.user,
                         eventTypes,
                         cities,
-                        countries                  
+                        countries
                     });
                 });
         },
@@ -40,18 +40,17 @@ module.exports = function(data) {
                             event,
                             user: req.user
                         });
-                    }
-                    else{
+                    } else {
                         return res.redirect('/events');
                     }
                 })
                 .catch(err => {
                     res.status(400)
-                        .send(err);
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
         getSpecificEvents(req, res) {
-            data.getSpecificEvents(countOfEvents)
+            data.getSpecificEvents(COUNT_OF_EVENTS)
                 .then(events => {
                     res.send(events.forEach(event => {
                         return data.getEventById(event._id);
@@ -59,7 +58,7 @@ module.exports = function(data) {
                 })
                 .catch(err => {
                     res.status(400)
-                        .send(err);
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
         getEvents(req, res) {
@@ -80,8 +79,8 @@ module.exports = function(data) {
                     }
                 }))
                 .catch(err => {
-                    res.status(404)
-                        .send(err);
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
         search(req, res) {
@@ -106,8 +105,8 @@ module.exports = function(data) {
                     });
                 })
                 .catch(err => {
-                    res.status(404)
-                        .send(err);
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         }
     };
