@@ -10,6 +10,10 @@ const COUNT_OF_EVENTS = 5;
 module.exports = function(data) {
     return {
         createEvent(req, res) {
+            if(req.user.role === 'admin') {
+                req.body.isApproved = true;
+            }
+
             return data.createEvent(req.body, req.user)
                 .then(event => {
                     res.status(200)
@@ -117,14 +121,27 @@ module.exports = function(data) {
             let id = req.params.id;
             data.getEventById(id)
                 .then(event => {
-                    if (event.isApproved) {
-                        return res.render('event/event-details', {
-                            event,
-                            user: req.user
-                        });
+                    if (req.isAuthenticated() && req.user.role === 'admin') {
+                        if (event.isApproved) {
+                            return res.render('event/event-details', {
+                                event,
+                                user: req.user,
+                                isAdmin: true
+                            });
+                        } else {
+                            return res.redirect('/events');
+                        }
                     } else {
-                        return res.redirect('/events');
-                    }
+                        if (event.isApproved) {
+                            return res.render('event/event-details', {
+                                event,
+                                user: req.user,
+                                isAdmin: false
+                            });
+                        } else {
+                            return res.redirect('/events');
+                        }
+                    }                    
                 })
                 .catch(err => {
                     res.status(400)
@@ -199,6 +216,49 @@ module.exports = function(data) {
                 .catch(err => {
                     res.status(400)
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                });
+        },
+        rateEvent(req, res) {
+            let id = req.params.id;
+            console.log(id);
+            data.getEventById(id)
+                .then((event) => {
+                    // get current user
+                    //console.log('our req user is: ' + req.user);
+                    let rater = {
+                        id: req.user.id,
+                        username: req.user.username
+                    };
+                    // save current user who liked the event in the events array
+                    //console.log('the body of the request contains: ' + req.body.rate);
+                    if(req.body.rate === 'like') {
+                        let isUnique = true;
+                        for(let i = 0; i < event.usersWhoLikeThis.length; i+=1) {
+                            if(rater.id === event.usersWhoLikeThis[i].id) {
+                                isUnique = false;
+                                break;
+                            }
+                        }
+
+                        if(isUnique === true) {
+                            event.usersWhoLikeThis.push(rater);
+                        }
+                       // console.log(event.usersWhoLikeThis);
+                        event.save();
+                    } else if(req.body.rate === 'dislike') {
+                        let isUnique = true;
+                        for(let i = 0; i < event.usersWhoDislikeThis.length; i+=1) {
+                            if(rater.id === event.usersWhoDislikeThis[i].id) {
+                                isUnique = false;
+                                break;
+                            }
+                        }
+
+                        if(isUnique === true) {
+                            event.usersWhoDislikeThis.push(rater);
+                        }
+                        event.save();
+                    }                    
                 });
         }
     };

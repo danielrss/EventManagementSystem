@@ -73,6 +73,40 @@ module.exports = function(data) {
                     }
                 });
         },
+        loginGooglePlus(req, res, next) {
+            const auth = passport.authenticate('google', function(error, user) {
+                if (error) {
+                    next(error);
+                    return;
+                }
+
+                if (!user) {
+                    res.json({
+                        success: false,
+                        message: 'Invalid name or password!'
+                    });
+                }
+
+                req.login(user, error => {
+                    if (error) {
+                        next(error);
+                        return;
+                    }
+
+                    res.status(200)
+                        .redirect('/home');
+                });
+            });
+
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        auth(req, res, next);
+                    } else {
+                        res.redirect('/home');
+                    }
+                });
+        },
         logout(req, res) {
             return Promise.resolve()
                 .then(() => {

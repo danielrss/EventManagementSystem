@@ -19,7 +19,8 @@ module.exports = function(app, express, data) {
         .post('/profile/avatar', userController.uploadProfileAvatar)
         .get('/unauthorized', userController.getUnauthorized)
         .get('/approvals', userController.getAllEventsForApproval)
-        .post('/approvals', userController.updateEvent);
+        .post('/approvals', userController.updateEvent)
+        .get('/contact', userController.getContactForm);
 
     app.use(userRouter);
 };

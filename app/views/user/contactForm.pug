@@ -1,0 +1,41 @@
+extends ../_layout
+
+block app-title
+    | Contact | EventManagementSystem
+
+block vars
+   - var bodyClass = 'login';
+   
+block additionalCss
+    link(rel="stylesheet", href="/static/styles/contactForm.css")
+
+block content
+    .top-container
+        .inner-bg
+            .container
+                .row
+                div.title
+                    h1
+                        strong Contact us
+                .row
+                    .col-sm-6.login-form-wrapper
+                        .div
+                        .form-box 
+                            .form-top
+                                .form-top-left
+                                    h4 From:
+                                    input(type="text" name="name" placeholder="Username" class="form-name form-control")  
+                                    br                                  
+                                    input(type="text" name="email" placeholder="Your email" class="form-user-email form-control")
+                                    br
+                                    h4 To:
+                                    input(type="text" name="email" placeholder="Admin email" class="form-admin-email form-control") 
+                                    br                                   
+                                    h4 Message:
+                                    form(role="form" action="" method="post" class="contact-form" id="user-contact-form")
+                                        textarea(type="text" class="message")
+                                    br
+                                    .row
+                                    button(type="button" class="btn button is-checked" data-filter="*" id= "send-button") Send
+block specificJs
+    script(src="/static/scripts/users/contactForm.js")

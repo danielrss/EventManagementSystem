@@ -23,24 +23,24 @@ const INIT_SHOW = 15;
         });
 
         // bind filter button click
-        $filters.on( 'click', 'button', function() {
-            let filterValue = $( this ).attr('data-filter');
-            filterValue = filterFns[ filterValue ] || filterValue;
+        $filters.on('click', 'button', function() {
+            let filterValue = $(this).attr('data-filter');
+            filterValue = filterFns[filterValue] || filterValue;
             $grid.isotope({ filter: filterValue });
         });
 
         // bind sort button click
-        $sorts.on( 'click', 'button', function() {
+        $sorts.on('click', 'button', function() {
             let sortByValue = $(this).attr('data-sort-by');
             $grid.isotope({ sortBy: sortByValue });
         });
 
         // change is-checked class on buttons
-        $('.button-group').each( function( i, buttonGroup ) {
-            let $buttonGroup = $( buttonGroup );
-            $buttonGroup.on( 'click', 'button', function() {
+        $('.button-group').each(function(i, buttonGroup) {
+            let $buttonGroup = $(buttonGroup);
+            $buttonGroup.on('click', 'button', function() {
                 $buttonGroup.find('.is-checked').removeClass('is-checked');
-                $( this ).addClass('is-checked');
+                $(this).addClass('is-checked');
             });
         });
 
@@ -97,13 +97,12 @@ const INIT_SHOW = 15;
         let filterFns = {
             numberGreaterThan50: function() {
                 let number = $(this).find('.number').text();
-                return parseInt( number, 10 ) > 50;
+                return parseInt(number, 10) > 50;
             },
             ium: function() {
                 let name = $(this).find('.name').text();
-                return name.match( /ium$/ );
+                return name.match(/ium$/);
             }
         };
     });
 })();
-

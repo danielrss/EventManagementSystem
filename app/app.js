@@ -24,24 +24,34 @@ require('./routers')(app, data);
 //     isApproved: false
 // };
 
-// data.getUserById('5841d3883d12b509a40557bb')
+// data.getUserById('5840621fd626ad022493c9e1')
 //     .then(user => {
 //         data.createEvent(event, user);
 //     });
 
 // let city1 = 'Ruse';
-// let city2 = 'Veliko Tarnovo';
-// let city3 = 'Sofia';
-// let country = 'Bulgaria';
-// let category1 = 'Sport';
-// let category2 = 'Entertainment';
+let country1 = 'Bulgaria';
+let country2= 'Germany';
+// let city3 = 'Lovech';
+let category1 = 'Sport';
+let category2 = 'Entertainment';
 
-// data.createCity(city1);
-// data.createCity(city2);
 // data.createCity(city3);
-// data.createCountry(country);
-// data.createEventType(category1);
-// data.createEventType(category2);
+data.createCountry(country1)
+    .then(() => {
+        data.createCity({ name: 'Veliko Tarnovo', country: 'Bulgaria' });
+        data.createCity({ name: 'Sofia', country: 'Bulgaria' });
+        data.createCity({ name: 'Varna', country: 'Bulgaria' });
+    });
+
+data.createCountry(country2)
+    .then(() => {
+        data.createCity({ name: 'Aachen', country: 'Germany' });
+        data.createCity({ name: 'Koln', country: 'Germany' });
+        data.createCity({ name: 'Munchen', country: 'Germany' });
+    });
+data.createEventType(category1);
+data.createEventType(category2);
 
 // let user = {
 //     firstName: 'admin',
