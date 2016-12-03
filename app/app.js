@@ -30,39 +30,42 @@ require('./routers')(app, data);
 //     });
 
 // let city1 = 'Ruse';
-let country1 = 'Bulgaria';
-let country2= 'Germany';
-// let city3 = 'Lovech';
-let category1 = 'Sport';
-let category2 = 'Entertainment';
+// let country1 = 'Bulgaria';
+// let country2= 'Germany';
+// // let city3 = 'Lovech';
+// let category1 = 'Sport';
+// let category2 = 'Entertainment';
+// let category3 = 'Education';
 
-// data.createCity(city3);
-data.createCountry(country1)
-    .then(() => {
-        data.createCity({ name: 'Veliko Tarnovo', country: 'Bulgaria' });
-        data.createCity({ name: 'Sofia', country: 'Bulgaria' });
-        data.createCity({ name: 'Varna', country: 'Bulgaria' });
-    });
+// // data.createCity(city3);
+// data.createCountry(country1)
+//     .then(() => {
+//         data.createCity({ name: 'Veliko Tarnovo', country: 'Bulgaria' });
+//         data.createCity({ name: 'Sofia', country: 'Bulgaria' });
+//         data.createCity({ name: 'Varna', country: 'Bulgaria' });
+//     });
 
-data.createCountry(country2)
-    .then(() => {
-        data.createCity({ name: 'Aachen', country: 'Germany' });
-        data.createCity({ name: 'Koln', country: 'Germany' });
-        data.createCity({ name: 'Munchen', country: 'Germany' });
-    });
-data.createEventType(category1);
-data.createEventType(category2);
+// data.createCountry(country2)
+//     .then(() => {
+//         data.createCity({ name: 'Aachen', country: 'Germany' });
+//         data.createCity({ name: 'Koln', country: 'Germany' });
+//         data.createCity({ name: 'Munchen', country: 'Germany' });
+//     });
 
-// let user = {
-//     firstName: 'admin',
-//     lastName: 'adminski',
-//     username: 'admin',
-//     password: 'admin123456',
-//     email: 'email@email.com',
-//     age: 20,
-//     role: 'admin'
-// };
-// data.createUser(user);
+// data.createEventType(category1);
+// data.createEventType(category2);
+// data.createEventType(category3);
+
+let user = {
+    firstName: 'admin',
+    lastName: 'adminski',
+    username: 'admin',
+    password: 'admin123456',
+    email: 'email@email.com',
+    age: 20,
+    role: 'admin'
+};
+data.createUser(user);
 
 app.start();
 

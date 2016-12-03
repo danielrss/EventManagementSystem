@@ -34,7 +34,9 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
                         processData: false
                     })
                     .done((res) => {
-                        window.location = res.redirectRoute;
+                        setTimeout(() => {
+                            window.location = res.redirectRoute;
+                        }, 500);
                     })
                     .fail((err) => {
                         let errorObj = JSON.parse(err.responseText);

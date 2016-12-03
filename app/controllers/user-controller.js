@@ -169,6 +169,16 @@ module.exports = function (data) {
                             .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                     });
             }
+        },
+        getContactForm(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    if (req.user.role !== 'admin') {
+                        res.render('user/contactForm', {});
+                    } else {
+                        res.redirect('/home');
+                    }
+                });
         }
     };
 };

@@ -125,6 +125,7 @@ const MIN_NAME_LENGTH = 3,
                 if (!file) {
                     input.addClass('input-error');
                     input.next('span').text('Choose file to upload.');
+                    return;
                 }
 
                 if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
