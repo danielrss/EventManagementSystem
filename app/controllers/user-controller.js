@@ -191,7 +191,7 @@ module.exports = function(data) {
                 .then(() => {
                     let useremail = req.body.useremail,
                         subject = req.body.subject,
-                        messsage = req.body.inputMessage;
+                        message = req.body.inputMessage;
 
                     mandrill('/messages/send', {
                         message: {

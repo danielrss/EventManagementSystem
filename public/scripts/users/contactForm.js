@@ -18,11 +18,11 @@
             })
             .then((message) => {
                 $.ajax({
-                        method: 'POST',
-                        url: 'https://mandrillapp.com/api/1.0/messages/send.json',
-                        contentType: 'application/json',
-                        data: JSON.stringify(message)
-                    })
+                    method: 'POST',
+                    url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(message)
+                })
                     .done((res) => {
                         window.location = res.redirectRoute;
                     })
