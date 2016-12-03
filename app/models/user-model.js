@@ -34,7 +34,7 @@ let UserSchema = new Schema({
         match: ALPHA_PATTERN
     },
     age: {
-        type: Number,
+        type: Number
     },
     facebookId: {
         type: String
