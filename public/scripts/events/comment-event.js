@@ -7,10 +7,10 @@
     $commentBtn.on('click', () => {
         return Promise.resolve()
             .then(() => {
-                let commentedEventId = $eventInfo.attr('id'); 
+                let commentedEventId = $eventInfo.attr('id');
                 return {
                     commentedEventId: commentedEventId,
-                    text: $commentInput.val(),
+                    commentText: $commentInput.val(),
                 };
             })
             .then((commentData) => {
@@ -21,15 +21,14 @@
                     data: JSON.stringify(commentData)
                 })
                 .done((res) => {
-                    console.log(res);
                     let $div = $('<div>', { id: 'comment' } );
-                    $div.html('Comment:' + commentData.text + ' ' + 'Author:' + res);
+                    $div.html('Comment:' + commentData.commentText + ' ' + 'Author:' + res.commentAuthor);
                     $('#comments').append($div);
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
                     return errorObject;
-                });             
-            });             
+                });
+            });
     });
 })();
