@@ -25,10 +25,10 @@ module.exports = function(data) {
                 });
         },
         commentEvent(req, res){
-            return data.commentEvent(req)
-                .then(event => {
+            return data.commentEvent(req.params.id, req.body.commentText, req.user)
+                .then(commentAuthor => {
                     res.status(200)
-                            .send({ redirectRoute: '/events/' + event.id });
+                        .send({ commentAuthor });
                 })
                 .catch(err => {
                     res.status(400)

@@ -34,18 +34,21 @@ module.exports = function(models) {
                     });
                 });
         },
-        commentEvent(commentData){
-            let id = commentData.params.id,      
-                commentText = commentData.body.text,
-                commentAuthor;
+        commentEvent(eventId, commentText, user){
+            return new Promise((resolve, reject) => {
+                let commentAuthor;
 
-            if(commentData.user){
-                commentAuthor = commentData.user.username;
-                let commentAuthorId = commentData.user.id;
-                return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
-            }
-            commentAuthor = 'Anonymous';     
-            return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+                if(user){
+                    commentAuthor = user.username;
+                    let commentAuthorId = user.id;
+                    this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
+                    return resolve(commentAuthor);
+                }
+
+                commentAuthor = 'Anonymous';
+                this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+                return resolve(commentAuthor);
+            });
         },
         getEventById(id) {
             return new Promise((resolve, reject) => {

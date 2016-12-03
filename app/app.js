@@ -56,15 +56,15 @@ require('./routers')(app, data);
 // data.createEventType(category2);
 // data.createEventType(category3);
 
-// let user = {
-//     firstName: 'admin',
-//     lastName: 'adminski',
-//     username: 'admin',
-//     password: 'admin123456',
-//     email: 'email@email.com',
-//     age: 20,
-//     role: 'admin'
-// };
-// data.createUser(user);
+let user = {
+    firstName: 'admin',
+    lastName: 'adminski',
+    username: 'admin',
+    password: 'admin123456',
+    email: 'email@email.com',
+    age: 20,
+    role: 'admin'
+};
+data.createUser(user);
 
 app.start();

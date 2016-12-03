@@ -17,7 +17,10 @@ const MIN_NAME_LENGTH = 3,
         $inputFile = $('#form-file');
 
     $(function() {
-        $('#datepicker').datepicker();
+        $('#datepicker').datetimepicker({
+            dateFormat: 'yy-mm-dd',
+            constrainInput: false
+        });
     });
 
     $createForm.find(':input').on('focus', function() {
