@@ -41,13 +41,13 @@ const MIN_NAME_LENGTH = 3,
                         contentType: 'application/json',
                         data: JSON.stringify(user)
                     })
-                        .done((res) => {
-                            window.location = res.redirectRoute;
-                        })
-                        .fail((err) => {
-                            let errorObj = JSON.parse(err.responseText);
-                            displayValidationErrors(errorObj, $profileFormErrorContainer);
-                        });
+                    .done((res) => {
+                        window.location = res.redirectRoute;
+                    })
+                    .fail((err) => {
+                        let errorObj = JSON.parse(err.responseText);
+                        displayValidationErrors(errorObj, $profileFormErrorContainer);
+                    });
                 })
                 .catch((err) => {
                     let errorObj = JSON.parse(err.responseText);
