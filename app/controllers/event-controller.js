@@ -24,6 +24,17 @@ module.exports = function(data) {
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
+        commentEvent(req, res){
+            return data.commentEvent(req)
+                .then(event => {
+                    res.status(200)
+                            .send({ redirectRoute: '/events/' + event.id });
+                })
+                .catch(err => {
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                });   
+        },
         uploadImage(req, res) {
             let eventId = req.params.id,
                 event = {};

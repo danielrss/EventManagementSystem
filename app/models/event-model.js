@@ -56,7 +56,7 @@ let EventSchema = new Schema({
         type: Boolean,
         default: false
     },
-    comments: [],
+    comments: [{}],
     usersWhoLikeThis: [],
     usersWhoDislikeThis: []
 });
