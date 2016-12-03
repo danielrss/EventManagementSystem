@@ -463,6 +463,11 @@ header #logo .logo-fa {
     margin-right: 30px;
 }
 
+.event-info{
+    font-size: 16px;
+    color: white
+}
+
 
 /* Hover Effects */
 
