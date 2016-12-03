@@ -33,11 +33,11 @@ block content
                     else
                         p='Capacity: unlimited'
                         p='Author: ' + event.user.name
-                        a(class='like-btn btn btn-default like')
-                            span(class='glyphicon glyphicon-thumbs-up')
-                            span= event.usersWhoLikeThis.length
-                        a(class='dislike-btn btn btn-default dislike')
-                            span(class='glyphicon glyphicon-thumbs-down')                            
-                            span= event.usersWhoDislikeThis.length
+                    a(class='like-btn btn btn-default like')
+                        span(class='glyphicon glyphicon-thumbs-up')
+                        span= event.usersWhoLikeThis.length
+                    a(class='dislike-btn btn btn-default dislike')
+                        span(class='glyphicon glyphicon-thumbs-down')                            
+                        span= event.usersWhoDislikeThis.length
 block specificJs
     script(src="/static/scripts/events/rate-event.js")
