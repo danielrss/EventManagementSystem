@@ -33,7 +33,7 @@ module.exports = function(data) {
                 .catch(err => {
                     res.status(400)
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
-                });   
+                });
         },
         uploadImage(req, res) {
             let eventId = req.params.id,
@@ -131,17 +131,17 @@ module.exports = function(data) {
         getEventDetails(req, res) {
             let id = req.params.id;
             let isLiked = false;
-            let isDisliked = false;            
+            let isDisliked = false;
 
             data.getEventById(id)
-                .then(event => {   
+                .then(event => {
                     if(req.isAuthenticated()) {
-                        if(containsObject(event.usersWhoLikeThis, req.user)) {
+                        if(containsUser(event.usersWhoLikeThis, req.user)) {
                             isLiked = true;
-                        } else if(containsObject(event.usersWhoDislikeThis, req.user)) {
+                        } else if(containsUser(event.usersWhoDislikeThis, req.user)) {
                             isDisliked = true;
                         }
-                    }                 
+                    }
 
                     if (req.isAuthenticated() && req.user.role === 'admin') {
                         if (event.isApproved) {
@@ -167,7 +167,7 @@ module.exports = function(data) {
                         } else {
                             return res.redirect('/events');
                         }
-                    }                    
+                    }
                 })
                 .catch(err => {
                     res.status(400)
@@ -246,68 +246,65 @@ module.exports = function(data) {
         },
         rateEvent(req, res) {
             let id = req.params.id;
-            // console.log('params is: ' +req.params);
             data.getEventById(id)
                 .then((event) => {
+                    let likesCount = event.usersWhoLikeThis.length;
+                    let dislikesCount = event.usersWhoDislikeThis.length;
+
                     // get current user
-                    //console.log('our req user is: ' + req.user);
                     let rater = {
                         id: req.user.id,
                         username: req.user.username
                     };
+
                     if(req.body.rate === 'like') {
-                        let isUnique = true;
-                        if(containsObject(event.usersWhoDislikeThis, rater)) {                            
+                        //let isUnique = true;
+                        if(containsUser(event.usersWhoDislikeThis, rater)) {
                             event.usersWhoDislikeThis.remove(rater);
-                        }
-                        for(let i = 0; i < event.usersWhoLikeThis.length; i+=1) {
-                            if(rater.id === event.usersWhoLikeThis[i].id) {
-                                isUnique = false;
-                                break;
-                            }
+                            dislikesCount -= 1;
                         }
 
-                        if(isUnique === true) {
+                        if(!containsUser(event.usersWhoLikeThis, rater)) {
                             event.usersWhoLikeThis.push(rater);
-                            event.save();            
-                            let resObj = {
-                                event: event
-                            };
-                            res.status(201).send(resObj);
-                        }                        
-                    } else if(req.body.rate === 'dislike') {
-                        let isUnique = true;
-                        if(containsObject(event.usersWhoLikeThis, rater)) {
-                            event.usersWhoLikeThis.remove(rater);
+                            event.save();
+
+                            likesCount += 1;
+
+                            res.status(201).send({
+                                likesCount,
+                                dislikesCount
+                            });
                         }
-                        for(let i = 0; i < event.usersWhoDislikeThis.length; i+=1) {
-                            if(rater.id === event.usersWhoDislikeThis[i].id) {
-                                isUnique = false;
-                                break;
-                            }
+                    } else if(req.body.rate === 'dislike') {
+                        //let isUnique = true;
+                        if(containsUser(event.usersWhoLikeThis, rater)) {
+                            event.usersWhoLikeThis.remove(rater);
+                            likesCount -= 1;
                         }
 
-                        if(isUnique === true) {
+                        if(!containsUser(event.usersWhoDislikeThis, rater)) {
                             event.usersWhoDislikeThis.push(rater);
                             event.save();
-                            let resObj = {
-                                event: event
-                            };
-                            res.status(201).send(resObj);
-                        }                        
-                    }                    
+
+                            dislikesCount += 1;
+
+                            res.status(201).send({
+                                likesCount,
+                                dislikesCount
+                            });
+                        }
+                    }
                 });
         }
     };
 };
 
-function containsObject(array, obj) {
-    let i = array.length - 1;
-    while (i >= 0) {
+function containsUser(array, obj) {
+    for(let i = 0; i < array.length; i += 1) {
         if(array[i].username === obj.username) {
             return true;
         }
-        i--;
     }
+
     return false;
 }
