@@ -36,11 +36,11 @@ const MIN_NAME_LENGTH = 3,
                 })
                 .then((user) => {
                     $.ajax({
-                            url: '/profile',
-                            method: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(user)
-                        })
+                        url: '/profile',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(user)
+                    })
                         .done((res) => {
                             window.location = res.redirectRoute;
                         })
