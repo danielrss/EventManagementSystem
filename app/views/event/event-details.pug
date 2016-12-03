@@ -44,7 +44,14 @@ block content
                         placeholder="Comment.."
                         class="form-comment form-control"
                         id="comment-input")
-                    button(type="button" class="btn" id="comment-button") Create Event
+                    button(type="button" class="btn" id="comment-button") Add Comment
+                    h2='Comments'
+                    strong
+                        each comment in event.comments
+                            p='Comment:' + comment.text
+                            p='Author:' + comment.author
+                            
+
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
     script(src="/static/scripts/events/rate-event.js")
