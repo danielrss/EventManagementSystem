@@ -373,9 +373,6 @@ header #logo .logo-fa {
     height: 100%;
     border-color: #1fbfac;
 }
-#user-nav .profile-image .dropdown-user-menu:hover{
-    cursor: pointer;
-}
 #user-nav .profile-image img{
     width: 65px;
     max-height: 65px;
