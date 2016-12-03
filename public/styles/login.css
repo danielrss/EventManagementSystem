@@ -197,10 +197,12 @@
 .page-login input[type="password"],
 .page-register input[type="password"],
 .page-profile input[type="password"],
+.page-register select,
 .page-login textarea,
 .page-register textarea,
 .page-login textarea.form-control,
-.page-register textarea.form-control {
+.page-register textarea.form-control
+{
     height: 50px;
     margin: 0;
     padding: 0 20px;

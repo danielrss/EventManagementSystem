@@ -3,6 +3,7 @@
 $(document).ready(function() {
     animateLandingPageElements();
     initializeFullPageBackgrounds();
+    initializeBootstrapTooltips();
 });
 
 document.onreadystatechange = function () {
@@ -35,6 +36,10 @@ function initializeFullPageBackgrounds(){
     // $('.page-profile').backstretch('static/media/hp_cover.jpg').blurElement('.page-profile .backstretch');
     // $('.page-events').backstretch('static/media/hp_cover.jpg').blurElement('.page-events .backstretch');
     // $('.page-event').backstretch('static/media/hp_cover.jpg').blurElement('.page-event .backstretch');
+}
+
+function initializeBootstrapTooltips(){
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 $.fn.blurElement = function (container) {
