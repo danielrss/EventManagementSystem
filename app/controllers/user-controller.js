@@ -173,10 +173,12 @@ module.exports = function (data) {
         getContactForm(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    if (req.user.role !== 'admin') {
+                    if (!req.isAuthenticated()) {
                         res.render('user/contactForm', {});
+                    } else if (req.user.role === 'admin') {
+                        res.render('user/contactForm', { user: req.user, isAdmin: true });
                     } else {
-                        res.redirect('/home');
+                        res.render('user/contactForm', { user: req.user, isAdmin: false });
                     }
                 });
         }

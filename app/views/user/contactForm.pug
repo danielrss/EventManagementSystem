@@ -5,7 +5,7 @@ block app-title
 
 block vars
    - var bodyClass = 'login';
-   
+
 block additionalCss
     link(rel="stylesheet", href="/static/styles/contactForm.css")
 
@@ -20,17 +20,20 @@ block content
                 .row
                     .col-sm-6.login-form-wrapper
                         .div
-                        .form-box 
+                        .form-box
                             .form-top
                                 .form-top-left
                                     h4 From:
-                                    input(type="text" name="name" placeholder="Username" class="form-name form-control")  
-                                    br                                  
-                                    input(type="text" name="email" placeholder="Your email" class="form-user-email form-control")
-                                    br
-                                    h4 To:
-                                    input(type="text" name="email" placeholder="Admin email" class="form-admin-email form-control") 
-                                    br                                   
+                                    if user
+                                        input(type="text" name="name" placeholder="Your name" value= user.fullName class="form-name form-control")
+                                        br
+                                        input(type="text" name="email" placeholder="Your email" value= user.email class="form-user-email form-control")
+                                        br
+                                    else
+                                        input(type="text" name="name" placeholder="Your name" class="form-name form-control")
+                                        br
+                                        input(type="text" name="email" placeholder="Your email" class="form-user-email form-control")
+                                        br
                                     h4 Message:
                                     form(role="form" action="" method="post" class="contact-form" id="user-contact-form")
                                         textarea(type="text" class="message")
