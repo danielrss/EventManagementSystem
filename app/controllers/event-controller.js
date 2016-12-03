@@ -134,12 +134,14 @@ module.exports = function(data) {
             let isDisliked = false;            
 
             data.getEventById(id)
-                .then(event => {
-                    if(containsObject(event.usersWhoLikeThis, req.user)) {
-                        isLiked = true;
-                    } else if(containsObject(event.usersWhoDislikeThis, req.user)) {
-                        isDisliked = true;
-                    }
+                .then(event => {   
+                    if(req.isAuthenticated()) {
+                        if(containsObject(event.usersWhoLikeThis, req.user)) {
+                            isLiked = true;
+                        } else if(containsObject(event.usersWhoDislikeThis, req.user)) {
+                            isDisliked = true;
+                        }
+                    }                 
 
                     if (req.isAuthenticated() && req.user.role === 'admin') {
                         if (event.isApproved) {
