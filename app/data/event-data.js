@@ -38,14 +38,17 @@ module.exports = function(models) {
             let id = commentData.params.id,      
                 commentText = commentData.body.text,
                 commentAuthor;
-
-            if(commentData.user){
-                commentAuthor = commentData.user.username;
-                let commentAuthorId = commentData.user.id;
-                return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
-            }
-            commentAuthor = 'Anonymous';     
-            return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+            return new Promise((resolve, reject) => {
+                if(commentData.user){
+                    commentAuthor = commentData.user.username;
+                    let commentAuthorId = commentData.user.id;
+                    this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
+                    return resolve(commentAuthor);
+                }
+                commentAuthor = 'Anonymous';     
+                this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+                return resolve(commentAuthor);
+            });
         },
         getEventById(id) {
             return new Promise((resolve, reject) => {

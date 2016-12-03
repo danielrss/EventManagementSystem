@@ -26,9 +26,9 @@ module.exports = function(data) {
         },
         commentEvent(req, res){
             return data.commentEvent(req)
-                .then(event => {
+                .then(req => {
                     res.status(200)
-                            .send({ redirectRoute: '/events/' + event.id });
+                            .send(req);
                 })
                 .catch(err => {
                     res.status(400)
