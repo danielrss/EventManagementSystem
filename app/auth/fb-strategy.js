@@ -20,7 +20,7 @@ module.exports = function(passport, data) {
     }, (req, accessToken, refreshToken, profile, done) => {
         
         process.nextTick(function() {
-            User.findOne({ 'facebook.id' : profile.id }, function(err, user) {
+            User.findOne({ 'socialLogins.facebook.id' : profile.id }, function(err, user) {
 
                 if (err){
                     return done(err);
