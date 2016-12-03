@@ -34,6 +34,19 @@ module.exports = function(models) {
                     });
                 });
         },
+        commentEvent(commentData){
+            let id = commentData.params.id,      
+                commentText = commentData.body.text,
+                commentAuthor;
+
+            if(commentData.user){
+                commentAuthor = commentData.user.username;
+                let commentAuthorId = commentData.user.id;
+                return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
+            }
+            commentAuthor = 'Anonymous';     
+            return this.findEventByIdAndUpdate(id, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+        },
         getEventById(id) {
             return new Promise((resolve, reject) => {
                 Event.findOne({ _id: id }, (err, event) => {
