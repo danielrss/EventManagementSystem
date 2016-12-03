@@ -130,14 +130,25 @@ module.exports = function(data) {
         },
         getEventDetails(req, res) {
             let id = req.params.id;
+            let isLiked = false;
+            let isDisliked = false;            
+
             data.getEventById(id)
                 .then(event => {
+                    if(containsObject(event.usersWhoLikeThis, req.user)) {
+                        isLiked = true;
+                    } else if(containsObject(event.usersWhoDislikeThis, req.user)) {
+                        isDisliked = true;
+                    }
+
                     if (req.isAuthenticated() && req.user.role === 'admin') {
                         if (event.isApproved) {
                             return res.render('event/event-details', {
                                 event,
                                 user: req.user,
-                                isAdmin: true
+                                isAdmin: true,
+                                isLiked: isLiked,
+                                isDisliked: isDisliked
                             });
                         } else {
                             return res.redirect('/events');
@@ -147,7 +158,9 @@ module.exports = function(data) {
                             return res.render('event/event-details', {
                                 event,
                                 user: req.user,
-                                isAdmin: false
+                                isAdmin: false,
+                                isLiked: isLiked,
+                                isDisliked: isDisliked
                             });
                         } else {
                             return res.redirect('/events');
@@ -231,7 +244,7 @@ module.exports = function(data) {
         },
         rateEvent(req, res) {
             let id = req.params.id;
-            console.log(id);
+            // console.log('params is: ' +req.params);
             data.getEventById(id)
                 .then((event) => {
                     // get current user
@@ -240,10 +253,11 @@ module.exports = function(data) {
                         id: req.user.id,
                         username: req.user.username
                     };
-                    // save current user who liked the event in the events array
-                    //console.log('the body of the request contains: ' + req.body.rate);
                     if(req.body.rate === 'like') {
                         let isUnique = true;
+                        if(containsObject(event.usersWhoDislikeThis, rater)) {                            
+                            event.usersWhoDislikeThis.remove(rater);
+                        }
                         for(let i = 0; i < event.usersWhoLikeThis.length; i+=1) {
                             if(rater.id === event.usersWhoLikeThis[i].id) {
                                 isUnique = false;
@@ -254,10 +268,16 @@ module.exports = function(data) {
                         if(isUnique === true) {
                             event.usersWhoLikeThis.push(rater);
                         }
-                       // console.log(event.usersWhoLikeThis);
-                        event.save();
+                        event.save();            
+                        let resObj = {
+                            event: event
+                        };
+                        res.status(201).send(resObj);
                     } else if(req.body.rate === 'dislike') {
                         let isUnique = true;
+                        if(containsObject(event.usersWhoLikeThis, rater)) {
+                            event.usersWhoLikeThis.remove(rater);
+                        }
                         for(let i = 0; i < event.usersWhoDislikeThis.length; i+=1) {
                             if(rater.id === event.usersWhoDislikeThis[i].id) {
                                 isUnique = false;
@@ -269,8 +289,23 @@ module.exports = function(data) {
                             event.usersWhoDislikeThis.push(rater);
                         }
                         event.save();
+                        let resObj = {
+                            event: event
+                        };
+                        res.status(201).send(resObj);
                     }                    
                 });
         }
     };
 };
+
+function containsObject(array, obj) {
+    let i = array.length - 1;
+    while (i >= 0) {
+        if(array[i].username === obj.username) {
+            return true;
+        }
+        i--;
+    }
+    return false;
+}

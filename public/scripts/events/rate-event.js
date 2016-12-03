@@ -3,10 +3,11 @@
 (() => {
     const $eventInfo = $('.event-info'),
         $likeBtn = $('.like-btn'),
-        $dislikeBtn = $('.dislike-btn');
+        $dislikeBtn = $('.dislike-btn'); 
 
-    $likeBtn.one('click', function(event) {
-        console.log('like button is clicked');
+    $likeBtn.one('click', function(event) { 
+        $dislikeBtn.removeClass('btn-primary');
+        $likeBtn.addClass('btn-primary'); 
         return Promise.resolve()
             .then(() => {
                 let ratedEventId = $eventInfo.attr('id');  
@@ -25,7 +26,7 @@
                     data: JSON.stringify(ratedEvent)
                 })
                 .done((res) => {
-                    console.log('liked succeded');
+                    console.log('like succeded');
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
@@ -35,7 +36,8 @@
 
     });
     $dislikeBtn.one('click', function(event) {
-        console.log('dislike button is clicked');
+        $dislikeBtn.addClass('btn-primary');
+        $likeBtn.removeClass('btn-primary'); 
         return Promise.resolve()
             .then(() => {
                 let ratedEventId = $eventInfo.attr('id');  
@@ -54,7 +56,7 @@
                     data: JSON.stringify(ratedEvent)
                 })
                 .done((res) => {
-                    console.log('disliked succeded');
+                    console.log('disliked succeded');                    
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
