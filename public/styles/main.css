@@ -315,6 +315,7 @@ header #logo .logo-fa {
     height:30px;
     line-height:30px;
     background: #fff;
+    cursor: pointer;
 }
 #user-nav .profile-image .socials .item a{
     display: block;
