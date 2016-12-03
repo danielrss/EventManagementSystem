@@ -1,8 +1,8 @@
 'use strict';
 const helpers = require('../helpers'),
     formidable = require('formidable'),
-    fs = require('fs-extra'),
-    path = require('path');
+    path = require('path'),
+    uploader = require('../helpers/uploader');
 
 module.exports = function (data) {
     return {
@@ -63,38 +63,17 @@ module.exports = function (data) {
                                         .send({ redirectRoute: '/profile' });
                                 }
 
-                                /* Temporary location of our uploaded file */
-                                let tempPath = this.openedFiles[0].path,
-                                    openedFileName = this.openedFiles[0].name,
-                                    fileExtension = openedFileName.substring(openedFileName.lastIndexOf('.'), openedFileName.length),
-                                    userFolder = req.user.id,
-                                    newFileName = 'avatar' + fileExtension;
+                                let userFolder = req.user.id,
+                                    pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
+                                    newFileName = 'avatar';
 
-                                /* Location where we want to copy the uploaded file */
-                                let pathToNewFolder = path.join(__dirname, '../../public/uploads/users', userFolder);
-                                if (!fs.existsSync(pathToNewFolder)){
-                                    fs.mkdirSync(pathToNewFolder);
-                                }
-
-                                let pathToNewFile = path.join(pathToNewFolder, newFileName);
-
-                                fs.copy(tempPath, pathToNewFile, function (err) {
-                                    if (err) {
-                                        return reject(err);
-                                    }
-
-                                    fs.remove(tempPath, (err) => {
-                                        if (err) {
-                                            return reject(err);
-                                        }
-
-                                        resolve(newFileName);
+                                uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
+                                    .then(uploadedFileName => {
+                                        resolve(uploadedFileName);
                                     });
-                                });
                             });
                             form.handlePart(part);
-                        }
-                        else {
+                        } else {
                             return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
                         }
                     };
@@ -107,6 +86,10 @@ module.exports = function (data) {
                 }
             })
             .then((fileName) => {
+                if (typeof fileName !== 'string') {
+                    return;
+                }
+
                 let avatarUrl = '/static/uploads/users/' + req.user.id + '/' + fileName;
                 data.findUserByIdAndUpdate(req.user.id, { avatarUrl });
             })

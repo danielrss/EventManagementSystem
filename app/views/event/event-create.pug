@@ -15,7 +15,7 @@ block content
                     h1
                         strong Event creator
                     .description
-                        p 
+                        p
                 .row
                     .col-sm-8.register-form-wrapper
                         .form-box
@@ -30,7 +30,7 @@ block content
                                 #error-container.alert.alert-warning
                                     strong The following errors need to be corrected:
                                     ul
-                                form(role="form" action="" method="post" class="registration-form" id="user-create-form")
+                                form(role="form" enctype="multipart/form-data" action="" method="post" class="registration-form" id="user-create-form")
                                     .form-group
                                         label(class="sr-only" for="form-name")
                                         input(type="text"
@@ -40,23 +40,23 @@ block content
                                               id="form-name")
                                         span.error.error-username
                                     .form-group
-                                        label(class="sr-only" for="form-email") 
-                                        | Category: 
+                                        label(class="sr-only" for="form-email")
+                                        | Category:
                                         select(name="eventType")
                                             each eventType in eventTypes
                                                 option(value= eventType.name)= eventType.name
-                                        
+
                                         span.error.error-email
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        | Country: 
+                                        | Country:
                                         select(name="country")
                                             each country in countries
                                                 option(value= country.name)= country.name
                                         span.error.error-password
                                     .form-group
                                         label(class="sr-only" for="form-password")
-                                        | City: 
+                                        | City:
                                         select(name="city")
                                             each city in cities
                                                 option(value= city.name)= city.name
@@ -86,21 +86,30 @@ block content
                                               id="form-dateOfEvent")
                                         span.error.error-lastname
                                     .form-group
+                                        label(class="sr-only" for="form-capacity")
+                                        input(type="text"
+                                              name="capacity"
+                                              placeholder="Capacity.."
+                                              class="form-capacity form-control"
+                                              id="form-capacity")
+                                        span.error.error-capacity
+                                    label You can either provide a url or upload an image for the cover of your event
+                                    .form-group
                                         label(class="sr-only" for="form-coverUrl")
                                         input(type="text"
                                               name="coverUrl"
-                                              placeholder="Cover Url.." 
-                                              class="form-coverUrl form-control" 
+                                              placeholder="Cover Url.."
+                                              class="form-coverUrl form-control"
                                               id="form-coverUrl")
                                         span.error.error-coverUrl
                                     .form-group
-                                        label(class="sr-only" for="form-capacity")
-                                        input(type="text"  
-                                              name="capacity" 
-                                              placeholder="Capacity.." 
-                                              class="form-capacity form-control" 
-                                              id="form-capacity")
-                                        span.error.error-capacity
+                                        label(class="sr-only" for="form-file") File
+                                        input(type="file"
+                                              multiple="multiple"
+                                              name="file"
+                                              class="form-file form-control"
+                                              id="form-file")
+                                        span.error.error-file
                                     button(type="button" class="btn" id="create-button") Create Event
 block specificJs
     script(src="/static/scripts/utils/validator.js")

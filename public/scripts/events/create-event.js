@@ -6,12 +6,14 @@ const MIN_NAME_LENGTH = 3,
     MIN_DESCRIPTION_LENGTH = 50,
     MAX_DESCRIPTION_LENGTH = 1000,
     NAME_PATTERN = /^[A-Za-z]+$/,
-    ALPHA_PATTERN = /^[A-Za-z1-9]+$/;
+    ALPHA_PATTERN = /^[A-Za-z1-9]+$/,
+    MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 (() => {
     const $createForm = $('#user-create-form'),
         $createBtn = $('#create-button'),
-        $createFormErrorContainer = $('#error-container');
+        $createFormErrorContainer = $('#error-container'),
+        $inputFile = $('#form-file');
 
     $createForm.find(':input').on('focus', function() {
         $(this).removeClass('input-error');
@@ -20,7 +22,8 @@ const MIN_NAME_LENGTH = 3,
 
     $createBtn.on('click', () => {
         resetErrorContainer();
-        let isFormValid = validateCreateForm();
+        let isFormValid = validateCreateForm(),
+            isImageFileProvided = !!$createForm.find('#form-file')[0].files[0];
 
         if(isFormValid){
             return Promise.resolve()
@@ -41,10 +44,25 @@ const MIN_NAME_LENGTH = 3,
                         contentType: 'application/json',
                         data: JSON.stringify(event)
                     })
-                    .done((res) => {
-                        setTimeout(() => {
-                            window.location = res.redirectRoute;
-                        }, 1000);
+                    .done(res => {
+                        let formData = new FormData();
+                        formData.append('file', $inputFile[0].files[0]);
+
+                        if (isImageFileProvided) {
+                            $.ajax({
+                                url: '/events/' + res.eventId + '/images',
+                                method: 'POST',
+                                contentType: false,
+                                data: formData,
+                                processData: false
+                            })
+                            .fail((err) => {
+                                let errorObj = JSON.parse(err.responseText);
+                                displayValidationErrors(errorObj, $createFormErrorContainer);
+                            });
+                        }
+
+                        window.location = res.redirectRoute;
                     })
                     .fail((err) => {
                         let errorObj = JSON.parse(err.responseText);
@@ -76,17 +94,40 @@ const MIN_NAME_LENGTH = 3,
     function validateCreateForm(){
         let isFormValid = false,
             isNameValid = false,
-            // isCategoryValid = false,
-            // isCityValid = false,
-            // isCountryValid = false,
             isDateValid = false,
             isAddressValid = false,
             isDescriptionValid = false,
-            isCoverUrlValid = false;
+            isCoverUrlValid = false,
+            isFileExtensionValid = false,
+            isFileSizeValid = false,
+            isImageFileProvided = !!$createForm.find('#form-file')[0].files[0];
 
         $createForm.find('input').each(function(){
             let input = $(this),
                 inputName = input.attr('name');
+
+            if (inputName === 'file' && !isCoverUrlValid) {
+                let file = input[0].files[0];
+
+                if (!file) {
+                    input.addClass('input-error');
+                    input.next('span').text('Choose file to upload.');
+                }
+
+                if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
+                    isFileExtensionValid = true;
+                } else {
+                    input.addClass('input-error');
+                    input.next('span').text('File types allowed: jpg, jpeg, png.');
+                }
+
+                if (file.size <= MAX_FILE_SIZE) {
+                    isFileSizeValid = true;
+                } else {
+                    input.addClass('input-error');
+                    input.next('span').text('Maximum file size is 2MB!');
+                }
+            }
 
             if(inputName === 'name'){
                 isNameValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
@@ -96,7 +137,7 @@ const MIN_NAME_LENGTH = 3,
                 isDateValid = validator.validateInputString(input, false, false);
             }
 
-            if(inputName === 'coverUrl'){
+            if(inputName === 'coverUrl' && !isImageFileProvided){
                 isCoverUrlValid = validator.validateInputString(input, false, false);
             }
 
@@ -109,7 +150,7 @@ const MIN_NAME_LENGTH = 3,
             }
         });
 
-        if(isNameValid && isDateValid && isAddressValid && isDescriptionValid && isCoverUrlValid){
+        if(isNameValid && isDateValid && isAddressValid && isDescriptionValid && (isCoverUrlValid || (isFileExtensionValid && isFileSizeValid))){
             isFormValid = true;
         }
 

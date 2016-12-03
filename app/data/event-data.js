@@ -45,6 +45,21 @@ module.exports = function(models) {
                 });
             });
         },
+        findEventByIdAndUpdate(id, update) {
+            return new Promise((resolve, reject) => {
+                Event.findOneAndUpdate({ _id: id }, update, { new: true }, (err, event) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!event) {
+                        return reject(event);
+                    }
+
+                    return resolve(event);
+                });
+            });
+        },
         getEventByName(name) {
             return new Promise((resolve, reject) => {
                 Event.findOne({ name: name }, (err, event) => {

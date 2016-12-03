@@ -36,8 +36,7 @@ let EventSchema = new Schema({
         required: true
     },
     coverUrl: {
-        type: String,
-        required: true
+        type: String
     },
     coverUrls: [],
     capacity: {

@@ -55,7 +55,10 @@ block content
                                                 strong Location:
                                                 = ' ' + event.city.name + ', ' + event.country.name
                                     a(class='event-link' href='/events/' + event.id)
-                                        img(src=event.coverUrl)
+                                        if event.coverUrls[0]
+                                            img(src=event.coverUrls[0])
+                                        else
+                                            img(src=event.coverUrl)
 block specificJs
     script(src="/static/bower_components/isotope/dist/isotope.pkgd.js")
     script(src="/static/scripts/events/events-list.js")

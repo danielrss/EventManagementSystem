@@ -42,9 +42,7 @@ const MIN_NAME_LENGTH = 3,
                         data: JSON.stringify(user)
                     })
                     .done((res) => {
-                        setTimeout(() => {
-                            window.location = res.redirectRoute;
-                        }, 1000);
+                        window.location = res.redirectRoute;
                     })
                     .fail((err) => {
                         let errorObj = JSON.parse(err.responseText);

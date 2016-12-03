@@ -18,7 +18,10 @@ block content
                         strong
                             h1= event.name
                     div
-                        img(src= event.coverUrl)
+                        if event.coverUrls[0]
+                            img(src= event.coverUrls[0] style={width: '800px', height: '480px'})
+                        else
+                            img(src= event.coverUrl style={width: '800px', height: '480px'})
                     p='Date: ' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
                     p='Time: ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
                     p='Description: ' + event.description
@@ -29,4 +32,4 @@ block content
                         p='Capacity: ' +  event.capacity
                     else
                         p='Capacity: unlimited'
-                    p='Author:' + event.user.name
+                    p='Author: ' + event.user.name

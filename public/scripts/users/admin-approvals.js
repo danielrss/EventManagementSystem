@@ -5,18 +5,17 @@
     console.log('it works in ammin-approvals');
     $allEvents.on('click', (event) => {
         return Promise.resolve()
-                .then(() => {                                        
+                .then(() => {
                     let $eventToBeEdited = event.target.getAttribute('event-target');
                     // console.log($eventToBeEdited);
-                    let action = event.target.id;                 
-                    // console.log(action);                    
+                    let action = event.target.id;
+                    // console.log(action);
                     return {
                         event: $eventToBeEdited,
                         action: action
                     };
                 })
-                .then((processCommand) => {     
-                    console.log(processCommand);               
+                .then((processCommand) => {
                     $.ajax({
                         url: '/approvals',
                         method: 'POST',
@@ -24,14 +23,11 @@
                         data: JSON.stringify(processCommand)
                     })
                     .done((res) => {
-                        //console.log(res);
-                        setTimeout(() => {
-                            window.location = res.redirectRoute;
-                        }, 1000);
+                        window.location = res.redirectRoute;
                     })
                     .fail((err) => {
-                        let errorObj = JSON.parse(err.responseText);                        
-                    });                                   
+                        let errorObj = JSON.parse(err.responseText);
+                    });
                 });
     });
 })();

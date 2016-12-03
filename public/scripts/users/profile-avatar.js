@@ -1,4 +1,3 @@
-/* globals validator */
 'use strict';
 
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
@@ -18,7 +17,7 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
         resetErrorContainer();
         let isFormValid = validateProfileForm();
 
-        if(isFormValid){ // isFormValid
+        if (isFormValid) {
             return Promise.resolve()
                 .then(() => {
                     let formData = new FormData();
@@ -35,9 +34,7 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
                         processData: false
                     })
                     .done((res) => {
-                        setTimeout(() => {
-                            window.location = res.redirectRoute;
-                        }, 1000);
+                        window.location = res.redirectRoute;
                     })
                     .fail((err) => {
                         let errorObj = JSON.parse(err.responseText);
@@ -77,6 +74,11 @@ const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
             if (inputName === 'file') {
                 let file = input[0].files[0];
+
+                if (!file) {
+                    input.addClass('input-error');
+                    input.next('span').text('Choose file to upload.');
+                }
 
                 if (file.name.match(/\.(jpg|jpeg|png)$/i)) {
                     isFileExtensionValid = true;

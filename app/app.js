@@ -24,19 +24,21 @@ require('./routers')(app, data);
 //     isApproved: false
 // };
 
-// data.getUserById('5840621fd626ad022493c9e1')
+// data.getUserById('5841d3883d12b509a40557bb')
 //     .then(user => {
 //         data.createEvent(event, user);
 //     });
 
 // let city1 = 'Ruse';
 // let city2 = 'Veliko Tarnovo';
-// let city3 = 'Lovech';
+// let city3 = 'Sofia';
+// let country = 'Bulgaria';
 // let category1 = 'Sport';
 // let category2 = 'Entertainment';
 
+// data.createCity(city1);
+// data.createCity(city2);
 // data.createCity(city3);
-//data.createCity(city2);
 // data.createCountry(country);
 // data.createEventType(category1);
 // data.createEventType(category2);
