@@ -37,19 +37,19 @@ block content
                         if isLiked
                             a(class='like-btn btn btn-default btn-primary')
                                 span(class='glyphicon glyphicon-thumbs-up')                        
-                                span= event.usersWhoLikeThis.length
+                                span(class='likes')= event.usersWhoLikeThis.length
                         else
                             a(class='like-btn btn btn-default')
                                 span(class='glyphicon glyphicon-thumbs-up')                        
-                                span= event.usersWhoLikeThis.length
+                                span(class='likes')= event.usersWhoLikeThis.length
                         if isDisliked
                             a(class='dislike-btn btn btn-default btn-primary')
                                 span(class='glyphicon glyphicon-thumbs-down')                            
-                                span= event.usersWhoDislikeThis.length
+                                span(class='dislikes')= event.usersWhoDislikeThis.length
                         else
                             a(class='dislike-btn btn btn-default')
                                 span(class='glyphicon glyphicon-thumbs-down')                            
-                                span= event.usersWhoDislikeThis.length    
+                                span(class='dislikes')= event.usersWhoDislikeThis.length    
                     input(type="text"
                         name="comment"
                         placeholder="Comment.."

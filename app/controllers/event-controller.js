@@ -269,12 +269,12 @@ module.exports = function(data) {
 
                         if(isUnique === true) {
                             event.usersWhoLikeThis.push(rater);
-                        }
-                        event.save();            
-                        let resObj = {
-                            event: event
-                        };
-                        res.status(201).send(resObj);
+                            event.save();            
+                            let resObj = {
+                                event: event
+                            };
+                            res.status(201).send(resObj);
+                        }                        
                     } else if(req.body.rate === 'dislike') {
                         let isUnique = true;
                         if(containsObject(event.usersWhoLikeThis, rater)) {
@@ -289,12 +289,12 @@ module.exports = function(data) {
 
                         if(isUnique === true) {
                             event.usersWhoDislikeThis.push(rater);
-                        }
-                        event.save();
-                        let resObj = {
-                            event: event
-                        };
-                        res.status(201).send(resObj);
+                            event.save();
+                            let resObj = {
+                                event: event
+                            };
+                            res.status(201).send(resObj);
+                        }                        
                     }                    
                 });
         }
