@@ -23,27 +23,22 @@ block content
                         .form-box
                             .form-top
                                 .form-top-left
-                                    h4 From:
-                                    if user
-                                        input(type="text" name="name" placeholder="Your name" value= user.fullName class="form-user-name form-control" id= "form-user-name")
+                                    form(role="form" action="" method="post" class="contact-form" id="contact-form")
+                                        h4 From:
+                                        if user
+                                            input(type="text" name="username" placeholder="Your name" value= user.fullName class="form-user-name form-control" id= "form-user-name")
+                                            br
+                                            input(type="text" name="useremail" placeholder="Your email" value= user.email class="form-user-email form-control" id= "form-user-email")
+                                            br
+                                        else
+                                            input(type="text" name="useremail" placeholder="Your email" class="form-user-email form-control" id= "form-user-email")
+                                            br
+                                        h4 Subject:
+                                        input(type="text" name="subject" class="form-subject form-control" id= "form-subject")        
+                                        h4 Message:
+                                        textarea(type="text" name="inputMessage" id= "message")
                                         br
-                                        input(type="text" name="email" placeholder="Your email" value= user.email class="form-user-email form-control" id= "form-user-email")
-                                        br
-                                    else
-                                        input(type="text" name="email" placeholder="Your email" class="form-user-email form-control" id= "form-user-email")
-                                        br
-                                    h4 To:
-                                    input(type="text" name="name" placeholder="Admin name" class="form-admin-name form-control" id= "form-admin-name") 
-                                    br 
-                                    input(type="text" name="email" placeholder="Admin email" class="form-admin-email form-control" id= "form-admin-email")
-                                    br      
-                                    h4 Subject:
-                                    input(type="text" name="subject" class="form-subject form-control" id= "form-subject")        
-                                    h4 Message:
-                                    form(role="form" action="" method="post" class="contact-form" id="user-contact-form")
-                                        textarea(type="text" class="message" id= "message")
-                                    br
-                                    .row
-                                    button(type="button" class="btn button is-checked" data-filter="*" id= "send-email-button") Send
+                                        .row
+                                        button(type="button" class="btn button is-checked" data-filter="*" id= "send-email-button") Send
 block specificJs
     script(src="/static/scripts/users/contactForm.js")
