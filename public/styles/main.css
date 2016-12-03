@@ -159,6 +159,7 @@ header nav {
 header #main-nav {
     float: left;
     position: relative;
+    top: 9px;
 }
 
 header #main-nav li {
@@ -212,6 +213,12 @@ header #logo {
 .page-login header #logo,
 .page-register header #logo {
     line-height: 140px;
+}
+
+.page-home header #user-nav,
+.page-login header #user-nav,
+.page-register header #user-nav {
+    margin: 25px 0 0px;
 }
 
 header #logo .fa-stack {
@@ -274,8 +281,8 @@ header #logo .logo-fa {
     min-height: 50px;
     margin-bottom: 20px;
     border: 1px solid transparent;
-    padding-top: 15px;
-    margin: 0 20px;
+    padding-top: 9px;
+    margin: 0;
 }
 
 #user-nav .profile-image span,
@@ -291,16 +298,77 @@ header #logo .logo-fa {
     padding: 5px 20px;
     border-radius: 4px;
     color: #56daba;
-    top: 30px;
     margin-left: 15px;
+    float: left;
+    position: relative;
+    margin-top: 9px;
+}
+#user-nav .profile-image .socials{
+    margin-top:5px;
+    background: transparent;
+    padding:0;
+}
+#user-nav .profile-image .socials .item{
+    float: left;
+    margin-right:10px;
+    width:30px;
+    height:30px;
+    line-height:30px;
+    background: #fff;
+}
+#user-nav .profile-image .socials .item a{
+    display: block;
+    color:#3a2e7b;
+    font-size: 16px;
+    overflow: hidden;
+}
+#user-nav .profile-image .socials .item::before{
+    box-sizing: border-box;
+    transform: translateX(100%);
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    overflow: hidden;
+    margin-left: -15px;
+}
+#user-nav .profile-image .socials .item::after{
+    box-sizing: border-box;
+    transform: translateX(-100%);
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 30px;
+    height: 2px;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    margin-left: -15px;
+}
+#user-nav .profile-image .socials .item:hover{
+    color: inherit;
+    text-decoration: none;
+}
+#user-nav .profile-image .socials .item:hover::before{
+    transition: .1s transform linear, .1s height linear .1s;
+    transform: translateX(0);
+    height: 100%;
+    border-color: #1fbfac;
+}
+#user-nav .profile-image .socials .item:hover::after{
+    transition: .1s transform linear .2s, .1s height linear .3s;
+    transform: translateX(0);
+    height: 100%;
+    border-color: #1fbfac;
 }
 #user-nav .profile-image .dropdown-user-menu:hover{
     cursor: pointer;
-
-
 }
 #user-nav .profile-image img{
-    width: 55px;
+    width: 65px;
+    max-height: 65px;
     height: auto;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
@@ -308,8 +376,28 @@ header #logo .logo-fa {
     margin: 10px auto 10px;
     display: block;
     float: left;
+    border: 2px solid white;
+    box-shadow: 0px 1px 11px;
 }
-
+#user-nav > ul{
+    display: none;
+    position: absolute;
+    top: 68px;
+    background: #fff;
+    right: 0;
+    border-top: 2px solid #56daba;
+    border-radius: 4px;
+    padding: 0;
+}
+#user-nav > ul li{
+    float: left;
+    position: relative;
+    width: 100%;
+    padding: 2px 10px;
+}
+#user-nav > ul li a{
+    display: block;
+}
 #profile-avatar {
     width: 100px;
     height: 125px
