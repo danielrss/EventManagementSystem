@@ -1,7 +1,6 @@
 'use strict';
 
-const FacebookStrategy = require('passport-facebook'),
-    User = require('../models/user-model');
+const FacebookStrategy = require('passport-facebook');
 
 const FACEBOOK = {
     FACEBOOK_APP_ID: '1378891302134747',
@@ -18,37 +17,32 @@ module.exports = function(passport, data) {
         passReqToCallback: true
     }, (req, accessToken, refreshToken, profile, done) => {
         process.nextTick(function() {
-            User.findOne({ 'socialLogins.facebook.id' : profile.id }, function(err, user) {
-                if (err){
-                    return done(err);
-                }
-
-                if (user) {
-                    return done(null, user);
-                } else {
-                    let newUser = new User();
-
-                    newUser.firstName = profile.name.givenName;
-                    newUser.lastName = profile.name.familyName;
-                    newUser.email = profile.emails[0].value;
-                    newUser.username = profile.name.givenName + '' + profile.name.familyName + '' + profile.id;
-                    newUser.avatarUrl = `https://graph.facebook.com/${profile.id}/picture?type=large`;
-
-                    newUser.socialLogins.facebook.email = profile.emails[0].value;
-                    newUser.socialLogins.facebook.id = profile.id;
-                    newUser.socialLogins.facebook.token = accessToken;
-                    newUser.socialLogins.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-                    newUser.socialLogins.facebook.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
-
-                    newUser.save(function(err) {
-                        if (err){
-                            throw err;
-                        }
-
-                        return done(null, newUser);
-                    });
-                }
-            });
+            data
+                .getUserByFacebookId(profile.id)
+                .then(user => {
+                    if (user) {
+                        return done(null, user);
+                    } else {
+                        data.createUser({
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: profile.emails[0].value,
+                            username: profile.name.givenName + '' + profile.name.familyName,
+                            avatarUrl: `https://graph.facebook.com/${profile.id}/picture?type=large`,
+                            socialLogins: {
+                                facebook: {
+                                    email: profile.emails[0].value,
+                                    id: profile.id,
+                                    token: accessToken,
+                                    name: profile.name.givenName + ' ' + profile.name.familyName,
+                                    picture: `https://graph.facebook.com/${profile.id}/picture?type=large`
+                                }
+                            }
+                        }).then(user => {
+                            return done(null, user);
+                        });
+                    }
+                });
         });
     });
 

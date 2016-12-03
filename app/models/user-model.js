@@ -5,8 +5,8 @@ const mongoose = require('mongoose'),
     uniqueValidator = require('mongoose-unique-validator'),
     Schema = mongoose.Schema;
 
-const LETTERS = /[A-Za-z]/,
-    ALPHA_PATTERN = /[A-Za-z1-9]/,
+const LETTERS = /^[A-Za-zА-Яа-я]+$/,
+    ALPHA_PATTERN = /^[A-Za-zА-Яа-я1-9]+$/,
     EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 let UserSchema = new Schema({
@@ -34,13 +34,7 @@ let UserSchema = new Schema({
         match: ALPHA_PATTERN
     },
     age: {
-        type: Number
-    },
-    facebookId: {
-        type: String
-    },
-    googleplusId: {
-        type: String
+        type: Number,
     },
     email: {
         type: String,
@@ -70,6 +64,20 @@ let UserSchema = new Schema({
     },
     socialLogins: {
         facebook: {
+            id: String,
+            token: String,
+            name: String,
+            email: String,
+            picture: String
+        },
+        googlePlus: {
+            id: String,
+            token: String,
+            name: String,
+            email: String,
+            picture: String
+        },
+        twitter: {
             id: String,
             token: String,
             name: String,

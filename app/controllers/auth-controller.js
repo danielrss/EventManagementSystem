@@ -46,45 +46,37 @@ module.exports = function(data) {
         },
         loginFacebookCallback() {
             const auth = passport.authenticate('facebook', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
+                successRedirect: '/profile',
+                failureRedirect: '/'
             });
 
             return auth;
         },
-        loginGooglePlus(req, res, next) {
-            const auth = passport.authenticate('google', function(error, user) {
-                if (error) {
-                    next(error);
-                    return;
-                }
+        loginGooglePlus() {
+            const auth = passport.authenticate('google', { scope: ['profile', 'email'] });
 
-                if (!user) {
-                    res.json({
-                        success: false,
-                        message: 'Invalid name or password!'
-                    });
-                }
-
-                req.login(user, error => {
-                    if (error) {
-                        next(error);
-                        return;
-                    }
-
-                    res.status(200)
-                        .redirect('/home');
-                });
+            return auth;
+        },
+        loginGooglePlusCallback() {
+            const auth = passport.authenticate('google', {
+                successRedirect: '/profile',
+                failureRedirect: '/'
             });
 
-            return Promise.resolve()
-                .then(() => {
-                    if (!req.isAuthenticated()) {
-                        auth(req, res, next);
-                    } else {
-                        res.redirect('/home');
-                    }
-                });
+            return auth;
+        },
+        loginTwitter() {
+            const auth = passport.authenticate('twitter');
+
+            return auth;
+        },
+        loginTwitterCallback() {
+            const auth = passport.authenticate('twitter', {
+                successRedirect: '/profile',
+                failureRedirect: '/'
+            });
+
+            return auth;
         },
         logout(req, res) {
             return Promise.resolve()

@@ -34,7 +34,7 @@ module.exports = function(models) {
         },
         getUserByFacebookId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ 'facebook.id': id }, (err, user) => {
+                User.findOne({ 'socialLogins.facebook.id': id }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -49,7 +49,22 @@ module.exports = function(models) {
         },
         getUserByGoogleplusId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ googleplusId: id }, (err, user) => {
+                User.findOne({ 'socialLogins.googlePlus.id': id }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    if (!user) {
+                        return reject(user);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        getUserByTwitterId(id) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ 'socialLogins.twitter.id': id }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
