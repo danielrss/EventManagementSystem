@@ -17,11 +17,14 @@ block content
                     .col-sm-8.col-sm-offset-2.text
                         strong
                             h1= event.name
-                    div(class='event-info' id=event.id)
-                        if event.coverUrls[0]
-                            img(src= event.coverUrls[0] style={width: '800px', height: '480px'})
-                        else
-                            img(src= event.coverUrl style={width: '800px', height: '480px'})
+                    if user 
+                        div(class='event-info' id=event.id user=user.username)
+                    else 
+                        div(class='event-info' id=event.id user='Anonymous')
+                    if event.coverUrls[0]
+                        img(src= event.coverUrls[0] style={width: '800px', height: '480px'})
+                    else
+                        img(src= event.coverUrl style={width: '800px', height: '480px'})
                     p='Date: ' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
                     p='Time: ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
                     p='Description: ' + event.description
@@ -33,34 +36,35 @@ block content
                     else
                         p='Capacity: unlimited'
                         p='Author: ' + event.user.name
-
-                    if isLiked
-                        a(class='like-btn btn btn-default btn-primary')
-                            span(class='glyphicon glyphicon-thumbs-up')                        
-                            span= event.usersWhoLikeThis.length
-                    else
-                        a(class='like-btn btn btn-default')
-                            span(class='glyphicon glyphicon-thumbs-up')                        
-                            span= event.usersWhoLikeThis.length
-                    if isDisliked
-                        a(class='dislike-btn btn btn-default btn-primary')
-                            span(class='glyphicon glyphicon-thumbs-down')                            
-                            span= event.usersWhoDislikeThis.length
-                    else
-                        a(class='dislike-btn btn btn-default')
-                            span(class='glyphicon glyphicon-thumbs-down')                            
-                            span= event.usersWhoDislikeThis.length    
+                    if user
+                        if isLiked
+                            a(class='like-btn btn btn-default btn-primary')
+                                span(class='glyphicon glyphicon-thumbs-up')                        
+                                span(class='likes')= event.usersWhoLikeThis.length
+                        else
+                            a(class='like-btn btn btn-default')
+                                span(class='glyphicon glyphicon-thumbs-up')                        
+                                span(class='likes')= event.usersWhoLikeThis.length
+                        if isDisliked
+                            a(class='dislike-btn btn btn-default btn-primary')
+                                span(class='glyphicon glyphicon-thumbs-down')                            
+                                span(class='dislikes')= event.usersWhoDislikeThis.length
+                        else
+                            a(class='dislike-btn btn btn-default')
+                                span(class='glyphicon glyphicon-thumbs-down')                            
+                                span(class='dislikes')= event.usersWhoDislikeThis.length    
                     input(type="text"
                         name="comment"
                         placeholder="Comment.."
                         class="form-comment form-control"
                         id="comment-input")
                     button(type="button" class="btn" id="comment-button") Add Comment
-                    h2='Comments'
-                    strong
-                        each comment in event.comments
-                            p='Comment:' + comment.text
-                            p='Author:' + comment.author
+                    if event.comments
+                        h2='Comments'
+                        strong
+                            div(id="comments")
+                                each comment in event.comments
+                                    p='Comment:' + comment.text + ' ' + 'Author:' + comment.author
 
 block specificJs
     script(src="/static/scripts/events/comment-event.js")

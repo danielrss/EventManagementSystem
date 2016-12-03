@@ -7,10 +7,12 @@
     $commentBtn.on('click', () => {
         return Promise.resolve()
             .then(() => {
-                let commentedEventId = $eventInfo.attr('id');  
+                let commentedEventId = $eventInfo.attr('id'),
+                    user = $eventInfo.attr('user');  
                 return {
                     commentedEventId: commentedEventId,
-                    text: $commentInput.val()
+                    text: $commentInput.val(),
+                    author: user
                 };
             })
             .then((commentData) => {
@@ -20,8 +22,10 @@
                     contentType: 'application/json',
                     data: JSON.stringify(commentData)
                 })
-                .done((res) => {
-                    window.location = res.redirectRoute;
+                .done(() => {
+                    let $div = $('<div>', { id: 'comment' } );
+                    $div.html('Comment:' + commentData.text + ' ' + 'Author:' + commentData.author);
+                    $('#comments').append($div);
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);

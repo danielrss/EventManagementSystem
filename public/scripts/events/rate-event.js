@@ -3,22 +3,23 @@
 (() => {
     const $eventInfo = $('.event-info'),
         $likeBtn = $('.like-btn'),
-        $dislikeBtn = $('.dislike-btn'); 
+        $dislikeBtn = $('.dislike-btn'),
+        $countOfLikes = $('.likes'),
+        $countOfDislikes = $('.dislikes');
 
-    $likeBtn.one('click', function(event) { 
+    $likeBtn.on('click', function(event) {
         $dislikeBtn.removeClass('btn-primary');
-        $likeBtn.addClass('btn-primary'); 
+        $likeBtn.addClass('btn-primary');
+
         return Promise.resolve()
             .then(() => {
-                let ratedEventId = $eventInfo.attr('id');  
-                console.log(ratedEventId);
+                let ratedEventId = $eventInfo.attr('id');
                 return {
                     ratedEventId: ratedEventId,
                     rate: 'like'
                 };
             })
             .then((ratedEvent) => {
-                console.log(ratedEvent);
                 $.ajax({
                     url: '/events/' + ratedEvent.ratedEventId,
                     method: 'POST',
@@ -26,29 +27,29 @@
                     data: JSON.stringify(ratedEvent)
                 })
                 .done((res) => {
-                    console.log('like succeded');
+                    $countOfLikes.html(res.likesCount);
+                    $countOfDislikes.html(res.dislikesCount);
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
                     return errorObject;
                 });
             });
-
     });
-    $dislikeBtn.one('click', function(event) {
+
+    $dislikeBtn.on('click', function(event) {
         $dislikeBtn.addClass('btn-primary');
-        $likeBtn.removeClass('btn-primary'); 
+        $likeBtn.removeClass('btn-primary');
+
         return Promise.resolve()
             .then(() => {
-                let ratedEventId = $eventInfo.attr('id');  
-                console.log(ratedEventId);
+                let ratedEventId = $eventInfo.attr('id');
                 return {
                     ratedEventId: ratedEventId,
                     rate: 'dislike'
                 };
             })
             .then((ratedEvent) => {
-                console.log(ratedEvent);
                 $.ajax({
                     url: '/events/' + ratedEvent.ratedEventId,
                     method: 'POST',
@@ -56,13 +57,13 @@
                     data: JSON.stringify(ratedEvent)
                 })
                 .done((res) => {
-                    console.log('disliked succeded');                    
+                    $countOfLikes.html(res.likesCount);
+                    $countOfDislikes.html(res.dislikesCount);
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
                     return errorObject;
                 });
             });
-
     });
 })();

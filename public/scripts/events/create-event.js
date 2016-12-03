@@ -16,6 +16,10 @@ const MIN_NAME_LENGTH = 3,
         $countryDropDown = $('#country-drop-down'),
         $inputFile = $('#form-file');
 
+    $(function() {
+        $('#datepicker').datepicker();
+    });
+
     $createForm.find(':input').on('focus', function() {
         $(this).removeClass('input-error');
         $(this).next('span').text('');

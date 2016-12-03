@@ -33,11 +33,11 @@ const ALPHA_PATTERN = /^[A-Za-zА-Яа-я1-9]+$/,
                 })
                 .then((user) => {
                     $.ajax({
-                            url: '/login',
-                            method: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(user)
-                        })
+                        url: '/login',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(user)
+                    })
                         .done((res) => {
                             window.location = res.redirectRoute;
                         })
