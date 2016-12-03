@@ -24,7 +24,8 @@ module.exports = function(app, express, data) {
         .get('/unauthorized', userController.getUnauthorized)
         .get('/approvals', userController.getAllEventsForApproval)
         .post('/approvals', userController.updateEvent)
-        .get('/contact', userController.getContactForm);
+        .get('/contact', userController.getContactForm)
+        .get('/contact/success', userController.getSuccessfulMessage);
 
     app.use(userRouter);
 };

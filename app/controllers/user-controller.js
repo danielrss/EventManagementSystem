@@ -4,7 +4,7 @@ const helpers = require('../helpers'),
     path = require('path'),
     uploader = require('../helpers/uploader');
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         getLogin(req, res) {
             return Promise.resolve()
@@ -22,7 +22,7 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.status(401).redirect('/unauthorized');
                     } else {
-                        if(req.user.role === 'admin') {
+                        if (req.user.role === 'admin') {
                             res.render('user/profile', { user: req.user, isAdmin: true });
                         } else {
                             res.render('user/profile', { user: req.user, isAdmin: false });
@@ -36,7 +36,7 @@ module.exports = function (data) {
                     if (!req.isAuthenticated()) {
                         res.status(401).redirect('/unauthorized');
                     } else {
-                        if(req.user.role === 'admin') {
+                        if (req.user.role === 'admin') {
                             res.render('user/profile-avatar', { user: req.user, isAdmin: true });
                         } else {
                             res.render('user/profile-avatar', { user: req.user, isAdmin: false });
@@ -46,57 +46,57 @@ module.exports = function (data) {
         },
         uploadProfileAvatar(req, res) {
             return new Promise((resolve, reject) => {
-                if (!req.isAuthenticated()) {
-                    res.status(401).redirect('/unauthorized');
-                    reject();
-                } else {
-                    let form = new formidable.IncomingForm();
-                    form.maxFieldsSize = 2 * 1024 * 1024;
+                    if (!req.isAuthenticated()) {
+                        res.status(401).redirect('/unauthorized');
+                        reject();
+                    } else {
+                        let form = new formidable.IncomingForm();
+                        form.maxFieldsSize = 2 * 1024 * 1024;
 
-                    form.onPart = function(part) {
-                        if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
-                            form.on('end', function(fields, files) {
-                                if (this.openedFiles[0].size > form.maxFieldsSize) {
-                                    return reject({ name: 'ValidationError', message: 'Maximum file size is 2MB.' });
-                                } else {
-                                    res.status(200)
-                                        .send({ redirectRoute: '/profile' });
-                                }
+                        form.onPart = function(part) {
+                            if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                                form.on('end', function(fields, files) {
+                                    if (this.openedFiles[0].size > form.maxFieldsSize) {
+                                        return reject({ name: 'ValidationError', message: 'Maximum file size is 2MB.' });
+                                    } else {
+                                        res.status(200)
+                                            .send({ redirectRoute: '/profile' });
+                                    }
 
-                                let userFolder = req.user.id,
-                                    pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
-                                    newFileName = 'avatar';
+                                    let userFolder = req.user.id,
+                                        pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
+                                        newFileName = 'avatar';
 
-                                uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
-                                    .then(uploadedFileName => {
-                                        resolve(uploadedFileName);
-                                    });
-                            });
-                            form.handlePart(part);
-                        } else {
-                            return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
-                        }
-                    };
+                                    uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
+                                        .then(uploadedFileName => {
+                                            resolve(uploadedFileName);
+                                        });
+                                });
+                                form.handlePart(part);
+                            } else {
+                                return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
+                            }
+                        };
 
-                    form.on('error', function(err) {
-                        reject(err);
-                    });
+                        form.on('error', function(err) {
+                            reject(err);
+                        });
 
-                    form.parse(req);
-                }
-            })
-            .then((fileName) => {
-                if (typeof fileName !== 'string') {
-                    return;
-                }
+                        form.parse(req);
+                    }
+                })
+                .then((fileName) => {
+                    if (typeof fileName !== 'string') {
+                        return;
+                    }
 
-                let avatarUrl = '/static/uploads/users/' + req.user.id + '/' + fileName;
-                data.findUserByIdAndUpdate(req.user.id, { avatarUrl });
-            })
-            .catch((err) => {
-                res.status(400)
-                    .send(JSON.stringify({ validationErrors: [err.message] }));
-            });
+                    let avatarUrl = '/static/uploads/users/' + req.user.id + '/' + fileName;
+                    data.findUserByIdAndUpdate(req.user.id, { avatarUrl });
+                })
+                .catch((err) => {
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: [err.message] }));
+                });
         },
         getUnauthorized(req, res) {
             return Promise.resolve()
@@ -131,7 +131,7 @@ module.exports = function (data) {
                 })
                 .then(user => {
                     res.status(200)
-                            .send({ redirectRoute: '/profile' });
+                        .send({ redirectRoute: '/profile' });
                 })
                 .catch(err => {
                     res.status(400)
@@ -154,7 +154,7 @@ module.exports = function (data) {
             } else {
                 return data.getEventById(req.body.event)
                     .then(event => {
-                        if(req.body.action === 'delete-event') {
+                        if (req.body.action === 'delete-event') {
                             event.isDeleted = true;
                             event.save();
                         } else if (req.body.action === 'approve-event') {
@@ -180,6 +180,12 @@ module.exports = function (data) {
                     } else {
                         res.render('user/contactForm', { user: req.user, isAdmin: false });
                     }
+                });
+        },
+        getSuccessfulMessage(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    res.render('user/successfulMessage');
                 });
         }
     };
