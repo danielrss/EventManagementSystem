@@ -34,13 +34,13 @@ module.exports = function(models) {
         },
         getUserByFacebookId(id) {
             return new Promise((resolve, reject) => {
-                User.findOne({ facebookId: id }, (err, user) => {
+                User.findOne({ 'facebook.id': id }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
 
                     if (!user) {
-                        return reject(user);
+                        resolve(null, false);
                     }
 
                     return resolve(user);

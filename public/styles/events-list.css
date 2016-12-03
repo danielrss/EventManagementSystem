@@ -67,7 +67,8 @@
 }
 #events-block-it .element-item .overlay a .title{
     text-align: center;
-    color:#33cb98
+    /*color:#33cb98*/
+    color:#fff;
 }
 #events-block-it .element-item .overlay a .desc{
     word-wrap: break-word;

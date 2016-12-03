@@ -1,10 +1,18 @@
 extends _header
 
 block userSection
-    li.menu-item.hvr-underline-from-center
-        a(href="/profile") Profile
-    li.menu-item.hvr-underline-from-center
-        a(href="/calendar") Calendar
-    block adminSection
-    li.menu-item.hvr-underline-from-center
-        a(href="/logout") Logout
+    div#user-nav
+        div.user-details
+            div.profile-image
+                img(src= user.avatarUrl id="profile-avatar")
+                span.dropdown-user-menu Hello,
+                    = ' ' + user.username
+                    i(class="fa fa-caret-down fa-fw")
+        ul
+            li.menu-item.hvr-underline-from-center
+                a(href="/profile") Profile
+            li.menu-item.hvr-underline-from-center
+                a(href="/calendar") Calendar
+            block adminSection
+            li.menu-item.hvr-underline-from-center
+                a(href="/logout") Logout

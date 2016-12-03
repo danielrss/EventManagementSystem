@@ -9,9 +9,9 @@ module.exports = function () {
                         res.render('home', {});
                     } else {
                         if(req.user.role === 'admin') {
-                            res.render('home', { user: req.user.username, isAdmin: true });
+                            res.render('home', { user: req.user, isAdmin: true });
                         } else {
-                            res.render('home', { user: req.user.username, isAdmin: false });
+                            res.render('home', { user: req.user, isAdmin: false });
                         }
                     }
                 });

@@ -13,6 +13,10 @@
     .form-box {
         margin-top: 40px !important;
     }
+    .page-login .top-container, .page-register .top-container, .page-profile .top-container {
+        padding-top: 13% !important;
+        height: 100%;
+    }
 }
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {

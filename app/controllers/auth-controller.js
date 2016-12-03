@@ -39,39 +39,18 @@ module.exports = function(data) {
                     }
                 });
         },
-        loginFacebook(req, res, next) {
-            const auth = passport.authenticate('facebook', function(error, user) {
-                if (error) {
-                    next(error);
-                    return;
-                }
+        loginFacebook() {
+            const auth = passport.authenticate("facebook", { scope: ["email", "user_location"] });
 
-                if (!user) {
-                    res.json({
-                        success: false,
-                        message: 'Invalid name or password!'
-                    });
-                }
-
-                req.login(user, error => {
-                    if (error) {
-                        next(error);
-                        return;
-                    }
-
-                    res.status(200)
-                        .redirect('/home');
-                });
+            return auth;
+        },
+        loginFacebookCallback() {
+            const auth = passport.authenticate('facebook', {
+                successRedirect : '/profile',
+                failureRedirect : '/'
             });
 
-            return Promise.resolve()
-                .then(() => {
-                    if (!req.isAuthenticated()) {
-                        auth(req, res, next);
-                    } else {
-                        res.redirect('/home');
-                    }
-                });
+            return auth;
         },
         loginGooglePlus(req, res, next) {
             const auth = passport.authenticate('google', function(error, user) {

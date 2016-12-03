@@ -35,8 +35,6 @@ let UserSchema = new Schema({
     },
     age: {
         type: Number,
-        required: true,
-        min: [12, 'Age must be at least 12!']
     },
     facebookId: {
         type: String
@@ -69,6 +67,15 @@ let UserSchema = new Schema({
     role: {
         type: String,
         default: 'user'
+    },
+    socialLogins: {
+        facebook: {
+            id: String,
+            token: String,
+            name: String,
+            email: String,
+            picture: String
+        }
     }
 });
 
