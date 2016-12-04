@@ -211,9 +211,11 @@ module.exports = function(data) {
         search(req, res) {
             let country = req.query.country,
                 city = req.query.city,
-                dateOfEvent = req.query.dateOfEvent,
+                fromDate = new Date(req.query.dateOfEvent),
+                toDate = new Date(fromDate),
                 name = req.query.name,
                 options = {};
+            toDate.setDate(fromDate.getDate() + 1);
 
             if (country) {
                 options['country.name'] = new RegExp(country, 'i');
@@ -221,8 +223,8 @@ module.exports = function(data) {
             if (city) {
                 options['city.name'] = new RegExp(city, 'i');
             }
-            if (dateOfEvent) {
-                options.dateOfEvent = new RegExp(dateOfEvent, 'i');
+            if (fromDate) {
+                options.dateOfEvent = { '$gte': fromDate, '$lt': toDate };
             }
             if (name) {
                 options.name = new RegExp(name, 'i');
@@ -234,7 +236,7 @@ module.exports = function(data) {
                         events,
                         country: country,
                         city: city,
-                        dateOfEvent: dateOfEvent,
+                        dateOfEvent: fromDate,
                         name: name,
                         user: req.user
                     });
