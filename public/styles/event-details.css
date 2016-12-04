@@ -63,6 +63,7 @@
     padding:10px;
     background-color: rgba(86,218,186, 0.4);
     border-radius: 5px;
+    width:100%;
 }
 #comments{
     float: left;
