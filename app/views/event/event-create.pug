@@ -38,7 +38,7 @@ block content
                                               placeholder="Name..."
                                               class="form-name form-control"
                                               id="form-name")
-                                        span.error.error-username
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-email")
                                         select(name="eventType" id="eventType-drop-down" class="form-control")
@@ -46,21 +46,21 @@ block content
                                             each eventType in eventTypes
                                                 option(value= eventType.name)= eventType.name
 
-                                        span.error.error-email
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-password")
                                         select(name="country" id="country-drop-down" class="form-control")
                                             option(selected disabled) Choose country
                                             each country in countries
                                                 option(value= country.name)= country.name
-                                        span.error.error-password
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-password")
                                         select(name="city" id="city-drop-down" class="form-control") |
                                             option(selected disabled) Choose city
                                             each city in cities
                                                 option(value= city.name id="city-option" country= city.country.name)= city.name
-                                        span.error.error-password
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-address")
                                         input(type="text"
@@ -68,7 +68,7 @@ block content
                                               placeholder="Address.."
                                               class="form-address form-control"
                                               id="form-address")
-                                        span.error.error-password
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-description")
                                         textarea(type="text"
@@ -76,7 +76,7 @@ block content
                                                  placeholder="Description..."
                                                  class="form-description form-control" 
                                                  id= "event-description")
-                                        span.error.error-firstname
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-dateOfEvent")
                                         input(type="text"
@@ -84,7 +84,7 @@ block content
                                               placeholder="Date..."
                                               class="form-dateOfEvent form-control"
                                               id="datepicker")
-                                        span.error.error-lastname
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-capacity")
                                         input(type="text"
@@ -92,7 +92,7 @@ block content
                                               placeholder="Capacity.."
                                               class="form-capacity form-control"
                                               id="form-capacity")
-                                        span.error.error-capacity
+                                        span.error
                                     label You can either provide a url or upload an image for the cover of your event
                                     .form-group
                                         label(class="sr-only" for="form-coverUrl")
@@ -101,7 +101,7 @@ block content
                                               placeholder="Cover Url.."
                                               class="form-coverUrl form-control"
                                               id="form-coverUrl")
-                                        span.error.error-coverUrl
+                                        span.error
                                     .form-group
                                         label(class="sr-only" for="form-file") File
                                         input(type="file"
@@ -109,7 +109,7 @@ block content
                                               name="file"
                                               class="form-file form-control"
                                               id="form-file")
-                                        span.error.error-file
+                                        span.error
                                     button(type="button" class="btn" id="create-button") Create Event
 block specificJs
     script(src="/static/scripts/utils/validator.js")
