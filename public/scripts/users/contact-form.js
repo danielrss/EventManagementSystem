@@ -2,7 +2,8 @@
 
 (() => {
     const $sendBtn = $('#send-email-button'),
-        $contactForm = $('#contact-form');
+        $contactForm = $('#contact-form'),
+        $response = $($contactForm.find('#response-message')[0]);
 
     $sendBtn.one('click', function() {
         return Promise.resolve()
@@ -16,19 +17,20 @@
 
                 return dataObj;
             })
-            .then((message) => {
+            .then((data) => {
                 $.ajax({
                     method: 'POST',
-                    url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                    url: '/contact',
                     contentType: 'application/json',
-                    data: JSON.stringify(message)
+                    data: JSON.stringify(data)
                 })
-                    .done((res) => {
-                        window.location = res.redirectRoute;
-                    })
-                    .fail((err) => {
-                        console.log(err);
-                    });
+                .done((res) => {
+                    $response.removeClass('sr-only');
+                    $response.html('Thank you for your message. We will reach out to you as soon as we can.');
+                })
+                .fail((err) => {
+                    console.log(err);
+                });
             })
             .catch((err) => {
                 console.log(err);

@@ -1,12 +1,12 @@
 'use strict';
 
-const MANDRILL_API_KEY = 'iOCqq_3jFI04xyoG4Qk-Pg';
+const NODEMAILER_API_KEY = '46HkloodlCV7MNf0QSfiyw';
 
 const helpers = require('../helpers'),
     formidable = require('formidable'),
     path = require('path'),
     uploader = require('../helpers/uploader'),
-    mandrill = require('node-mandrill')(MANDRILL_API_KEY);
+    nodemailer = require('nodemailer');
 
 module.exports = function(data) {
     return {
@@ -148,7 +148,7 @@ module.exports = function(data) {
             } else {
                 return data.getAllAwaitingEvents()
                     .then(events => {
-                        res.render('user/approveEvents', { user: req.user, isAdmin: true, events: events });
+                        res.render('user/approve-events', { user: req.user, isAdmin: true, events: events });
                     });
             }
         },
@@ -178,40 +178,43 @@ module.exports = function(data) {
             return Promise.resolve()
                 .then(() => {
                     if (!req.isAuthenticated()) {
-                        res.render('user/contactForm', {});
+                        res.render('user/contact-form', {});
                     } else if (req.user.role === 'admin') {
-                        res.render('user/contactForm', { user: req.user, isAdmin: true });
+                        res.render('user/contact-form', { user: req.user, isAdmin: true });
                     } else {
-                        res.render('user/contactForm', { user: req.user, isAdmin: false });
+                        res.render('user/contact-form', { user: req.user, isAdmin: false });
                     }
                 });
         },
         sendEmail(req, res) {
             return Promise.resolve()
                 .then(() => {
-                    let useremail = req.body.useremail,
+                    let userEmail = req.body.userEmail,
                         subject = req.body.subject,
                         message = req.body.inputMessage;
 
-                    mandrill('/messages/send', {
-                        message: {
-                            to: [{
-                                email: 'hristina.ii@abv.bg'
-                            }],
-                            from_email: useremail,
-                            subject: subject,
-                            text: message
+                    let transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+
+                    let mailOptions = {
+                        from: userEmail,
+                        to: 'danielisov96@gmail.com',
+                        subject: subject,
+                        text: message
+                    };
+
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if(error){
+                            return console.log(error);
                         }
+                        console.log('Message sent: ' + info.response);
                     });
                 })
                 .then(() => {
-                    res.redirect('/contact/success');
-                });
-        },
-        getSuccessfulMessage(req, res) {
-            return Promise.resolve()
-                .then(() => {
-                    res.render('user/successfulMessage');
+                    res.sendStatus(200);
+                })
+                .catch(err => {
+                    res.status(400)
+                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         }
     };
