@@ -188,6 +188,16 @@ module.exports = function(data) {
                     });
             }
         },
+        getCalendar(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.render('home', {});
+                    } else {
+                        res.render('user/calendar');
+                    }
+                });
+        },
         getContactForm(req, res) {
             return Promise.resolve()
                 .then(() => {
@@ -211,19 +221,19 @@ module.exports = function(data) {
                         to: supportEmail,
                         from: supportEmail,
                         subject: subject,
-                        text: message, 
+                        text: message,
                         html: `useremail: ${userEmail}, messages ${message}`
                     };
 
                     transporter.sendMail(mailOptions, (err) => {
                         if (err) {
-                            console.log(err.message);                     
+                            console.log(err.message);
                             return res.redirect('/contact');
                         }
-                        
+
                         res.redirect('/contact');
                     });
-                })                
+                })
                 .catch(err => {
                     res.status(400)
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
