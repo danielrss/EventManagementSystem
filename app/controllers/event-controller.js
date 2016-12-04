@@ -35,6 +35,23 @@ module.exports = function(data) {
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
+        subscribeForEvent(req, res){
+            data.getEventById(req.params.id)
+                .then(event => {
+                    if(req.isAuthenticated()) {
+                        if(!userHasAlreadySubscribed(req.user.subscribedEvents, event)){
+                            return data.subscribeForEvent(req.params.id, req.user)
+                                .then(() => {
+                                    res.sendStatus(200);
+                                })
+                                .catch(err => {
+                                    res.status(400)
+                                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                                });
+                        }
+                    }
+                });
+        },
         uploadImage(req, res) {
             let eventId = req.params.id,
                 event = {};
@@ -132,10 +149,14 @@ module.exports = function(data) {
             let id = req.params.id;
             let isLiked = false;
             let isDisliked = false;
+            let hasAlreadySubscribed = false;
 
             data.getEventById(id)
                 .then(event => {
                     if(req.isAuthenticated()) {
+                        if(userHasAlreadySubscribed(req.user.subscribedEvents, event)){
+                            hasAlreadySubscribed = true;
+                        }
                         if(containsUser(event.usersWhoLikeThis, req.user)) {
                             isLiked = true;
                         } else if(containsUser(event.usersWhoDislikeThis, req.user)) {
@@ -150,7 +171,8 @@ module.exports = function(data) {
                                 user: req.user,
                                 isAdmin: true,
                                 isLiked: isLiked,
-                                isDisliked: isDisliked
+                                isDisliked: isDisliked,
+                                hasAlreadySubscribed: hasAlreadySubscribed
                             });
                         } else {
                             return res.redirect('/events');
@@ -162,7 +184,8 @@ module.exports = function(data) {
                                 user: req.user,
                                 isAdmin: false,
                                 isLiked: isLiked,
-                                isDisliked: isDisliked
+                                isDisliked: isDisliked,
+                                hasAlreadySubscribed: hasAlreadySubscribed
                             });
                         } else {
                             return res.redirect('/events');
@@ -302,6 +325,16 @@ module.exports = function(data) {
 function containsUser(array, obj) {
     for(let i = 0; i < array.length; i += 1) {
         if(array[i].username === obj.username) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function userHasAlreadySubscribed(subscribedEvents, event) {
+    for(let i = 0; i < subscribedEvents.length; i += 1) {
+        if(subscribedEvents[i].eventId === event.id) {
             return true;
         }
     }

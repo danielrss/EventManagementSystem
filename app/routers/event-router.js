@@ -12,6 +12,7 @@ module.exports = function(app, express, data) {
         .get('/events/:id', eventController.getEventDetails)
         .post('/events/:id', eventController.rateEvent)
         .post('/events/:id/comment', eventController.commentEvent)
+        .post('/events/:id/subscribe', eventController.subscribeForEvent)
         .post('/events/:id/images', eventController.uploadImage);
 
     app.use(eventRouter);

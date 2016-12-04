@@ -34,6 +34,10 @@ block content
                         p='Author: ' + event.user.name
 
                         if user
+                            if hasAlreadySubscribed
+                                button(type="button" class="btn btn-success"  id="unsubscribe-button") Subscribed
+                            else
+                                button(type="button" class="btn"  id="subscribe-button") Subscribe
                             if isLiked
                                 a(class='like-btn btn btn-default btn-primary')
                                     span(class='glyphicon glyphicon-thumbs-up')
@@ -52,14 +56,11 @@ block content
                                     span(class='dislikes')= event.usersWhoDislikeThis.length
                         br
                         br
-                        #error-container.alert.alert-warning
-                            strong The following errors need to be corrected:
-                            ul
-                        input(type="text"
+                        textarea(type="text"
                             name="comment"
                             placeholder="Comment.."
                             class="form-comment form-control"
-                            id="comment-input")
+                            id="comment-textarea")
                         span.error.error-firstname
                         br
                         button(type="button" class="btn" id="comment-button") Add Comment
@@ -71,5 +72,6 @@ block content
 
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
+    script(src="/static/scripts/events/subscribe-for-event.js")
     script(src="/static/scripts/utils/validator.js")
     script(src="/static/scripts/events/rate-event.js")

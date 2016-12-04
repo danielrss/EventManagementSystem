@@ -84,7 +84,8 @@ let UserSchema = new Schema({
             email: String,
             picture: String
         }
-    }
+    },
+    subscribedEvents: [{}]
 });
 
 UserSchema
