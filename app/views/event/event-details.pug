@@ -4,20 +4,23 @@ block app-title
     | Event | EventManagementSystem
 
 block vars
-   - var bodyClass = 'profile';
+   - var bodyClass = 'event-detail';
+
+block additionalCss
+    link(rel="stylesheet", href="/static/styles/event-details.css")
 
 block content
     .top-container
         .inner-bg
             .container
                 .row
-                    .col-sm-8.col-sm-offset-2.text
+                    .col-sm-12.title
                         h1= event.name
                     div(class='event-info' id=event.id)
                         if event.coverUrls[0]
-                            img(src= event.coverUrls[0] style={width: '800px', height: '480px'})
+                            img(src= event.coverUrls[0])
                         else
-                            img(src= event.coverUrl style={width: '800px', height: '480px'})
+                            img(src= event.coverUrl)
                         p='Date: ' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
                         p='Time: ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
                         p='Description: ' + event.description

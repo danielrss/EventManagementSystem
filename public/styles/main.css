@@ -140,7 +140,8 @@ header {
     border-bottom: 1px solid rgba(255, 255, 255, .25);
 }
 
-.page-events-list header {
+.page-events-list header,
+.page-event-detail header{
     position: absolute;
     background: rgba(255, 255, 255, 0.15);
 }
@@ -408,6 +409,16 @@ header #logo .logo-fa {
 #profile-avatar {
     width: 100px;
     height: 125px
+}
+.page-profile .btn-wrap{
+    float: left;
+    position: relative;
+    width:100%;
+}
+.page-profile .btn-wrap .btn-green{
+    padding: 0 10px;
+    line-height: 35px;
+    height: 35px;
 }
 
 #content {

@@ -29,11 +29,12 @@
     left: 0;
 }
 .page-login .top-container,
-.page-register .top-container,
-.page-profile .top-container{
+.page-register .top-container{
     padding-top: 8%;
     height:100%;
-
+}
+.page-profile .top-container{
+    height:100%;
 }
 .page-login .btn-link-1,
 .page-register .btn-link-1,

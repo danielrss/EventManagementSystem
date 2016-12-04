@@ -1,0 +1,14 @@
+.page-event-detail .top-container{
+    background-image: url('/static/media/events_background.jpg') !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+.page-event-detail .inner-bg > .container{
+    padding: 8% 0 8%;
+}
+.page-event-detail .title h1{
+    color:#fff;
+    text-align: center;
+    font-family: montserrat-regular;
+}
