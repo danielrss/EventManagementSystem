@@ -35,14 +35,29 @@ module.exports = function(data) {
                         .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
                 });
         },
-        subscribeForEvent(req, res){
+        subscribeOrUnsubscribeForEvent(req, res){
+            let userHasSubscribed = false;
             data.getEventById(req.params.id)
                 .then(event => {
                     if(req.isAuthenticated()) {
                         if(!userHasAlreadySubscribed(req.user.subscribedEvents, event)){
+                            userHasSubscribed=true;
                             return data.subscribeForEvent(req.params.id, req.user)
                                 .then(() => {
-                                    res.sendStatus(200);
+                                    res.status(200)
+                                        .send({ userHasSubscribed });
+                                })
+                                .catch(err => {
+                                    res.status(400)
+                                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                                });
+                        }
+                        else{
+                            userHasSubscribed = false;
+                            return data.unsubscribeForEvent(req.params.id, req.user)
+                                .then(() => {
+                                    res.status(200)
+                                        .send({ userHasSubscribed });
                                 })
                                 .catch(err => {
                                     res.status(400)

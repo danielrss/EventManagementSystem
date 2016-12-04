@@ -5,8 +5,6 @@ const MIN_NAME_LENGTH = 3,
     MAX_NAME_LENGTH = 30,
     MIN_DESCRIPTION_LENGTH = 50,
     MAX_DESCRIPTION_LENGTH = 1000,
-    NAME_PATTERN = /^[A-Za-z]+$/,
-    ALPHA_PATTERN = /^[A-Za-z1-9]+$/,
     MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 (() => {
@@ -15,7 +13,8 @@ const MIN_NAME_LENGTH = 3,
         $createFormErrorContainer = $('#error-container'),
         $countryDropDown = $('#country-drop-down'),
         $cityDropDownOptions = $('#city-drop-down > option'),
-        $inputFile = $('#form-file');
+        $inputFile = $('#form-file'),
+        $descriptionInput = $('#event-description');
 
     $cityDropDownOptions.each(function() {
         $(this).hide();
@@ -206,9 +205,7 @@ const MIN_NAME_LENGTH = 3,
                 isAddressValid = validator.validateInputString(input, true, false, MIN_NAME_LENGTH, MAX_NAME_LENGTH);
             }
 
-            if(inputName === 'description'){
-                isDescriptionValid = validator.validateInputString(input, true, false, MIN_DESCRIPTION_LENGTH, MAX_DESCRIPTION_LENGTH);
-            }
+            isDescriptionValid = validator.validateInputString($descriptionInput, true, false, MIN_DESCRIPTION_LENGTH, MAX_DESCRIPTION_LENGTH);
         });
 
         if (isNameValid && isDateValid && isAddressValid && isDescriptionValid &&

@@ -1,25 +1,26 @@
 'use strict';
 
-const NODEMAILER_API_KEY = '46HkloodlCV7MNf0QSfiyw';
+const nodemailer = require('nodemailer');
+const supportEmail = 'eventsys.sup@gmail.com';
+
 
 const helpers = require('../helpers'),
     formidable = require('formidable'),
     path = require('path'),
-    uploader = require('../helpers/uploader'),
-    nodemailer = require('nodemailer'),
-    smtpTransport = require('nodemailer-smtp-transport'),
-    transporter = nodemailer.createTransport(smtpTransport({
-        transport: 'SMTP',
-        host: 'smtp.gmail.com',
-        secureConnection: false,
-        port: 587,
-        requiresAuth: true,
-        domains: ['gmail.com', 'googlemail.com'],
-        auth: {
-            user: 'xristina.i.ilieva@gmailcom',
-            pass: 'Xristinaiilieva1'
-        },
-    }));
+    uploader = require('../helpers/uploader');
+
+const settings = {
+    host: 'smtp.sendgrid.net',
+    service: 'Gmail',
+    port: parseInt(587, 10),
+    requiresAuth: true,
+    auth: {
+        user: 'eventsys.sup@gmail.com',
+        pass: 'ninjas123456'
+    }
+};
+const transporter = nodemailer.createTransport(settings);
+
 
 module.exports = function(data) {
     return {
@@ -187,6 +188,16 @@ module.exports = function(data) {
                     });
             }
         },
+        getCalendar(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.render('home', {});
+                    } else {
+                        res.render('user/calendar');
+                    }
+                });
+        },
         getContactForm(req, res) {
             return Promise.resolve()
                 .then(() => {
@@ -206,26 +217,22 @@ module.exports = function(data) {
                         subject = req.body.subject,
                         message = req.body.inputMessage;
 
-                    let mailOptions = {
-                        from: 'xristina.i.ilieva@gmail.com',
-                        to: 'danielisov96@gmail.com',
+                    const mailOptions = {
+                        to: supportEmail,
+                        from: supportEmail,
                         subject: subject,
                         text: message,
-                        html: message
+                        html: `useremail: ${userEmail}, messages ${message}`
                     };
 
-                    transporter.sendMail(mailOptions, function(error, info) {
-                        console.log(mailOptions);
-                        console.log(info);
-                        if (error) {
-                            return console.log(error);
+                    transporter.sendMail(mailOptions, (err) => {
+                        if (err) {
+                            console.log(err.message);
+                            return res.redirect('/contact');
                         }
-                        console.log('Message sent: ' + info.response);
-                        transporter.close();
+
+                        res.redirect('/contact');
                     });
-                })
-                .then(() => {
-                    res.sendStatus(200);
                 })
                 .catch(err => {
                     res.status(400)

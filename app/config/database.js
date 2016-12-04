@@ -2,8 +2,8 @@
 
 const mongoose = require('mongoose');
 
-module.exports = function(config) {
+module.exports = function(connectionString) {
     mongoose.Promise = global.Promise;
-    mongoose.connect(config.connectionString);
+    mongoose.connect(connectionString);
 };
 

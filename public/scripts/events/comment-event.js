@@ -7,7 +7,7 @@ const MIN_COMMENT_LENGTH = 5,
 (() => {
     const $eventInfo = $('.event-info'),
         $commentBtn = $('#comment-button'),
-        $commentInput = $('#comment-input');
+        $commentInput = $('#comment-textarea');
 
     $commentInput.on('focus', function() {
         $(this).removeClass('input-error');

@@ -1,0 +1,21 @@
+extends ../_layout
+
+block app-title
+    | Calendar | EventManagementSystem
+
+block vars
+   - var bodyClass = 'login';
+
+block additionalCss
+    link(rel='stylesheet', href='/static/bower_components/fullcalendar/dist/fullcalendar.css')
+    
+block content
+    .top-container
+        .inner-bg
+            .container
+                div#calendar
+
+block specificJs
+    script(src="/static/scripts/users/calendar.js")
+    script(src='/static/bower_components/moment/min/moment.min.js')
+    script(src='/static/bower_components/fullcalendar/dist/fullcalendar.min.js')

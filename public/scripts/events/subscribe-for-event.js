@@ -1,4 +1,3 @@
-/* globals validator */
 'use strict';
 
 (() => {
@@ -21,14 +20,25 @@
                     data: JSON.stringify(subscribeData)
                 })
                 .done((res) => {
-                    $subscribeBtn.html('Subscribed');
-                    $subscribeBtn.removeClass('btn-default');
-                    $subscribeBtn.addClass('btn-success');
+                    if(res.userHasSubscribed){
+                        $subscribeBtn.html('Unsubscribe');
+                        $subscribeBtn.removeClass('btn-default');
+                        $subscribeBtn.addClass('btn-success');
+                    }
+                    else{
+                        $subscribeBtn.html('Subscribe');
+                        $subscribeBtn.removeClass('btn-default');
+                        $subscribeBtn.addClass('btn-success');
+                    }
                 })
                 .fail((err) => {
                     let errorObject = JSON.parse(err.responseText);
                     return errorObject;
                 });
+            })
+            .catch((err)=>{
+                console.log(err);
             });
+
     });
 })();
