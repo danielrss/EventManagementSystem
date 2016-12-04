@@ -101,9 +101,9 @@ module.exports = function(models) {
                     });
             });
         },
-        getAllEvents() {
+        getAllApprovedEvents() {
             return new Promise((resolve, reject) => {
-                Event.find((err, events) => {
+                Event.find({ isApproved: true, isDeleted: false }, (err, events) => {
                     if (err) {
                         return reject(err);
                     }
