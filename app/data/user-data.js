@@ -55,7 +55,7 @@ module.exports = function(models) {
                     }
 
                     if (!user) {
-                        return reject(user);
+                        resolve(null, false);
                     }
 
                     return resolve(user);
@@ -70,7 +70,7 @@ module.exports = function(models) {
                     }
 
                     if (!user) {
-                        return reject(user);
+                        resolve(null, false);
                     }
 
                     return resolve(user);

@@ -9,13 +9,16 @@ const helpers = require('../helpers'),
     nodemailer = require('nodemailer'),
     smtpTransport = require('nodemailer-smtp-transport'),
     transporter = nodemailer.createTransport(smtpTransport({
-        host: 'localhost',
-        port: 25,
-        service: 'Gmail',
+        transport: 'SMTP',
+        host: 'smtp.gmail.com',
+        secureConnection: false,
+        port: 587,
+        requiresAuth: true,
+        domains: ['gmail.com', 'googlemail.com'],
         auth: {
-            user: 'username',
-            pass: 'password'
-        }
+            user: 'xristina.i.ilieva@gmailcom',
+            pass: 'Xristinaiilieva1'
+        },
     }));
 
 module.exports = function(data) {
@@ -204,13 +207,16 @@ module.exports = function(data) {
                         message = req.body.inputMessage;
 
                     let mailOptions = {
-                        from: userEmail,
+                        from: 'xristina.i.ilieva@gmail.com',
                         to: 'danielisov96@gmail.com',
                         subject: subject,
-                        text: message
+                        text: message,
+                        html: message
                     };
 
                     transporter.sendMail(mailOptions, function(error, info) {
+                        console.log(mailOptions);
+                        console.log(info);
                         if (error) {
                             return console.log(error);
                         }

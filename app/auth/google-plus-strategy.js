@@ -1,12 +1,12 @@
 'use strict';
 
-const GooglePlusStrategy = require('passport-google-plus');
+const GooglePlusStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 const GOOGLEPLUS = {
     GOOGLE_APP_ID: '42643689062-kmm89boegmnl0bhe4td16fdctlgbl77b.apps.googleusercontent.com',
     GOOGLE_APP_SECRET: 'n_KJIx9wlxyDwlFPIiGt837x',
     GOOPLE_API_KEY: 'AIzaSyA9srUys1onfPKJocfbkdRmvWO44Fr5NyQ',
-    callbackURL: 'http://localhost:3003/auth/googlePlus/callback'
+    callbackURL: 'http://localhost:3003/auth/google/callback'
 };
 
 module.exports = function(passport, data) {
@@ -27,7 +27,7 @@ module.exports = function(passport, data) {
                             firstName: profile.name.givenName,
                             lastName: profile.name.familyName,
                             email: profile.emails[0].value,
-                            username: profile.name.givenName + '' + profile.name.familyName,
+                            username: profile.name.givenName + '' + profile.name.familyName + '' + profile.id,
                             avatarUrl: profile.photos[0].value,
                             socialLogins: {
                                 googlePlus: {

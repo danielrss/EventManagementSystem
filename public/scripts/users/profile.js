@@ -5,7 +5,7 @@ const MIN_NAME_LENGTH = 3,
     MIN_USERNAME_LENGTH = 5,
     MAX_NAME_LENGTH = 30,
     NAME_PATTERN = /^[A-Za-zА-Яа-я]+$/,
-    ALPHA_PATTERN = /^[A-Za-zА-Яа-я1-9]+$/,
+    ALPHA_PATTERN = /^[A-Za-zА-Яа-я0-9]+$/,
     EMAIL_PATTERN = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 (() => {
@@ -36,18 +36,18 @@ const MIN_NAME_LENGTH = 3,
                 })
                 .then((user) => {
                     $.ajax({
-                        url: '/profile',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(user)
-                    })
-                    .done((res) => {
-                        window.location = res.redirectRoute;
-                    })
-                    .fail((err) => {
-                        let errorObj = JSON.parse(err.responseText);
-                        displayValidationErrors(errorObj, $profileFormErrorContainer);
-                    });
+                            url: '/profile',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(user)
+                        })
+                        .done((res) => {
+                            window.location = res.redirectRoute;
+                        })
+                        .fail((err) => {
+                            let errorObj = JSON.parse(err.responseText);
+                            displayValidationErrors(errorObj, $profileFormErrorContainer);
+                        });
                 })
                 .catch((err) => {
                     let errorObj = JSON.parse(err.responseText);
