@@ -22,6 +22,13 @@ const INIT_SHOW = 15;
             }
         });
 
+        $(function() {
+            $('#datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                constrainInput: false
+            });
+        });
+
         // bind filter button click
         $filters.on('click', 'button', function() {
             let filterValue = $(this).attr('data-filter');
