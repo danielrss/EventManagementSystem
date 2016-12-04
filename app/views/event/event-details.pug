@@ -81,6 +81,7 @@ block content
                                         each comment in event.comments
                                             p='' + comment.text
                                                 span.author='Author: ' + comment.author
+                                                span.dateTime='Date: ' + comment.date.getFullYear() + '/' + (comment.date.getMonth() + 1) + '/' + comment.date.getDate() + ' ' + 'Time: ' + (comment.date.getHours()<10?'0':'') + comment.date.getHours() + ':' + (comment.date.getMinutes()<10?'0':'') + comment.date.getMinutes() + 'h'
                                 else
                                     div No comments at the moment...
 

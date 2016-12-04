@@ -38,17 +38,27 @@ module.exports = function(models) {
         commentEvent(eventId, commentText, user){
             return new Promise((resolve, reject) => {
                 let commentAuthor;
-
+                let commentData;
+                let dateOfComment = new Date();
                 if(user){
-                    commentAuthor = user.username;
+                    commentAuthor = user.username;         
                     let commentAuthorId = user.id;
-                    this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId } } });
-                    return resolve(commentAuthor);
+                    this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId, date: dateOfComment } } });
+                    commentData = {
+                        commentAuthor: commentAuthor,
+                        dateOfComment: dateOfComment.getFullYear() + '/' + (dateOfComment.getMonth() + 1) + '/' + dateOfComment.getDate(),
+                        timeOfComment: (dateOfComment.getHours()<10?'0':'') + dateOfComment.getHours() + ':' + (dateOfComment.getMinutes()<10?'0':'') + dateOfComment.getMinutes() + 'h'
+                    };
+                    return resolve(commentData);
                 }
-
                 commentAuthor = 'Anonymous';
+                commentData = {
+                    commentAuthor: commentAuthor,
+                    dateOfComment: dateOfComment.getFullYear() + '/' + (dateOfComment.getMonth() + 1) + '/' + dateOfComment.getDate(),
+                    timeOfComment: (dateOfComment.getHours()<10?'0':'') + dateOfComment.getHours() + ':' + (dateOfComment.getMinutes()<10?'0':'') + dateOfComment.getMinutes() + 'h'
+                };
                 this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor } } });
-                return resolve(commentAuthor);
+                return resolve(commentData);
             });
         },
         subscribeForEvent(eventId, user){

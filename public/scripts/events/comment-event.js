@@ -33,9 +33,16 @@ const MIN_COMMENT_LENGTH = 5,
                         data: JSON.stringify(commentData)
                     })
                     .done((res) => {
-                        let $div = $('<div>', { id: 'comment' } );
-                        $div.html('Comment:' + commentData.commentText + ' ' + 'Author:' + res.commentAuthor);
-                        $('#comments').append($div);
+                        console.log(res);
+                        let $comment = $('<p>', { id: 'comment' } );
+                        let $commentAuthor = $('<p>', { id: 'commentAuthor' } );
+                        let $commentDateTime = $('<p>', { id: 'commentDate' } );
+                        $comment.html('Comment: ' + commentData.commentText);
+                        $commentAuthor.html('Author: ' + res.commentData.commentAuthor);
+                        $commentDateTime.html('Date: ' + res.commentData.dateOfComment + ' ' + 'Time:' + res.commentData.timeOfComment);
+                        $('#comments').append($comment);   
+                        $('#comments').append($commentAuthor); 
+                        $('#comments').append($commentDateTime);       
                     })
                     .fail((err) => {
                         let errorObject = JSON.parse(err.responseText);
