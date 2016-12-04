@@ -22,6 +22,32 @@ block content
                                     img(src= event.coverUrls[0])
                             else
                                 img(src= event.coverUrl)
+
+                            div.options
+                            if user
+                                div.subscribe
+                                    if hasAlreadySubscribed
+                                        button(type="button" class="btn"  id="subscribe-button") Unsubscribe
+                                    else
+                                        button(type="button" class="btn"  id="subscribe-button") Subscribe
+                                div.likes-wrapper
+                                    if isLiked
+                                        a(class='like-btn btn btn-default btn-success')
+                                            span(class='glyphicon glyphicon-thumbs-up')
+                                            span(class='likes')= event.usersWhoLikeThis.length
+                                    else
+                                        a(class='like-btn btn btn-success')
+                                            span(class='glyphicon glyphicon-thumbs-up')
+                                            span(class='likes')= event.usersWhoLikeThis.length
+                                    if isDisliked
+                                        a(class='dislike-btn btn btn-default btn-danger')
+                                            span(class='glyphicon glyphicon-thumbs-down')
+                                            span(class='dislikes')= event.usersWhoDislikeThis.length
+                                    else
+                                        a(class='dislike-btn btn btn-danger')
+                                            span(class='glyphicon glyphicon-thumbs-down')
+                                            span(class='dislikes')= event.usersWhoDislikeThis.length
+
                         div.event-details-info.col-sm-6
                             div.event-date
                                 label Date:
@@ -29,9 +55,6 @@ block content
                             div.event-time
                                 label Time:
                                 p=' ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
-                            div.event-desc
-                                label Description:
-                                p=' ' + event.description
                             div.location
                                 label Location:
                                 div.country=' - Country: ' + event.country.name
@@ -45,42 +68,31 @@ block content
                                         p='Capacity: unlimited'
                                 div.author='Author: ' + event.user.name
 
-                        if user
-                            if hasAlreadySubscribed
-                                button(type="button" class="btn btn-success"  id="subscribe-button") Unsubscribe
-                            else
-                                button(type="button" class="btn"  id="subscribe-button") Subscribe
-                            if isLiked
-                                a(class='like-btn btn btn-default btn-primary')
-                                    span(class='glyphicon glyphicon-thumbs-up')
-                                    span(class='likes')= event.usersWhoLikeThis.length
-                            else
-                                a(class='like-btn btn btn-default')
-                                    span(class='glyphicon glyphicon-thumbs-up')
-                                    span(class='likes')= event.usersWhoLikeThis.length
-                            if isDisliked
-                                a(class='dislike-btn btn btn-default btn-primary')
-                                    span(class='glyphicon glyphicon-thumbs-down')
-                                    span(class='dislikes')= event.usersWhoDislikeThis.length
-                            else
-                                a(class='dislike-btn btn btn-default')
-                                    span(class='glyphicon glyphicon-thumbs-down')
-                                    span(class='dislikes')= event.usersWhoDislikeThis.length
-                        br
-                        br
-                        textarea(type="text"
-                            name="comment"
-                            placeholder="Comment.."
-                            class="form-comment form-control"
-                            id="comment-textarea")
-                        span.error
-                        br
-                        button(type="button" class="btn" id="comment-button") Add Comment
-                        if event.comments
-                            h2='Comments'
-                            div(id="comments")
-                                each comment in event.comments
-                                    p='Comment: ' + comment.text + ' ' + 'Author: ' + comment.author
+
+                        div.additional.col-sm-12
+                            div.event-desc
+                                h3 Description:
+                                p=' ' + event.description
+
+                            h3='Comments'
+                            div.comments-list
+                                if event.comments
+                                    div(id="comments")
+                                        each comment in event.comments
+                                            p='' + comment.text
+                                                span.author='Author: ' + comment.author
+                                else
+                                    div No comments at the moment...
+
+                                div.make-comment
+                                    textarea(type="text"
+                                        name="comment"
+                                        placeholder="Comment.."
+                                        class="form-comment form-control"
+                                        id="comment-textarea")
+                                    span.error
+                                    button(type="button" class="btn-green" id="comment-button") Add Comment
+
 
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
