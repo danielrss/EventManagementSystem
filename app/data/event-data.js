@@ -57,13 +57,6 @@ module.exports = function(models) {
                     .then((event) => {
                         let eventName=event.name;
                         let userId = user.id;
-                        // let hasAlreadySubscribed = false;
-                        // for (let subscribedEvent in user.subscribedEvents){
-                        //     if(subscribedEvent.eventId === eventId){
-                        //         hasAlreadySubscribed = true;
-                        //     }
-                        // }
-                        //if(!hasAlreadySubscribed){
                         User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);
@@ -75,7 +68,31 @@ module.exports = function(models) {
 
                             return resolve(user);
                         });
+                    });
+            });
+        },
+        unsubscribeForEvent(eventId, user){
+            //let userHasSubscribed = false;
+            return new Promise((resolve, reject) => {
+                this.getEventById(eventId)
+                    .then((event) => {
+                        let eventName=event.name;
+                        let userId = user.id;
+                        //if(!this.checkIfAlreadySubscribed(user.subscribedEvents, event)){
+                        User.findOneAndUpdate({ _id: userId }, { $pull:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            if (!user) {
+                                return reject(user);
+                            }
+                            
+                            //userHasSubscribed = true;
+                            return resolve(user);
+                        });
                         //}
+                        //else
                     });
             });
         },
@@ -180,6 +197,15 @@ module.exports = function(models) {
                     return resolve(events);
                 });
             });
-        }
+        },
+        // checkIfAlreadySubscribed(subscribedEvents, event) {
+        //     for(let i = 0; i < subscribedEvents.length; i += 1) {
+        //         if(subscribedEvents[i].eventId === event.id) {
+        //             return true;
+        //         }
+        //     }
+
+        //     return false;
+        // }
     };
 };
