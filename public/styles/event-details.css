@@ -5,10 +5,31 @@
     background-size: cover !important;
 }
 .page-event-detail .inner-bg > .container{
+    padding: 20px;
+    background: rgba(255,255,255, 0.2);
+    border-radius: 3px;
+}
+.page-event-detail .inner-bg > .container > .row{
     padding: 8% 0 8%;
 }
 .page-event-detail .title h1{
     color:#fff;
     text-align: center;
+    text-decoration:underline;
+    margin-bottom:20px;
     font-family: montserrat-regular;
+}
+.page-event-detail .event-info{
+
+}
+.event-info .event-cover img{
+    width:100%;
+    border: 2px solid #fff;
+    box-shadow: 0px 0px 16px grey;
+}
+.event-info .event-desc p{
+    word-wrap:break-word;
+}
+.page-event-details #user-nav{
+    margin: 0 20px 0;
 }
