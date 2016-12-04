@@ -72,13 +72,11 @@ module.exports = function(models) {
             });
         },
         unsubscribeForEvent(eventId, user){
-            //let userHasSubscribed = false;
             return new Promise((resolve, reject) => {
                 this.getEventById(eventId)
                     .then((event) => {
                         let eventName=event.name;
                         let userId = user.id;
-                        //if(!this.checkIfAlreadySubscribed(user.subscribedEvents, event)){
                         User.findOneAndUpdate({ _id: userId }, { $pull:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);
@@ -87,12 +85,8 @@ module.exports = function(models) {
                             if (!user) {
                                 return reject(user);
                             }
-                            
-                            //userHasSubscribed = true;
                             return resolve(user);
                         });
-                        //}
-                        //else
                     });
             });
         },
