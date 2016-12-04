@@ -19,18 +19,20 @@
             })
             .then((data) => {
                 $.ajax({
-                    method: 'POST',
-                    url: '/contact',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data)
-                })
-                .done((res) => {
-                    $response.removeClass('sr-only');
-                    $response.html('Thank you for your message. We will reach out to you as soon as we can.');
-                })
-                .fail((err) => {
-                    console.log(err);
-                });
+                        method: 'POST',
+                        url: '/contact',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data)
+                    })
+                    .done((res) => {
+                        $('.form-group.input').addClass('hidden');
+                        $sendBtn.addClass('hidden');
+                        $response.removeClass('sr-only');
+                        $response.html('Thank you for your message. We will reach out to you as soon as we can.');
+                    })
+                    .fail((err) => {
+                        console.log(err);
+                    });
             })
             .catch((err) => {
                 console.log(err);

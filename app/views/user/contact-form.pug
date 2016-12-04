@@ -23,7 +23,8 @@ block content
                         .form-box
                             .form-top
                                 form(role="form" action="" method="post" class="contact-form" id="contact-form")
-                                    .form-group
+                                    .form-group.input
+                                        br
                                         h4 From:
                                         if user
                                             input(type="text" class="form-control" name="userEmail" placeholder="Your email" value= user.email class="form-user-email form-control" id= "form-user-email")
@@ -32,17 +33,16 @@ block content
                                             input(type="text" class="form-control" name="userEmail" placeholder="Your email" class="form-user-email form-control" id= "form-user-email")
                                             br
                                         span.error.error-email
-                                    .form-group
+                                    .form-group.input
                                         h4 Subject:
                                         input(type="text" class="form-control" name="subject" class="form-subject form-control" id= "form-subject")
                                         span.error.error-subject
-                                    .form-group
+                                    .form-group.input
                                         h4 Message:
                                         textarea(type="text" class="form-control" name="inputMessage" id= "message")
                                         span.error.error-message
                                     .form-group
                                         h4(class="sr-only" id="response-message")
-                                    br
                                     br
                                     button(type="button" class="btn button is-checked" data-filter="*" id= "send-email-button") Send
 block specificJs

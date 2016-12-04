@@ -6,7 +6,17 @@ const helpers = require('../helpers'),
     formidable = require('formidable'),
     path = require('path'),
     uploader = require('../helpers/uploader'),
-    nodemailer = require('nodemailer');
+    nodemailer = require('nodemailer'),
+    smtpTransport = require('nodemailer-smtp-transport'),
+    transporter = nodemailer.createTransport(smtpTransport({
+        host: 'localhost',
+        port: 25,
+        service: 'Gmail',
+        auth: {
+            user: 'username',
+            pass: 'password'
+        }
+    }));
 
 module.exports = function(data) {
     return {
@@ -50,45 +60,45 @@ module.exports = function(data) {
         },
         uploadProfileAvatar(req, res) {
             return new Promise((resolve, reject) => {
-                if (!req.isAuthenticated()) {
-                    res.status(401).redirect('/unauthorized');
-                    reject();
-                } else {
-                    let form = new formidable.IncomingForm();
-                    form.maxFieldsSize = 2 * 1024 * 1024;
+                    if (!req.isAuthenticated()) {
+                        res.status(401).redirect('/unauthorized');
+                        reject();
+                    } else {
+                        let form = new formidable.IncomingForm();
+                        form.maxFieldsSize = 2 * 1024 * 1024;
 
-                    form.onPart = function(part) {
-                        if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
-                            form.on('end', function(fields, files) {
-                                if (this.openedFiles[0].size > form.maxFieldsSize) {
-                                    return reject({ name: 'ValidationError', message: 'Maximum file size is 2MB.' });
-                                } else {
-                                    res.status(200)
-                                        .send({ redirectRoute: '/profile' });
-                                }
+                        form.onPart = function(part) {
+                            if (!part.filename || part.filename.match(/\.(jpg|jpeg|png)$/i)) {
+                                form.on('end', function(fields, files) {
+                                    if (this.openedFiles[0].size > form.maxFieldsSize) {
+                                        return reject({ name: 'ValidationError', message: 'Maximum file size is 2MB.' });
+                                    } else {
+                                        res.status(200)
+                                            .send({ redirectRoute: '/profile' });
+                                    }
 
-                                let userFolder = req.user.id,
-                                    pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
-                                    newFileName = 'avatar';
+                                    let userFolder = req.user.id,
+                                        pathToUploadFolder = path.join(__dirname, '../../public/uploads/users', userFolder),
+                                        newFileName = 'avatar';
 
-                                uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
-                                    .then(uploadedFileName => {
-                                        resolve(uploadedFileName);
-                                    });
-                            });
-                            form.handlePart(part);
-                        } else {
-                            return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
-                        }
-                    };
+                                    uploader.uploadFile(this.openedFiles[0], pathToUploadFolder, newFileName)
+                                        .then(uploadedFileName => {
+                                            resolve(uploadedFileName);
+                                        });
+                                });
+                                form.handlePart(part);
+                            } else {
+                                return reject({ name: 'ValidationError', message: 'File types allowed: jpg, jpeg, png.' });
+                            }
+                        };
 
-                    form.on('error', function(err) {
-                        reject(err);
-                    });
+                        form.on('error', function(err) {
+                            reject(err);
+                        });
 
-                    form.parse(req);
-                }
-            })
+                        form.parse(req);
+                    }
+                })
                 .then((fileName) => {
                     if (typeof fileName !== 'string') {
                         return;
@@ -193,8 +203,6 @@ module.exports = function(data) {
                         subject = req.body.subject,
                         message = req.body.inputMessage;
 
-                    let transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
-
                     let mailOptions = {
                         from: userEmail,
                         to: 'danielisov96@gmail.com',
@@ -202,11 +210,12 @@ module.exports = function(data) {
                         text: message
                     };
 
-                    transporter.sendMail(mailOptions, function(error, info){
-                        if(error){
+                    transporter.sendMail(mailOptions, function(error, info) {
+                        if (error) {
                             return console.log(error);
                         }
                         console.log('Message sent: ' + info.response);
+                        transporter.close();
                     });
                 })
                 .then(() => {
