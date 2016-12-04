@@ -276,6 +276,18 @@ header #logo .logo-fa {
     top: 4px;
 }
 
+#event-description {
+    resize: none;
+    width: 100%;
+    height: 180px;
+}
+
+#comment-textarea {
+    resize: none;
+    width: 60%;
+    height: 150px;
+}
+
 #user-nav{
     float: right;
     position: relative;

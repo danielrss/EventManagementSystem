@@ -14,7 +14,12 @@ const MIN_NAME_LENGTH = 3,
         $createBtn = $('#create-button'),
         $createFormErrorContainer = $('#error-container'),
         $countryDropDown = $('#country-drop-down'),
+        $cityDropDownOptions = $('#city-drop-down > option'),
         $inputFile = $('#form-file');
+
+    $cityDropDownOptions.each(function() {
+        $(this).hide();
+    });
 
     $(function() {
         $('#datepicker').datetimepicker({
@@ -30,7 +35,7 @@ const MIN_NAME_LENGTH = 3,
 
     $countryDropDown.change(function(){
         let country = $(this).val();
-        $('#city-drop-down > option').each(function() {
+        $cityDropDownOptions.each(function() {
             if (country !== $(this).attr('country')){
                 $(this).hide();
             }

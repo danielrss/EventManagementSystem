@@ -8,7 +8,7 @@ block userSection
                     img(src= user.avatarUrl id="profile-avatar")
                 div.user-int
                     span.dropdown-user-menu Hello,
-                        = ' ' + user.firstName + ' '+ user.lastName
+                        = ' ' + user.fullName
                     span.socials
                         div.item(data-toggle="tooltip" title="Profile" data-placement="bottom")
                             a(href="/profile")

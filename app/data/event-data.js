@@ -4,6 +4,7 @@ module.exports = function(models) {
     const dataUtils = require('./utils/data-utils'),
         mapper = require('../utils/mapper'),
         Event = models.Event,
+        User = models.User,
         City = models.City,
         Country = models.Country,
         EventType = models.EventType;
@@ -48,6 +49,34 @@ module.exports = function(models) {
                 commentAuthor = 'Anonymous';
                 this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor } } });
                 return resolve(commentAuthor);
+            });
+        },
+        subscribeForEvent(eventId, user){
+            return new Promise((resolve, reject) => {
+                this.getEventById(eventId)
+                    .then((event) => {
+                        let eventName=event.name;
+                        let userId = user.id;
+                        // let hasAlreadySubscribed = false;
+                        // for (let subscribedEvent in user.subscribedEvents){
+                        //     if(subscribedEvent.eventId === eventId){
+                        //         hasAlreadySubscribed = true;
+                        //     }
+                        // }
+                        //if(!hasAlreadySubscribed){
+                        User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            if (!user) {
+                                return reject(user);
+                            }
+
+                            return resolve(user);
+                        });
+                        //}
+                    });
             });
         },
         getEventById(id) {
@@ -101,9 +130,9 @@ module.exports = function(models) {
                     });
             });
         },
-        getAllEvents() {
+        getAllApprovedEvents() {
             return new Promise((resolve, reject) => {
-                Event.find((err, events) => {
+                Event.find({ isApproved: true, isDeleted: false }, (err, events) => {
                     if (err) {
                         return reject(err);
                     }

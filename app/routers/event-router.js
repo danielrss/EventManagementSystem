@@ -5,14 +5,15 @@ module.exports = function(app, express, data) {
         eventController = require('../controllers/event-controller')(data);
 
     eventRouter
-        .get('/events', eventController.getEvents)
-        .get('/events/search', eventController.search)
-        .get('/events/create', eventController.getCreateEventForm)
-        .post('/events/create', eventController.createEvent)
-        .get('/events/:id', eventController.getEventDetails)
-        .post('/events/:id', eventController.rateEvent)
-        .post('/events/:id/comment', eventController.commentEvent)
-        .post('/events/:id/images', eventController.uploadImage);
+        .get('/', eventController.getEvents)
+        .get('/search', eventController.search)
+        .get('/create', eventController.getCreateEventForm)
+        .post('/create', eventController.createEvent)
+        .get('/:id', eventController.getEventDetails)
+        .post('/:id', eventController.rateEvent)
+        .post('/:id/comment', eventController.commentEvent)
+        .post('/:id/subscribe', eventController.subscribeForEvent)
+        .post('/:id/images', eventController.uploadImage);
 
-    app.use(eventRouter);
+    app.use('/events', eventRouter);
 };
