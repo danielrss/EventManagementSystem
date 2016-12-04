@@ -7,7 +7,7 @@
         $countOfLikes = $('.likes'),
         $countOfDislikes = $('.dislikes');
 
-    $likeBtn.one('click', function(event) {
+    $likeBtn.on('click', function(event) {
         $dislikeBtn.removeClass('btn-primary');
         $likeBtn.addClass('btn-primary');
 
@@ -37,7 +37,7 @@
             });
     });
 
-    $dislikeBtn.one('click', function(event) {
+    $dislikeBtn.on('click', function(event) {
         $dislikeBtn.addClass('btn-primary');
         $likeBtn.removeClass('btn-primary');
 

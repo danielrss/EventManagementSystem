@@ -114,6 +114,9 @@ const MIN_NAME_LENGTH = 3,
     function validateCreateForm(){
         let isFormValid = false,
             isNameValid = false,
+            isCategoryValid = false,
+            isCountryValid = false,
+            isCityValid = false,
             isDateValid = false,
             isAddressValid = false,
             isDescriptionValid = false,
@@ -121,6 +124,38 @@ const MIN_NAME_LENGTH = 3,
             isFileExtensionValid = false,
             isFileSizeValid = false,
             isImageFileProvided = !!$createForm.find('#form-file')[0].files[0];
+
+        $createForm.find('select').each(function (){
+            let select = $(this),
+                selectName = select[0].name;
+
+            if (selectName === 'eventType') {
+                if(select[0].value !== 'Choose category') {
+                    isCategoryValid = true;
+                } else {
+                    select.addClass('input-error');
+                    select.next('span').text('Field is required.');
+                }
+            }
+
+            if (selectName === 'country') {
+                if (select[0].value !== 'Choose country') {
+                    isCountryValid = true;
+                } else {
+                    select.addClass('input-error');
+                    select.next('span').text('Field is required.');
+                }
+            }
+
+            if (selectName === 'city') {
+                if (select[0].value !== 'Choose city') {
+                    isCityValid = true;
+                } else {
+                    select.addClass('input-error');
+                    select.next('span').text('Field is required.');
+                }
+            }
+        });
 
         $createForm.find('input').each(function(){
             let input = $(this),
@@ -171,7 +206,9 @@ const MIN_NAME_LENGTH = 3,
             }
         });
 
-        if(isNameValid && isDateValid && isAddressValid && isDescriptionValid && (isCoverUrlValid || (isFileExtensionValid && isFileSizeValid))){
+        if (isNameValid && isDateValid && isAddressValid && isDescriptionValid &&
+                isCategoryValid && isCountryValid && isCityValid &&
+                (isCoverUrlValid || (isFileExtensionValid && isFileSizeValid)) ) {
             isFormValid = true;
         }
 

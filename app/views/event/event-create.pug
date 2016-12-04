@@ -40,8 +40,8 @@ block content
                                               id="form-name")
                                         span.error.error-username
                                     .form-group
-                                        label(class="sr-only" for="form-email") 
-                                        select(name="eventType" class="form-control")
+                                        label(class="sr-only" for="form-email")
+                                        select(name="eventType" id="eventType-drop-down" class="form-control")
                                             option(selected disabled) Choose category
                                             each eventType in eventTypes
                                                 option(value= eventType.name)= eventType.name

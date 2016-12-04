@@ -62,10 +62,9 @@ block content
                         button(type="button" class="btn" id="comment-button") Add Comment
                         if event.comments
                             h2='Comments'
-                            strong
-                                div(id="comments")
-                                    each comment in event.comments
-                                        p='Comment: ' + comment.text + ' ' + 'Author: ' + comment.author
+                            div(id="comments")
+                                each comment in event.comments
+                                    p='Comment: ' + comment.text + ' ' + 'Author: ' + comment.author
 
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
