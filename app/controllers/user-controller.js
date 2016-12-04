@@ -8,7 +8,7 @@ const helpers = require('../helpers'),
     formidable = require('formidable'),
     path = require('path'),
     uploader = require('../helpers/uploader');
-    
+
 const settings = {
     host: 'smtp.sendgrid.net',
     service: 'Gmail',
@@ -220,7 +220,7 @@ module.exports = function(data) {
                             console.log(err.message);                     
                             return res.redirect('/contact');
                         }
-                        console.log('message sent biitch');
+                        
                         res.redirect('/contact');
                     });
                 })                
