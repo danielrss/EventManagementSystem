@@ -23,8 +23,8 @@ module.exports = function(passport, data) {
                         return done(null, user);
                     } else {
                         data.createUser({
-                            firstName: profile.name.givenName,
-                            lastName: profile.name.familyName,
+                            firstName: profile.name.givenName || '',
+                            lastName: profile.name.familyName || '',
                             email: profile.emails[0].value,
                             username: profile.name.givenName + '' + profile.name.familyName + '' + profile.id,
                             avatarUrl: profile.photos[0].value,

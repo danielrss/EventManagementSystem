@@ -23,8 +23,8 @@ module.exports = function(passport, data) {
                         return done(null, user);
                     } else {
                         data.createUser({
-                            firstName: profile.username.split(/(?=[A-Z])/)[0],
-                            lastName: profile.username.split(/(?=[A-Z])/)[1],
+                            firstName: profile.username || '',
+                            lastName: profile.username || '',
                             email: profile.displayName + '@twitter.com',
                             username: profile.username + '' + profile.id,
                             avatarUrl: profile.photos[0].value,
