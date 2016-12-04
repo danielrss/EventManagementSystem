@@ -26,9 +26,9 @@ module.exports = function(data) {
         },
         commentEvent(req, res){
             return data.commentEvent(req.params.id, req.body.commentText, req.user)
-                .then(commentAuthor => {
+                .then(commentData => {
                     res.status(200)
-                        .send({ commentAuthor });
+                        .send({ commentData });
                 })
                 .catch(err => {
                     res.status(400)

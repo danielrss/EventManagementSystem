@@ -80,8 +80,10 @@ block content
                             h2='Comments'
                             div(id="comments")
                                 each comment in event.comments
-                                    p='Comment: ' + comment.text + ' ' + 'Author: ' + comment.author
-
+                                    p='Comment: ' + comment.text
+                                    p='Author: ' + comment.author
+                                    p='Date:' + ' ' + comment.date.getFullYear() + '/' + (comment.date.getMonth() + 1) + '/' + comment.date.getDate()
+                                    p='Time:' + ' ' + (comment.date.getHours()<10?'0':'') + comment.date.getHours() + ':' + (comment.date.getMinutes()<10?'0':'') + comment.date.getMinutes() + 'h'           
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
     script(src="/static/scripts/events/subscribe-for-event.js")
