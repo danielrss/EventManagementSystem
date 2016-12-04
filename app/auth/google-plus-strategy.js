@@ -5,6 +5,7 @@ const GooglePlusStrategy = require('passport-google-plus');
 const GOOGLEPLUS = {
     GOOGLE_APP_ID: '42643689062-kmm89boegmnl0bhe4td16fdctlgbl77b.apps.googleusercontent.com',
     GOOGLE_APP_SECRET: 'n_KJIx9wlxyDwlFPIiGt837x',
+    GOOPLE_API_KEY: 'AIzaSyA9srUys1onfPKJocfbkdRmvWO44Fr5NyQ',
     callbackURL: 'http://localhost:3003/auth/googlePlus/callback'
 };
 

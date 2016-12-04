@@ -49,11 +49,15 @@ block content
                                     span(class='dislikes')= event.usersWhoDislikeThis.length
                         br
                         br
+                    #error-container.alert.alert-warning
+                        strong The following errors need to be corrected:
+                        ul
                         input(type="text"
                             name="comment"
                             placeholder="Comment.."
                             class="form-comment form-control"
                             id="comment-input")
+                    	span.error.error-firstname
                         br
                         button(type="button" class="btn" id="comment-button") Add Comment
                         if event.comments
@@ -65,4 +69,5 @@ block content
 
 block specificJs
     script(src="/static/scripts/events/comment-event.js")
+    script(src="/static/scripts/utils/validator.js")
     script(src="/static/scripts/events/rate-event.js")

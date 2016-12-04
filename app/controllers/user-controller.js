@@ -1,8 +1,12 @@
 'use strict';
+
+const MANDRILL_API_KEY = 'iOCqq_3jFI04xyoG4Qk-Pg';
+
 const helpers = require('../helpers'),
     formidable = require('formidable'),
     path = require('path'),
-    uploader = require('../helpers/uploader');
+    uploader = require('../helpers/uploader'),
+    mandrill = require('node-mandrill')(MANDRILL_API_KEY);
 
 module.exports = function(data) {
     return {
@@ -180,6 +184,28 @@ module.exports = function(data) {
                     } else {
                         res.render('user/contactForm', { user: req.user, isAdmin: false });
                     }
+                });
+        },
+        sendEmail(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    let useremail = req.body.useremail,
+                        subject = req.body.subject,
+                        message = req.body.inputMessage;
+
+                    mandrill('/messages/send', {
+                        message: {
+                            to: [{
+                                email: 'hristina.ii@abv.bg'
+                            }],
+                            from_email: useremail,
+                            subject: subject,
+                            text: message
+                        }
+                    });
+                })
+                .then(() => {
+                    res.redirect('/contact/success');
                 });
         },
         getSuccessfulMessage(req, res) {
