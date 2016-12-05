@@ -57,8 +57,12 @@ block content
                                     label End Date:
                                     p=' ' + event.endDateOfEvent.getFullYear() + '/' + (event.endDateOfEvent.getMonth() + 1) + '/' + event.endDateOfEvent.getDate()
                             div.event-time
-                                label Start Time:
-                                p=' ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                div
+                                    label Start Time:
+                                    p=' ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
+                                div
+                                    label End Time:
+                                    p=' ' + (event.endDateOfEvent.getHours()<10?'0':'') + event.endDateOfEvent.getHours() + ':' + (event.endDateOfEvent.getMinutes()<10?'0':'') + event.endDateOfEvent.getMinutes() + 'h'
                             div.location
                                 label Location:
                                 div.country=' - Country: ' + event.country.name

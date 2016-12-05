@@ -40,8 +40,9 @@ module.exports = function(models) {
                 let commentAuthor;
                 let commentData;
                 let dateOfComment = new Date();
+
                 if(user){
-                    commentAuthor = user.username;         
+                    commentAuthor = user.username;
                     let commentAuthorId = user.id;
                     this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor, authorId: commentAuthorId, date: dateOfComment } } });
                     commentData = {
@@ -51,25 +52,25 @@ module.exports = function(models) {
                     };
                     return resolve(commentData);
                 }
+
                 commentAuthor = 'Anonymous';
                 commentData = {
                     commentAuthor: commentAuthor,
                     dateOfComment: dateOfComment.getFullYear() + '/' + (dateOfComment.getMonth() + 1) + '/' + dateOfComment.getDate(),
                     timeOfComment: (dateOfComment.getHours()<10?'0':'') + dateOfComment.getHours() + ':' + (dateOfComment.getMinutes()<10?'0':'') + dateOfComment.getMinutes() + 'h'
                 };
-                this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor } } });
+                this.findEventByIdAndUpdate(eventId, { $push:{ comments: { text: commentText, author: commentAuthor, date: dateOfComment } } });
                 return resolve(commentData);
             });
         },
-        subscribeForEvent(eventId, user){
+        subscribeForEvent(eventId, userId){
             return new Promise((resolve, reject) => {
                 this.getEventById(eventId)
                     .then((event) => {
                         let eventName=event.name;
-                        let userId = user.id;
-                        let eventStart = event.dateOfEvent.getFullYear() + '-' + (event.dateOfEvent.getMonth() + 1) + '-' + event.dateOfEvent.getDate();
-                        let eventEnd = event.endDateOfEvent.getFullYear() + '-' + (event.endDateOfEvent.getMonth() + 1) + '-' + event.endDateOfEvent.getDate();
-                        User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { id: eventId, text: eventName, start_date:  eventStart, end_date: eventEnd} } }, { new: true }, (err, user) => {
+                        let eventStart = `${event.dateOfEvent.getFullYear()}-${(event.dateOfEvent.getMonth() + 1)}-${event.dateOfEvent.getDate()} ${event.dateOfEvent.getHours()}:${event.dateOfEvent.getMinutes()}`;
+                        let eventEnd = `${event.endDateOfEvent.getFullYear()}-${(event.endDateOfEvent.getMonth() + 1)}-${event.endDateOfEvent.getDate()} ${event.endDateOfEvent.getHours()}:${event.endDateOfEvent.getMinutes()}`;
+                        User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { id: eventId, text: eventName, start_date:  eventStart, end_date: eventEnd } } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);
                             }
@@ -83,14 +84,13 @@ module.exports = function(models) {
                     });
             });
         },
-        unsubscribeForEvent(eventId, user){
+        unsubscribeForEvent(eventId, userId){
             return new Promise((resolve, reject) => {
                 this.getEventById(eventId)
                     .then((event) => {
-                        let eventName=event.name;
-                        let userId = user.id;
-                        let eventStart = event.dateOfEvent.getFullYear() + '-' + (event.dateOfEvent.getMonth() + 1) + '-' + event.dateOfEvent.getDate();
-                        let eventEnd = event.endDateOfEvent.getFullYear() + '-' + (event.endDateOfEvent.getMonth() + 1) + '-' + event.endDateOfEvent.getDate();
+                        let eventName = event.name;
+                        let eventStart = `${event.dateOfEvent.getFullYear()}-${(event.dateOfEvent.getMonth() + 1)}-${event.dateOfEvent.getDate()} ${event.dateOfEvent.getHours()}:${event.dateOfEvent.getMinutes()}`;
+                        let eventEnd = `${event.endDateOfEvent.getFullYear()}-${(event.endDateOfEvent.getMonth() + 1)}-${event.endDateOfEvent.getDate()} ${event.endDateOfEvent.getHours()}:${event.endDateOfEvent.getMinutes()}`;
                         User.findOneAndUpdate({ _id: userId }, { $pull:{ subscribedEvents: { id: eventId, text: eventName, start_date:  eventStart, end_date: eventEnd } } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);

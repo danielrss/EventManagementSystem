@@ -192,7 +192,7 @@ module.exports = function(data) {
             return Promise.resolve()
                 .then(() => {
                     if (!req.isAuthenticated()) {
-                        res.render('home', {});
+                        res.redirect('/home');
                     } else {
                         res.render('user/calendar');
                     }
@@ -202,7 +202,7 @@ module.exports = function(data) {
             return Promise.resolve()
                 .then(() => {
                     if (!req.isAuthenticated()) {
-                        res.render('home', {});
+                        res.redirect('/home');
                     } else {
                         return data.getUserByName(req.user.username)
                             .then(user => {

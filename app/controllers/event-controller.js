@@ -37,35 +37,35 @@ module.exports = function(data) {
         },
         subscribeOrUnsubscribeForEvent(req, res){
             let userHasSubscribed = false;
-            data.getEventById(req.params.id)
-                .then(event => {
-                    if(req.isAuthenticated()) {
-                        if(!userHasAlreadySubscribed(req.user.subscribedEvents, event)){
-                            userHasSubscribed=true;
-                            return data.subscribeForEvent(req.params.id, req.user)
-                                .then(() => {
-                                    res.status(200)
-                                        .send({ userHasSubscribed });
-                                })
-                                .catch(err => {
-                                    res.status(400)
-                                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
-                                });
-                        }
-                        else{
-                            userHasSubscribed = false;
-                            return data.unsubscribeForEvent(req.params.id, req.user)
-                                .then(() => {
-                                    res.status(200)
-                                        .send({ userHasSubscribed });
-                                })
-                                .catch(err => {
-                                    res.status(400)
-                                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
-                                });
-                        }
-                    }
-                });
+            let eventId = req.params.id;
+
+            if(req.isAuthenticated()) {
+                if(!userHasAlreadySubscribed(req.user.subscribedEvents, eventId)){
+                    userHasSubscribed = true;
+
+                    return data.subscribeForEvent(eventId, req.user.id)
+                        .then(() => {
+                            res.status(200)
+                                .send({ userHasSubscribed });
+                        })
+                        .catch(err => {
+                            res.status(400)
+                                .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                        });
+                } else {
+                    userHasSubscribed = false;
+
+                    return data.unsubscribeForEvent(eventId, req.user.id)
+                        .then(() => {
+                            res.status(200)
+                                .send({ userHasSubscribed });
+                        })
+                        .catch(err => {
+                            res.status(400)
+                                .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                        });
+                }
+            }
         },
         uploadImage(req, res) {
             let eventId = req.params.id,
@@ -161,15 +161,15 @@ module.exports = function(data) {
             }
         },
         getEventDetails(req, res) {
-            let id = req.params.id;
+            let eventId = req.params.id;
             let isLiked = false;
             let isDisliked = false;
             let hasAlreadySubscribed = false;
 
-            data.getEventById(id)
+            data.getEventById(eventId)
                 .then(event => {
                     if(req.isAuthenticated()) {
-                        if(userHasAlreadySubscribed(req.user.subscribedEvents, event)){
+                        if(userHasAlreadySubscribed(req.user.subscribedEvents, eventId)){
                             hasAlreadySubscribed = true;
                         }
                         if(containsUser(event.usersWhoLikeThis, req.user)) {
@@ -349,9 +349,9 @@ function containsUser(array, obj) {
     return false;
 }
 
-function userHasAlreadySubscribed(subscribedEvents, event) {
+function userHasAlreadySubscribed(subscribedEvents, eventId) {
     for(let i = 0; i < subscribedEvents.length; i += 1) {
-        if(subscribedEvents[i].id === event.id) {
+        if(subscribedEvents[i].id === eventId) {
             return true;
         }
     }
