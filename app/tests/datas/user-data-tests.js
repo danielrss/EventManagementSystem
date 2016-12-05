@@ -109,36 +109,6 @@ describe('Test users data', () => {
                 });
         });
     });
-    describe('Test findUserByIdAndUpdate(id, update)', () => {
-        //arrange
-        let existingUserId = 1;
-        let users = [{
-            _id: existingUserId,
-            firstName: 'Ivan',
-            lastName: 'Ivanov',
-            username: 'BigBoss',
-            email: 'asda@abv.bg',
-        }];
-
-        afterEach(() => {
-            sinon.restore();
-        });
-
-        // it('Expect to update 1 user', done => {
-        //     sinon.stub(User, 'findOne', (id, update, cb) => {
-        //         let user = users.find(c => c._id === id);
-        //         user.username = update;
-        //         cb(null, user);
-        //     });
-        //     //act
-        //     data.findUserByIdAndUpdate(existingUserId, 'PESHOO')
-        //         .then(resultUser => {
-        //             //assert
-        //             expect(resultUser.username).to.equal('PESHOO');
-        //             done();
-        //         });
-        // });
-    });
     describe('Test getAllUsers()', () => {
         it('Expect to return 2 users', done => {
             //arrange
