@@ -209,15 +209,6 @@ module.exports = function(models) {
                     return resolve(events);
                 });
             });
-        },
-        // checkIfAlreadySubscribed(subscribedEvents, event) {
-        //     for(let i = 0; i < subscribedEvents.length; i += 1) {
-        //         if(subscribedEvents[i].eventId === event.id) {
-        //             return true;
-        //         }
-        //     }
-
-        //     return false;
-        // }
+        }
     };
 };
