@@ -50,10 +50,14 @@ block content
 
                         div.event-details-info.col-sm-6
                             div.event-date
-                                label Date:
-                                p=' ' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                div
+                                    label Start Date:
+                                    p=' ' + event.dateOfEvent.getFullYear() + '/' + (event.dateOfEvent.getMonth() + 1) + '/' + event.dateOfEvent.getDate()
+                                div
+                                    label End Date:
+                                    p=' ' + event.endDateOfEvent.getFullYear() + '/' + (event.endDateOfEvent.getMonth() + 1) + '/' + event.endDateOfEvent.getDate()
                             div.event-time
-                                label Time:
+                                label Start Time:
                                 p=' ' + (event.dateOfEvent.getHours()<10?'0':'') + event.dateOfEvent.getHours() + ':' + (event.dateOfEvent.getMinutes()<10?'0':'') + event.dateOfEvent.getMinutes() + 'h'
                             div.location
                                 label Location:
@@ -63,10 +67,13 @@ block content
                                 div.capacity
                                     label
                                     if(event.capacity)
-                                        p='Capacity: ' +  event.capacity
+                                        label Capacity:
+                                        p=' ' +  event.capacity
                                     else
-                                        p='Capacity: unlimited'
-                                div.author='Author: ' + event.user.name
+                                        label Capacity:
+                                        p=' unlimited'
+                                label Author:
+                                div.author=' ' + event.user.name
 
 
                         div.additional.col-sm-12
@@ -79,9 +86,11 @@ block content
                                 if event.comments
                                     div(id="comments")
                                         each comment in event.comments
-                                            p='' + comment.text
-                                                span.author='Author: ' + comment.author
-                                                //span.dateTime='Date: ' + comment.date.getFullYear() + '/' + (comment.date.getMonth() + 1) + '/' + comment.date.getDate() + ' ' + 'Time: ' + (comment.date.getHours()<10?'0':'') + comment.date.getHours() + ':' + (comment.date.getMinutes()<10?'0':'') + comment.date.getMinutes() + 'h'
+                                            div.comment-det
+                                                p='' + comment.text
+                                                    div.comment-adds
+                                                        span.author='From: ' + comment.author
+                                                        span.dateTime='On: ' + comment.date.getFullYear() + '/' + (comment.date.getMonth() + 1) + '/' + comment.date.getDate() + ' ' + 'Time: ' + (comment.date.getHours()<10?'0':'') + comment.date.getHours() + ':' + (comment.date.getMinutes()<10?'0':'') + comment.date.getMinutes() + 'h'
                                 else
                                     div No comments at the moment...
 
