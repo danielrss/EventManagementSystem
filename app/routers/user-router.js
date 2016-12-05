@@ -26,7 +26,8 @@ module.exports = function(app, express, data) {
         .post('/approvals', userController.updateEvent)
         .get('/contact', userController.getContactForm)
         .post('/contact', userController.sendEmail)
-        .get('/calendar', userController.getCalendar);
+        .get('/calendar', userController.getCalendar)
+        .get('/user/events', userController.getAllUserEvents);
 
     app.use(userRouter);
 };

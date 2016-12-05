@@ -35,6 +35,9 @@ let EventSchema = new Schema({
         type: Date,
         required: true
     },
+    endDateOfEvent:{
+        type: Date
+    },
     coverUrl: {
         type: String
     },

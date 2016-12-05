@@ -145,6 +145,11 @@ module.exports = function(models) {
                     return resolve(users);
                 });
             });
+        },
+        getAllUserEvents(){
+            return new Promise((resolve, reject) => {
+                
+            });
         }
     };
 };
