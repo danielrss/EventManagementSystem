@@ -75,14 +75,11 @@
 #comments p{
     width: 100%;
     float: left;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
 }
 #comment p:last-child{
     border-bottom:none;
 }
 #comments .author{
-    width: 100%;
     float: left;
     margin-top: 10px;
     font-weight: bold;
@@ -109,6 +106,28 @@
 #comment-button:hover{
     background-color: #56daba !important;
     color:#fff !important;
-
-
+}
+.event-date div{
+    float: left;
+    margin-right:20px;
+}
+.comment-adds{
+    float: left;
+    position:relative;
+    width:100%;
+}
+.comment-adds .author{
+    float: left;
+}
+.comment-adds .dateTime{
+    margin-top: 10px;
+    font-weight: bold;
+    float: right;
+}
+.comment-det{
+    width: 100%;
+    float: left;
+    position: relative;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }

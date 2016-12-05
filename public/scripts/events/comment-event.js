@@ -33,7 +33,6 @@ const MIN_COMMENT_LENGTH = 5,
                         data: JSON.stringify(commentData)
                     })
                     .done((res) => {
-                        console.log(res);
                         let $comment = $('<p>', { id: 'comment' } );
                         let $commentAuthor = $('<p>', { id: 'commentAuthor' } );
                         let $commentDateTime = $('<p>', { id: 'commentDate' } );
