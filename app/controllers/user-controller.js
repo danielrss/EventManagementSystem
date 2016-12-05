@@ -198,6 +198,19 @@ module.exports = function(data) {
                     }
                 });
         },
+        getAllUserEvents(req, res) {
+            return Promise.resolve()
+                .then(() => {
+                    if (!req.isAuthenticated()) {
+                        res.render('home', {});
+                    } else {
+                        return data.getUserByName(req.user.username)
+                            .then(user => {
+                                res.send(user.subscribedEvents);
+                            });
+                    }
+                });
+        },
         getContactForm(req, res) {
             return Promise.resolve()
                 .then(() => {

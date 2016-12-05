@@ -4,21 +4,25 @@ block app-title
     | Calendar | EventManagementSystem
 
 block vars
-   - var bodyClass = 'login';
+   - var bodyClass = 'calendar';
 
 block additionalCss
-    link(rel='stylesheet', href='/static/bower_components/fullcalendar/dist/fullcalendar.css')
-    //- link(rel='stylesheet', href='/static/bower_components/fullcalendar/dist/fullcalendar.print.css', media= 'print')
-    link(rel='stylesheet', href='/static/bower_components/fullcalendar-scheduler/dist/scheduler.css')    
-    
+    link(rel='stylesheet', href='/static/bower_components/scheduler/codebase/dhtmlxscheduler.css')
+
 block content
-    .top-container
-        .inner-bg
-            .container
-                div#calendar
+    div(id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;')
+        div.dhx_cal_navline
+            div.dhx_cal_prev_button
+            div.dhx_cal_next_button
+            div.dhx_cal_today_button
+            div.dhx_cal_date
+            div.dhx_cal_tab(name="day_tab" style="right:204px;")
+            div.dhx_cal_tab(name="week_tab" style="right:140px;")
+            div.dhx_cal_tab(name="month_tab" style="right:76px;")
+        div.dhx_cal_header
+        div.dhx_cal_data
+
 
 block specificJs
-    script(src='/static/bower_components/moment/min/moment.min.js')
-    script(src='/static/bower_components/fullcalendar/dist/fullcalendar.min.js')
-    script(src='/static/bower_components/fullcalendar-scheduler/dist/scheduler.min.js')
+    script(src="/static/bower_components/scheduler/codebase/dhtmlxscheduler.js")
     script(src="/static/scripts/users/calendar.js")

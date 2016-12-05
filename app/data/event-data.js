@@ -67,7 +67,9 @@ module.exports = function(models) {
                     .then((event) => {
                         let eventName=event.name;
                         let userId = user.id;
-                        User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
+                        let eventStart = event.dateOfEvent.getFullYear() + '-' + (event.dateOfEvent.getMonth() + 1) + '-' + event.dateOfEvent.getDate();
+                        let eventEnd = event.endDateOfEvent.getFullYear() + '-' + (event.endDateOfEvent.getMonth() + 1) + '-' + event.endDateOfEvent.getDate();
+                        User.findOneAndUpdate({ _id: userId }, { $push:{ subscribedEvents: { id: eventId, text: eventName, start_date:  eventStart, end_date: eventEnd} } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);
                             }
@@ -87,7 +89,9 @@ module.exports = function(models) {
                     .then((event) => {
                         let eventName=event.name;
                         let userId = user.id;
-                        User.findOneAndUpdate({ _id: userId }, { $pull:{ subscribedEvents: { eventId: eventId, eventName: eventName } } }, { new: true }, (err, user) => {
+                        let eventStart = event.dateOfEvent.getFullYear() + '-' + (event.dateOfEvent.getMonth() + 1) + '-' + event.dateOfEvent.getDate();
+                        let eventEnd = event.endDateOfEvent.getFullYear() + '-' + (event.endDateOfEvent.getMonth() + 1) + '-' + event.endDateOfEvent.getDate();
+                        User.findOneAndUpdate({ _id: userId }, { $pull:{ subscribedEvents: { id: eventId, text: eventName, start_date:  eventStart, end_date: eventEnd } } }, { new: true }, (err, user) => {
                             if (err) {
                                 return reject(err);
                             }

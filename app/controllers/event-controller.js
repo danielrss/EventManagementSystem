@@ -351,7 +351,7 @@ function containsUser(array, obj) {
 
 function userHasAlreadySubscribed(subscribedEvents, event) {
     for(let i = 0; i < subscribedEvents.length; i += 1) {
-        if(subscribedEvents[i].eventId === event.id) {
+        if(subscribedEvents[i].id === event.id) {
             return true;
         }
     }
