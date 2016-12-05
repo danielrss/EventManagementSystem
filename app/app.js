@@ -17,15 +17,15 @@ require('./routers')(app, data);
 // data.getUserById('5844b33e8f78b1248ca833ae')
 //     .then(user => { data.createEvent(event, user); });
 
-// let user = {
-//     firstName: 'admin',
-//     lastName: 'adminski',
-//     username: 'admin',
-//     password: 'admin123456',
-//     email: 'email@email.com',
-//     age: 20,
-//     role: 'admin'
-// };
-// data.createUser(user);
+let user = {
+    firstName: 'admin',
+    lastName: 'adminski',
+    username: 'admin',
+    password: 'admin123456',
+    email: 'email@email.com',
+    age: 20,
+    role: 'admin'
+};
+data.createUser(user);
 
 app.start();

@@ -33,15 +33,19 @@ const MIN_COMMENT_LENGTH = 5,
                         data: JSON.stringify(commentData)
                     })
                     .done((res) => {
+                        let $commentDetails = $('<div>', { class: 'comment-det' } );
+                        let $commentAdds = $('<div>', { class: 'comment-adds' } );
                         let $comment = $('<p>', { id: 'comment' } );
-                        let $commentAuthor = $('<p>', { id: 'commentAuthor' } );
-                        let $commentDateTime = $('<p>', { id: 'commentDate' } );
-                        $comment.html('Comment: ' + commentData.commentText);
-                        $commentAuthor.html('Author: ' + res.commentData.commentAuthor);
-                        $commentDateTime.html('Date: ' + res.commentData.dateOfComment + ' ' + 'Time:' + res.commentData.timeOfComment);
-                        $('#comments').append($comment);   
-                        $('#comments').append($commentAuthor); 
-                        $('#comments').append($commentDateTime);       
+                        let $commentAuthor = $('<span>', { class: 'author' } );
+                        let $commentDateTime = $('<span>', { class: 'dateTime' } );
+                        $comment.html(' ' + commentData.commentText);
+                        $commentAuthor.html('From: ' + res.commentData.commentAuthor);
+                        $commentDateTime.html('On: ' + res.commentData.dateOfComment + ' ' + 'Time:' + res.commentData.timeOfComment);
+                        $commentAdds.append($commentAuthor);
+                        $commentAdds.append($commentDateTime);
+                        $commentDetails.append($comment);
+                        $commentDetails.append($commentAdds);
+                        $('#comments').append($commentDetails);        
                     })
                     .fail((err) => {
                         let errorObject = JSON.parse(err.responseText);
