@@ -5,6 +5,8 @@
 
 <h1 align="center">Web Applications with Node.js - Team "Ninjas"</h1>
 
+[Description](https://github.com/TelerikAcademy/Web-Applications-with-Node.js/blob/master/Course%20Project/README.md)
+
 ###:mortar_board:Team Members
 | Name              | Academy Username      	|
 |-------------------|-------------------|
@@ -17,7 +19,9 @@
 
 # EventsManagementSystem
 
-## This project is a standard web application for managing events of all kind. Everyone can access it, see and comment the existing events.
-## A registered user can also add new events, subscribe to existing ones and like or dislike them.
-## When a user subscribes to an event, the event is automatically added to his calendar.
+### This project is a standard web application for managing events of all kind. Everyone can access it, see and comment the existing events.
+### A registered user can also add new events, subscribe to existing ones and like or dislike them.
+### When a user subscribes to an event, the event is automatically added to his calendar.
+
+### The application is accessable for everyone at [https://events-management-system.herokuapp.com](https://events-management-system.herokuapp.com)
 
