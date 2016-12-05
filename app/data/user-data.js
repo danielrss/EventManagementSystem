@@ -146,9 +146,9 @@ module.exports = function(models) {
                 });
             });
         },
-        getAllUserEvents(){
+        getAllUserEvents() {
             return new Promise((resolve, reject) => {
-                
+
             });
         }
     };
