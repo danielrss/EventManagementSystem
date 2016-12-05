@@ -104,6 +104,10 @@ module.exports = function(data) {
                                     })
                                     .then(uploadedFileName => {
                                         resolve(uploadedFileName);
+                                    })
+                                    .catch(err => {
+                                        res.status(404)
+                                            .redirect('/events');
                                     });
                             });
                             form.handlePart(part);
@@ -208,8 +212,8 @@ module.exports = function(data) {
                     }
                 })
                 .catch(err => {
-                    res.status(400)
-                        .send(JSON.stringify({ validationErrors: helpers.errorHelper(err) }));
+                    res.status(404)
+                        .redirect('/events');
                 });
         },
         getSpecificEvents(req, res) {
@@ -297,14 +301,14 @@ module.exports = function(data) {
                         username: req.user.username
                     };
 
-                    if(req.body.rate === 'like') {
+                    if (req.body.rate === 'like') {
                         //let isUnique = true;
-                        if(containsUser(event.usersWhoDislikeThis, rater)) {
+                        if (containsUser(event.usersWhoDislikeThis, rater)) {
                             event.usersWhoDislikeThis.remove(rater);
                             dislikesCount -= 1;
                         }
 
-                        if(!containsUser(event.usersWhoLikeThis, rater)) {
+                        if (!containsUser(event.usersWhoLikeThis, rater)) {
                             event.usersWhoLikeThis.push(rater);
                             event.save();
 
@@ -315,14 +319,14 @@ module.exports = function(data) {
                                 dislikesCount
                             });
                         }
-                    } else if(req.body.rate === 'dislike') {
+                    } else if (req.body.rate === 'dislike') {
                         //let isUnique = true;
-                        if(containsUser(event.usersWhoLikeThis, rater)) {
+                        if (containsUser(event.usersWhoLikeThis, rater)) {
                             event.usersWhoLikeThis.remove(rater);
                             likesCount -= 1;
                         }
 
-                        if(!containsUser(event.usersWhoDislikeThis, rater)) {
+                        if (!containsUser(event.usersWhoDislikeThis, rater)) {
                             event.usersWhoDislikeThis.push(rater);
                             event.save();
 
@@ -334,6 +338,10 @@ module.exports = function(data) {
                             });
                         }
                     }
+                })
+                .catch(err => {
+                    res.status(404)
+                        .redirect('/events');
                 });
         }
     };

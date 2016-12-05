@@ -111,6 +111,10 @@ module.exports = function(models) {
                         return reject(err);
                     }
 
+                    if (!event) {
+                        return reject(event);
+                    }
+
                     return resolve(event);
                 });
             });
