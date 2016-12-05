@@ -3,6 +3,7 @@
 
 const MIN_NAME_LENGTH = 3,
     MAX_NAME_LENGTH = 30,
+    DATE_LENGTH = 16,
     MIN_DESCRIPTION_LENGTH = 50,
     MAX_DESCRIPTION_LENGTH = 1000,
     MAX_FILE_SIZE = 2 * 1024 * 1024;
@@ -21,9 +22,11 @@ const MIN_NAME_LENGTH = 3,
     });
 
     $(function() {
-        $('#datepicker').datetimepicker({
-            dateFormat: 'yy-mm-dd',
-            constrainInput: false
+        $('.datepicker').each(function () {
+            $(this).datetimepicker({
+                dateFormat: 'yy-mm-dd',
+                constrainInput: false
+            });
         });
     });
 
@@ -122,6 +125,7 @@ const MIN_NAME_LENGTH = 3,
             isCountryValid = false,
             isCityValid = false,
             isDateValid = false,
+            isEndDateValid = false,
             isAddressValid = false,
             isDescriptionValid = false,
             isCoverUrlValid = false,
@@ -194,7 +198,11 @@ const MIN_NAME_LENGTH = 3,
             }
 
             if(inputName === 'dateOfEvent'){
-                isDateValid = validator.validateInputString(input, false, false);
+                isDateValid = validator.validateInputString(input, true, false, DATE_LENGTH, DATE_LENGTH);
+            }
+
+            if(inputName === 'endDateOfEvent'){
+                isEndDateValid = validator.validateInputString(input, true, false, DATE_LENGTH, DATE_LENGTH);
             }
 
             if(inputName === 'coverUrl' && !isImageFileProvided){
@@ -208,7 +216,7 @@ const MIN_NAME_LENGTH = 3,
             isDescriptionValid = validator.validateInputString($descriptionInput, true, false, MIN_DESCRIPTION_LENGTH, MAX_DESCRIPTION_LENGTH);
         });
 
-        if (isNameValid && isDateValid && isAddressValid && isDescriptionValid &&
+        if (isNameValid && isDateValid && isEndDateValid && isAddressValid && isDescriptionValid &&
                 isCategoryValid && isCountryValid && isCityValid &&
                 (isCoverUrlValid || (isFileExtensionValid && isFileSizeValid)) ) {
             isFormValid = true;

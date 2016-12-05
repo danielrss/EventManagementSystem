@@ -10,7 +10,6 @@
         "ecmaVersion": 6
     },
     "rules": {
-        "strict": "error",
         "eqeqeq": "error",
         "no-var": "error",
         "curly": "error",

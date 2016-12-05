@@ -74,16 +74,24 @@ block content
                                         textarea(type="text"
                                                  name="description"
                                                  placeholder="Description..."
-                                                 class="form-description form-control" 
+                                                 class="form-description form-control"
                                                  id= "event-description")
                                         span.error
                                     .form-group
                                         label(class="sr-only" for="form-dateOfEvent")
                                         input(type="text"
                                               name="dateOfEvent"
-                                              placeholder="Date..."
-                                              class="form-dateOfEvent form-control"
-                                              id="datepicker")
+                                              placeholder="Start date..."
+                                              class="form-dateOfEvent form-control datepicker"
+                                              id="")
+                                        span.error
+                                    .form-group
+                                        label(class="sr-only" for="form-endDateOfEvent")
+                                        input(type="text"
+                                              name="endDateOfEvent"
+                                              placeholder="End date..."
+                                              class="form-dateOfEvent form-control datepicker"
+                                              id="")
                                         span.error
                                     .form-group
                                         label(class="sr-only" for="form-capacity")
