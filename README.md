@@ -17,7 +17,7 @@
 |Лорияна Дончева |__Loriyanaa__            	|
 |Христина Илиева |__Hristina_Ilieva__    	 	|
 
-# EventsManagementSystem
+# [EventManagementSystem](https://events-management-system.herokuapp.com)
 
 ### This project is a Standard Web application for managing social events of all kind. Everyone can access it, see and comment the existing events.
 ### A registered user can also add new events, subscribe to existing ones and like or dislike them.
