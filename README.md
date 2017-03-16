@@ -7,10 +7,9 @@
 
 [Description](https://github.com/TelerikAcademy/Web-Applications-with-Node.js/blob/master/Course%20Project/README.md)
 
-###:mortar_board:Team Members
+### Team Members
 | Name              | Academy Username      	|
 |-------------------|-------------------|
-|                   | :white_check_mark:|
 |Даниел Исов |__Daniel_Isov__	        |
 |Зорка Шиндова |__zorie__ |
 |Димитър Калайджиев |__Juveniel__    	|
